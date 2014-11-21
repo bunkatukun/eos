@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TownBuilder for Android</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- General -->
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+    <string name="confirm">確認</string>
+    <string name="back">戻る</string>
+
+    <!-- Title -->
+    <string name="title_button_start">タッチして開始</string>
+
+    <!-- Main Menu -->
+    <string name="mainmenu_save_and_load">セーブ&amp;ロード</string>
+    <string name="mainmenu_setting">設定</string>
+    <string name="mainmenu_gameend">ゲームを終了</string>
+
+    <!-- image.System -->
+    <string name="sys_dialogtitle">システム</string>
+    <string name="sys_msg_confirm_gameend">終了しますか?</string>
+    <string name="sys_msg_wip">申し訳ありません。\n本機能は未実装です。</string>
+    <string name="sys_version_name">v %s</string>
+
+</resources>
