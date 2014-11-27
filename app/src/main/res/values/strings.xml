@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Explorers of Settlement</string>
+    <string name="app_name">Explorer of Settlement</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!-- General -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="confirm">Confirm</string>
+    <string name="back">Back</string>
+
+    <!-- Title -->
+    <string name="title_button_start">Touch and START!</string>
+    <string name="title_text_version_info">Version : %s</string>
+    <string name="title_button_new_start">New Game</string>
+    <string name="title_button_continue">Continue</string>
+    <string name="title_text_copyright">Copyright (c) 2015 NantokaSoft All Rights Reserved.</string>
+
+    <!-- Main Menu -->
+    <string name="mainmenu_save_and_load">Save &amp; Load</string>
+    <string name="mainmenu_setting">Settings</string>
+    <string name="mainmenu_gameend">Game End</string>
+
+    <!-- Title Menu -->
+    <string name="titlemenu_achievements">Achievements</string>
+    <string name="titlemenu_setting">Settings</string>
+    <string name="titlemenu_versioninfo">Version Info</string>
+    <string name="titlemenu_quit">Quit</string>
+
+    <!-- image.System -->
+    <string name="sys_dialogtitle">System</string>
+    <string name="sys_msg_confirm_gameend">Are you sure you want to exit?</string>
+    <string name="sys_msg_wip">I\'m sorry.\nThis function is not implemented yet.</string>
+    <string name="sys_version_name">v %s</string>
 
 </resources>

@@ -43,36 +43,21 @@
         android:orientation="horizontal"
         >
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="fill_parent"
-            android:background="@android:color/black"/>
-
         <Button
             android:id="@+id/dialog_system_part_negativeButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/selector_button_simple"
+            android:background="@drawable/dialog_button"
             android:text="@string/no"/>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="fill_parent"
-            android:background="@android:color/black"/>
 
         <Button
             android:id="@+id/dialog_system_part_positiveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/selector_button_simple"
+            android:background="@drawable/dialog_button"
             android:text="@string/yes"/>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="fill_parent"
-            android:background="@android:color/black"/>
 
     </LinearLayout>
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TownBuilder for Android</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Explorer of Settlement</string>
+    <string name="hello_world">こんにちは世界!</string>
     <string name="action_settings">Settings</string>
 
     <!-- General -->
@@ -13,11 +13,21 @@
 
     <!-- Title -->
     <string name="title_button_start">タッチして開始</string>
+    <string name="title_text_version_info">バージョン : %s</string>
+    <string name="title_button_new_start">新しく始める</string>
+    <string name="title_button_continue">続きから始める</string>
+    <string name="title_text_copyright">Copyright (c) 2015 NantokaSoft All Rights Reserved.</string>
 
     <!-- Main Menu -->
     <string name="mainmenu_save_and_load">セーブ&amp;ロード</string>
     <string name="mainmenu_setting">設定</string>
     <string name="mainmenu_gameend">ゲームを終了</string>
+
+    <!-- Title Menu -->
+    <string name="titlemenu_achievements">実績</string>
+    <string name="titlemenu_setting">設定</string>
+    <string name="titlemenu_versioninfo">バージョン情報</string>
+    <string name="titlemenu_quit">終了</string>
 
     <!-- image.System -->
     <string name="sys_dialogtitle">システム</string>

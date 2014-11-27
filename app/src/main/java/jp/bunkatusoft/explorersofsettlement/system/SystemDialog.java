@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import jp.bunkatusoft.townbuilder.R;
+import jp.bunkatusoft.explorersofsettlement.R;
 
 /**
  * Created by bunkatukun on 2014/07/04.
@@ -27,8 +27,8 @@ public class SystemDialog extends DialogFragment implements View.OnClickListener
 
 
 	public interface OnSystemDialogListener {
-        void OnPositiveClickListener(int actionCode);
-        void OnNegativeClickListener(int actionCode);
+        void OnPositiveClickListener(SystemMenuEnum menuEnum);
+        void OnNegativeClickListener(SystemMenuEnum menuEnum);
     }
 
     private OnSystemDialogListener mListener;
@@ -43,7 +43,7 @@ public class SystemDialog extends DialogFragment implements View.OnClickListener
      * @return ダイアログのインスタンス
      * @throws IllegalStateException    いずれのボタンも非表示指定になっている
      */
-    public static SystemDialog newInstance(Fragment fragment,String bodyMsg,String posMsg,String negMsg,int actionCode) throws IllegalStateException{
+    public static SystemDialog newInstance(Fragment fragment,String bodyMsg,String posMsg,String negMsg,SystemMenuEnum menuEnum) throws IllegalStateException{
         SystemDialog systemDialog = new SystemDialog();
         systemDialog.setTargetFragment(fragment,0);
 
@@ -55,7 +55,7 @@ public class SystemDialog extends DialogFragment implements View.OnClickListener
         bundle.putString(EXTRA_BODY_MESSAGE,bodyMsg);
         bundle.putString(EXTRA_POSBTN_MESSAGE,posMsg);
         bundle.putString(EXTRA_NEGBTN_MESSAGE,negMsg);
-        bundle.putInt(EXTRA_ACTION_CODE,actionCode);
+        bundle.putInt(EXTRA_ACTION_CODE,menuEnum.getPhaseValue());
         systemDialog.setArguments(bundle);
 
         return systemDialog;
@@ -111,10 +111,10 @@ public class SystemDialog extends DialogFragment implements View.OnClickListener
 	public void onClick(View view) {
 		switch (view.getId()){
 			case R.id.dialog_system_part_positiveButton:
-				mListener.OnPositiveClickListener(getArguments().getInt(EXTRA_ACTION_CODE));
+				mListener.OnPositiveClickListener(SystemMenuEnum.getEnum(getArguments().getInt(EXTRA_ACTION_CODE)));
 				break;
 			case R.id.dialog_system_part_negativeButton:
-				mListener.OnNegativeClickListener(getArguments().getInt(EXTRA_ACTION_CODE));
+				mListener.OnNegativeClickListener(SystemMenuEnum.getEnum(getArguments().getInt(EXTRA_ACTION_CODE)));
 				break;
 			default:
 				break;
