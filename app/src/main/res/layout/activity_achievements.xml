@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:background="@drawable/background_default">
+    <TextView
+        android:id="@+id/part_acv_titleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="#ff888888"
+        android:text="実績"
+        android:textSize="32dp"
+        android:layout_marginBottom="4dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/part_acv_titleText"
+        android:layout_above="@+id/part_acv_footer">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0,1,2"
+            >
+            <TableRow>
+                <include layout="@layout/part_achievement"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="4dp"/>
+                <include layout="@layout/part_achievement"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="4dp"/>
+                <include layout="@layout/part_achievement"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="4dp"/>
+            </TableRow>
+            <TableRow>
+                <include layout="@layout/part_achievement"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="4dp"/>
+                <include layout="@layout/part_achievement"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="4dp"/>
+                <include layout="@layout/part_achievement"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="4dp"/>
+            </TableRow>
+            <TableRow>
+                <include layout="@layout/part_achievement"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="4dp"/>
+                <include layout="@layout/part_achievement"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="4dp"/>
+                <include layout="@layout/part_achievement"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="4dp"/>
+            </TableRow>
+        </TableLayout>
+        </ScrollView>
+
+
+    <include layout="@layout/part_achievement_footer"
+        android:id="@+id/part_acv_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
