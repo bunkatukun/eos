@@ -25,7 +25,7 @@ public enum SystemMenuEnum {
 	public static SystemMenuEnum getEnum(int phase) {
 		SystemMenuEnum[] enumArray = SystemMenuEnum.values();
 		for (SystemMenuEnum singleEnum : enumArray){
-			if(phase == new Integer(singleEnum.mPhase)){
+			if(phase == singleEnum.mPhase){
 				return singleEnum;
 			}
 		}
