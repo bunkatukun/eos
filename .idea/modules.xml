@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ExplorersofSettlement.iml" filepath="$PROJECT_DIR$/ExplorersofSettlement.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eos.iml" filepath="$PROJECT_DIR$/eos.iml" />
     </modules>
   </component>
 </project>

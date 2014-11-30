@@ -4,13 +4,13 @@ package jp.bunkatusoft.explorersofsettlement.system;
  * Created by m_kagaya on 2014/11/21.
  */
 public enum SystemMenuEnum {
-	save(0),
-	load(1),
-	save_and_load(2),
-	settings(3),
-	achievements(4),
-	version_info(5),
-	quit(6);
+	SAVE(0),
+	LOAD(1),
+	SAVE_AND_LOAD(2),
+	SETTINGS(3),
+	ACHIEVEMENTS(4),
+	VERSION_INFO(5),
+	QUIT(6);
 
 	int mPhase;
 

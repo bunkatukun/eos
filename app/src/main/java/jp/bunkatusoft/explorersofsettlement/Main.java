@@ -39,13 +39,13 @@ public class Main extends FragmentActivity implements SystemDialog.OnSystemDialo
 		int id = item.getItemId();
 		switch (id) {
 			case R.id.menu_saveandload:
-				showSystemDialog(SystemMenuEnum.save_and_load);
+				showSystemDialog(SystemMenuEnum.SAVE_AND_LOAD);
 				break;
 			case R.id.menu_setting:
-				showSystemDialog(SystemMenuEnum.settings);
+				showSystemDialog(SystemMenuEnum.SETTINGS);
 				break;
 			case R.id.menu_finish:
-				showSystemDialog(SystemMenuEnum.quit);
+				showSystemDialog(SystemMenuEnum.QUIT);
 				break;
 			default:
 				break;
@@ -57,17 +57,17 @@ public class Main extends FragmentActivity implements SystemDialog.OnSystemDialo
 		SystemDialog systemDialog;
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		switch (menuEnum) {
-			case save_and_load:
+			case SAVE_AND_LOAD:
 				systemDialog = SystemDialog.newInstance(null, getString(R.string.sys_msg_wip), getString(R.string.back), null, menuEnum);
 				ft.add(systemDialog,null);
 				ft.commitAllowingStateLoss();
 				break;
-			case settings:
+			case SETTINGS:
 				systemDialog = SystemDialog.newInstance(null, getString(R.string.sys_msg_wip), getString(R.string.back), null, menuEnum);
 				ft.add(systemDialog,null);
 				ft.commitAllowingStateLoss();
 				break;
-			case quit:
+			case QUIT:
 				systemDialog = SystemDialog.newInstance(null, getString(R.string.sys_msg_confirm_gameend), getString(R.string.yes), getString(R.string.no), menuEnum);
 				ft.add(systemDialog,null);
 				ft.commitAllowingStateLoss();
@@ -81,11 +81,11 @@ public class Main extends FragmentActivity implements SystemDialog.OnSystemDialo
 	@Override
 	public void OnPositiveClickListener(SystemMenuEnum menuEnum) {
 		switch (menuEnum) {
-			case save_and_load:
+			case SAVE_AND_LOAD:
 				break;
-			case settings:
+			case SETTINGS:
 				break;
-			case quit:
+			case QUIT:
 				finish();
 				break;
 			default:
@@ -96,11 +96,11 @@ public class Main extends FragmentActivity implements SystemDialog.OnSystemDialo
 	@Override
 	public void OnNegativeClickListener(SystemMenuEnum menuEnum) {
 		switch (menuEnum) {
-			case save_and_load:
+			case SAVE_AND_LOAD:
 				break;
-			case settings:
+			case SETTINGS:
 				break;
-			case quit:
+			case QUIT:
 				break;
 			default:
 				break;

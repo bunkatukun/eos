@@ -46,16 +46,16 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 		int id = item.getItemId();
 		switch (id) {
 			case R.id.menu_title_achievements:
-				showSystemDialog(SystemMenuEnum.achievements);
+				showSystemDialog(SystemMenuEnum.ACHIEVEMENTS);
 				break;
 			case R.id.menu_title_settings:
-				showSystemDialog(SystemMenuEnum.settings);
+				showSystemDialog(SystemMenuEnum.SETTINGS);
 				break;
 			case R.id.menu_title_version_info:
-				showSystemDialog(SystemMenuEnum.version_info);
+				showSystemDialog(SystemMenuEnum.VERSION_INFO);
 				break;
 			case R.id.menu_title_quit:
-				showSystemDialog(SystemMenuEnum.quit);
+				showSystemDialog(SystemMenuEnum.QUIT);
 				break;
 			default:
 				break;
@@ -67,22 +67,22 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 		SystemDialog systemDialog;
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		switch (menuEnum) {
-			case achievements:
+			case ACHIEVEMENTS:
 				systemDialog = SystemDialog.newInstance(null, getString(R.string.sys_msg_wip), getString(R.string.back), null, menuEnum);
 				ft.add(systemDialog,null);
 				ft.commitAllowingStateLoss();
 				break;
-			case settings:
+			case SETTINGS:
 				systemDialog = SystemDialog.newInstance(null, getString(R.string.sys_msg_wip), getString(R.string.back), null, menuEnum);
 				ft.add(systemDialog,null);
 				ft.commitAllowingStateLoss();
 				break;
-			case version_info:
+			case VERSION_INFO:
 				systemDialog = SystemDialog.newInstance(null, String.format(getString(R.string.title_text_version_info), Util.getPackageVersion(mContext)), getString(R.string.back), null, menuEnum);
 				ft.add(systemDialog,null);
 				ft.commitAllowingStateLoss();
 				break;
-			case quit:
+			case QUIT:
 				systemDialog = SystemDialog.newInstance(null, getString(R.string.sys_msg_confirm_gameend), getString(R.string.yes), getString(R.string.no), menuEnum);
 				ft.add(systemDialog,null);
 				ft.commitAllowingStateLoss();
@@ -96,13 +96,13 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 	@Override
 	public void OnPositiveClickListener(SystemMenuEnum menuEnum) {
 		switch (menuEnum) {
-			case achievements:
+			case ACHIEVEMENTS:
 				break;
-			case settings:
+			case SETTINGS:
 				break;
-			case version_info:
+			case VERSION_INFO:
 				break;
-			case quit:
+			case QUIT:
 				finish();
 				break;
 			default:
@@ -113,13 +113,13 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 	@Override
 	public void OnNegativeClickListener(SystemMenuEnum menuEnum) {
 		switch (menuEnum) {
-			case achievements:
+			case ACHIEVEMENTS:
 				break;
-			case settings:
+			case SETTINGS:
 				break;
-			case version_info:
+			case VERSION_INFO:
 				break;
-			case quit:
+			case QUIT:
 				break;
 			default:
 				break;
