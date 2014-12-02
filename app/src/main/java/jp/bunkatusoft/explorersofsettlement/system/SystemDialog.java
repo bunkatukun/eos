@@ -111,10 +111,10 @@ public class SystemDialog extends DialogFragment implements View.OnClickListener
 	public void onClick(View view) {
 		switch (view.getId()){
 			case R.id.dialog_system_part_positiveButton:
-				mListener.OnPositiveClickListener(SystemMenuEnum.getEnum(getArguments().getInt(EXTRA_ACTION_CODE)));
+				mListener.OnPositiveClickListener(SystemMenuEnum.valueOf(getArguments().getInt(EXTRA_ACTION_CODE)));
 				break;
 			case R.id.dialog_system_part_negativeButton:
-				mListener.OnNegativeClickListener(SystemMenuEnum.getEnum(getArguments().getInt(EXTRA_ACTION_CODE)));
+				mListener.OnNegativeClickListener(SystemMenuEnum.valueOf(getArguments().getInt(EXTRA_ACTION_CODE)));
 				break;
 			default:
 				break;
