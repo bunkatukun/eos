@@ -55,7 +55,7 @@ public class SystemDialog extends DialogFragment implements View.OnClickListener
         bundle.putString(EXTRA_BODY_MESSAGE,bodyMsg);
         bundle.putString(EXTRA_POSBTN_MESSAGE,posMsg);
         bundle.putString(EXTRA_NEGBTN_MESSAGE,negMsg);
-        bundle.putInt(EXTRA_ACTION_CODE,menuEnum.getPhaseValue());
+        bundle.putInt(EXTRA_ACTION_CODE,menuEnum.getPhase());
         systemDialog.setArguments(bundle);
 
         return systemDialog;

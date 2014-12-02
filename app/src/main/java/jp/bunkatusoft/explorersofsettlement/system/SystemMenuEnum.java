@@ -12,20 +12,20 @@ public enum SystemMenuEnum {
 	VERSION_INFO(5),
 	QUIT(6);
 
-	int mPhase;
+	int phase;
 
 	SystemMenuEnum(int phase){
-		this.mPhase = phase;
+		this.phase = phase;
 	}
 
-	public int getPhaseValue(){
-		return mPhase;
+	public int getPhase(){
+		return phase;
 	}
 
 	public static SystemMenuEnum valueOf(int phase) {
 		SystemMenuEnum[] enumArray = SystemMenuEnum.values();
 		for (SystemMenuEnum singleEnum : enumArray){
-			if(phase == singleEnum.mPhase){
+			if(phase == singleEnum.phase){
 				return singleEnum;
 			}
 		}
