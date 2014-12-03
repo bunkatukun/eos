@@ -32,9 +32,16 @@
     <string name="titlemenu_versioninfo">Version Info</string>
     <string name="titlemenu_quit">Quit</string>
 
+    <!-- Settlemnt Field Menu -->
+    <string name="settle_fieldmenu_load">Load</string>
+    <string name="settle_fieldmenu_save">Save</string>
+    <string name="settle_fieldmenu_setting">Settings</string>
+    <string name="settle_fieldmenu_return_title">Return to Title</string>
+
     <!-- image.System -->
     <string name="sys_dialogtitle">System</string>
     <string name="sys_msg_confirm_gameend">Are you sure you want to exit?</string>
+    <string name="sys_msg_confirm_back_title">Are you sure you want to go back to Title?</string>
     <string name="sys_msg_wip">I\'m sorry.\nThis function is not implemented yet.</string>
     <string name="sys_version_name">v %s</string>
 

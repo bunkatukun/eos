@@ -1,6 +1,7 @@
 package jp.bunkatusoft.explorersofsettlement.title;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import jp.bunkatusoft.explorersofsettlement.R;
+import jp.bunkatusoft.explorersofsettlement.field.SettlementFieldActivity;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.util.Util;
@@ -131,6 +133,7 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 		int id = view.getId();
 		switch (id){
 			case R.id.part_title_newStartButton:
+				startActivity(new Intent(TitleActivity.this, SettlementFieldActivity.class));
 				finish();
 				break;
 			case R.id.part_title_continueButton:

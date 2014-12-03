@@ -29,9 +29,16 @@
     <string name="titlemenu_versioninfo">バージョン情報</string>
     <string name="titlemenu_quit">終了</string>
 
+    <!-- Settlemnt Field Menu -->
+    <string name="settle_fieldmenu_load">ロード</string>
+    <string name="settle_fieldmenu_save">セーブ</string>
+    <string name="settle_fieldmenu_setting">設定</string>
+    <string name="settle_fieldmenu_return_title">タイトルへ戻る</string>
+
     <!-- image.System -->
     <string name="sys_dialogtitle">システム</string>
     <string name="sys_msg_confirm_gameend">終了しますか?</string>
+    <string name="sys_msg_confirm_back_title">タイトルへ戻ります。</string>
     <string name="sys_msg_wip">申し訳ありません。\n本機能は未実装です。</string>
     <string name="sys_version_name">v %s</string>
 
