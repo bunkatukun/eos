@@ -11,12 +11,36 @@
     <string name="confirm">確認</string>
     <string name="back">戻る</string>
 
+    <!-- Time -->
+    <string name="month_january">1月</string>
+    <string name="month_february">2月</string>
+    <string name="month_march">3月</string>
+    <string name="month_april">4月</string>
+    <string name="month_may">5月</string>
+    <string name="month_june">6月</string>
+    <string name="month_july">7月</string>
+    <string name="month_august">8月</string>
+    <string name="month_september">9月</string>
+    <string name="month_october">10月</string>
+    <string name="month_november">11月</string>
+    <string name="month_December">12月</string>
+
+    <string name="time_midnight">深夜</string>
+    <string name="time_morning">朝</string>
+    <string name="time_noon">正午</string>
+    <string name="time_afternoon">昼</string>
+    <string name="time_evening">夕方</string>
+    <string name="time_night">夜</string>
+
     <!-- Title -->
     <string name="title_button_start">タッチして開始</string>
     <string name="title_text_version_info">バージョン : %s</string>
     <string name="title_button_new_start">新しく始める</string>
     <string name="title_button_continue">続きから始める</string>
     <string name="title_text_copyright">Copyright (c) 2015 NantokaSoft All Rights Reserved.</string>
+
+    <!-- Settlement -->
+    <string name="settle_state_time_format">第二紀 %1$d年 %2$s %3$d日 %4$s</string>
 
     <!-- Main Menu -->
     <string name="mainmenu_save_and_load">セーブ&amp;ロード</string>

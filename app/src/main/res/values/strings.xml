@@ -10,6 +10,27 @@
     <string name="no">No</string>
     <string name="confirm">Confirm</string>
     <string name="back">Back</string>
+    
+    <!-- Time -->
+    <string name="month_january">January</string>
+    <string name="month_february">February</string>
+    <string name="month_march">March</string>
+    <string name="month_april">April</string>
+    <string name="month_may">May</string>
+    <string name="month_june">June</string>
+    <string name="month_july">July</string>
+    <string name="month_august">August</string>
+    <string name="month_september">September</string>
+    <string name="month_october">October</string>
+    <string name="month_november">November</string>
+    <string name="month_December">December</string>
+
+    <string name="time_midnight">Midnight</string>
+    <string name="time_morning">Morning</string>
+    <string name="time_noon">Noon</string>
+    <string name="time_afternoon">Afternoon</string>
+    <string name="time_evening">evening</string>
+    <string name="time_night">Night</string>
 
     <!-- Title -->
     <string name="title_button_start">Touch and START!</string>
@@ -17,6 +38,9 @@
     <string name="title_button_new_start">New Game</string>
     <string name="title_button_continue">Continue</string>
     <string name="title_text_copyright">Copyright (c) 2015 NantokaSoft All Rights Reserved.</string>
+
+    <!-- Settlement -->
+    <string name="settle_state_time_format">Second Era %3$d %2$s, %1$d %4$s</string>
 
     <!-- Achievements View -->
     <string name="acv_text_acv_name_default">Achievement</string>

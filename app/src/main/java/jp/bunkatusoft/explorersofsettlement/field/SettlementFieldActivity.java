@@ -10,12 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import jp.bunkatusoft.explorersofsettlement.BaseSurfaceView;
 import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
+import jp.bunkatusoft.explorersofsettlement.time.GameMonthEnum;
+import jp.bunkatusoft.explorersofsettlement.time.GameTimeEnum;
+import jp.bunkatusoft.explorersofsettlement.time.TimeUtil;
 import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
+import jp.bunkatusoft.explorersofsettlement.util.Util;
 
 /**
  * Created by m_kagaya on 2014/12/02.
@@ -23,7 +32,23 @@ import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
 public class SettlementFieldActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener, View.OnClickListener {
 	FrameLayout mBaseLayout;
 	BaseSurfaceView mSurfaceView;
+
 	View mUIView;
+
+	LinearLayout mStatusLayout;
+	TextView mSettlementName;
+	TextView mSettlementTime;
+
+	LinearLayout mCommandLayout;
+	Button mCommandButton1;
+	Button mCommandButton2;
+	Button mCommandButton3;
+	Button mCommandButton4;
+	Button mCommandButton5;
+	Button mCommandButton6;
+
+	Settlement mSettlement;
+	GameTime mGameTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +57,95 @@ public class SettlementFieldActivity extends FragmentActivity implements SystemD
 		mBaseLayout = new FrameLayout(this);
 		setContentView(mBaseLayout);
 
+		mGameTime = new GameTime();
+		mSettlement = new Settlement();
+
 		//SurfaceViewをまず追加
 		mSurfaceView = new BaseSurfaceView(this);
-		mBaseLayout.addView(mSurfaceView,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+		mBaseLayout.addView(mSurfaceView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
 		//XMLで作成したUIViewを追加
-		mUIView = getLayoutInflater().inflate(R.layout.activity_field_settlement,null);
-		mBaseLayout.addView(mUIView,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+		mUIView = getLayoutInflater().inflate(R.layout.activity_field_settlement, null);
+		mBaseLayout.addView(mUIView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+		//TODO 追加するドン
+		mStatusLayout = (LinearLayout) mUIView.findViewById(R.id.settle_part_settleStatusLayout);
+		mSettlementName = (TextView) mUIView.findViewById(R.id.settle_part_part_settlementNameText);
+		mSettlementTime = (TextView) mUIView.findViewById(R.id.settle_part_part_settlementTimeText);
+		InitStatusWindow();
+
+		mCommandLayout = (LinearLayout) mUIView.findViewById(R.id.settle_part_settleCommandLayout);
+		mCommandButton1 = (Button) mUIView.findViewById(R.id.settle_part_part_command1Button);
+		mCommandButton2 = (Button) mUIView.findViewById(R.id.settle_part_part_command2Button);
+		mCommandButton3 = (Button) mUIView.findViewById(R.id.settle_part_part_command3Button);
+		mCommandButton4 = (Button) mUIView.findViewById(R.id.settle_part_part_command4Button);
+		mCommandButton5 = (Button) mUIView.findViewById(R.id.settle_part_part_command5Button);
+		mCommandButton6 = (Button) mUIView.findViewById(R.id.settle_part_part_command6Button);
+
+		mStatusLayout.setVisibility(View.INVISIBLE);
+		mCommandLayout.setVisibility(View.INVISIBLE);
 
 		//UIViewの中でIDを探すのに注意
-		Button button = (Button)mUIView.findViewById(R.id.part_settle_testButton);
+		Button button = (Button) mUIView.findViewById(R.id.part_settle_testButton);
 		button.setOnClickListener(this);
+	}
+
+	private void InitStatusWindow() {
+		mGameTime = setGameTime();
+		mSettlementTime.setText(String.format(getString(R.string.settle_state_time_format), mGameTime.getYear(), TimeUtil.getGameMonthName(this, mGameTime.getMonth()), mGameTime.getDay(), TimeUtil.getGameTimeName(this, mGameTime.getTime())));
+
+		mSettlement = setSettlement();
+		mSettlementName.setText(mSettlement.getName());
+	}
+
+	private GameTime setGameTime() {
+		//データを読み込み
+		int yearBuf = 1;
+		GameMonthEnum monthBuf = GameMonthEnum.JANUARY;
+		int dayBuf = 1;
+		GameTimeEnum timeBuf = GameTimeEnum.MIDNIGHT;
+
+		//TODO FilePathはどこかへまとめる
+		//TODO Keyもまとめる
+		String rawJSONText = Util.getAssetsJSONText(this, "save/general.json");
+		try {
+			JSONObject elementObj = new JSONObject(rawJSONText);
+
+			if (elementObj.has("year")) {
+				yearBuf = elementObj.getInt("year");
+			}
+			if (elementObj.has("month")) {
+				monthBuf = GameMonthEnum.valueOf(elementObj.getInt("month"));
+			}
+			if (elementObj.has("day")) {
+				dayBuf = elementObj.getInt("day");
+			}
+			if (elementObj.has("time")) {
+				timeBuf = GameTimeEnum.valueOf(elementObj.getInt("time"));
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return new GameTime(yearBuf, monthBuf, dayBuf, timeBuf);
+	}
+
+	private Settlement setSettlement(){
+		String nameBuf = "neo-Saitama";
+
+		//TODO FilePathはどこかへまとめる
+		//TODO Keyもまとめる
+		String rawJSONText = Util.getAssetsJSONText(this, "save/settlement.json");
+		try {
+			JSONObject elementObj = new JSONObject(rawJSONText);
+
+			if (elementObj.has("name")) {
+				nameBuf = elementObj.getString("name");
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return new Settlement(nameBuf);
 	}
 
 	@Override
@@ -139,10 +242,24 @@ public class SettlementFieldActivity extends FragmentActivity implements SystemD
 
 	@Override
 	public void onClick(View view) {
-		if(mSurfaceView.getFlag()){
+		if (mSurfaceView.getFlag()) {
 			mSurfaceView.setFlag(false);
 		} else {
 			mSurfaceView.setFlag(true);
+		}
+
+		if (mStatusLayout.getVisibility() == View.VISIBLE) {
+			//TODO ここでトグる
+			mStatusLayout.setVisibility(View.INVISIBLE);
+		} else {
+			mStatusLayout.setVisibility(View.VISIBLE);
+		}
+
+		if (mCommandLayout.getVisibility() == View.VISIBLE) {
+			//TODO ここでトグる
+			mCommandLayout.setVisibility(View.INVISIBLE);
+		} else {
+			mCommandLayout.setVisibility(View.VISIBLE);
 		}
 	}
 }
