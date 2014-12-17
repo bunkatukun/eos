@@ -1,8 +1,10 @@
-"player" : [
 {
-    "name" : "Stanislaw",
-    "age" : 21,
-    "health" : "fine",
-    "class" : "swordsman"
+    "player": [
+        {
+            "age": 21,
+            "class": "swordsman",
+            "health": "fine",
+            "name": "Stanislaw"
+        }
+    ]
 }
-]
