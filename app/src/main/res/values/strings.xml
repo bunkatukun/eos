@@ -54,6 +54,7 @@
     <string name="titlemenu_achievements">Achievements</string>
     <string name="titlemenu_setting">Settings</string>
     <string name="titlemenu_versioninfo">Version Info</string>
+    <string name="titlemenu_start_debug">Debug Menu</string>
     <string name="titlemenu_quit">Quit</string>
 
     <!-- Settlemnt Field Menu -->
@@ -66,6 +67,7 @@
     <string name="sys_dialogtitle">System</string>
     <string name="sys_msg_confirm_gameend">Are you sure you want to exit?</string>
     <string name="sys_msg_confirm_back_title">Are you sure you want to go back to Title?</string>
+    <string name="sys_msg_confirm_run_debug">Are you sure you want to run to Debug Mode?</string>
     <string name="sys_msg_wip">I\'m sorry.\nThis function is not implemented yet.</string>
     <string name="sys_version_name">v %s</string>
 

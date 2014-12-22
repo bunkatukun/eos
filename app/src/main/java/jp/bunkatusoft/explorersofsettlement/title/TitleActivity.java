@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import jp.bunkatusoft.explorersofsettlement.R;
+import jp.bunkatusoft.explorersofsettlement.debug.DebugActivity;
 import jp.bunkatusoft.explorersofsettlement.field.SettlementFieldActivity;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
@@ -56,6 +57,9 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 			case R.id.menu_title_version_info:
 				showSystemDialog(SystemMenuEnum.VERSION_INFO);
 				break;
+			case R.id.menu_title_start_debug:
+				showSystemDialog(SystemMenuEnum.DEBUG);
+				break;
 			case R.id.menu_title_quit:
 				showSystemDialog(SystemMenuEnum.QUIT);
 				break;
@@ -84,6 +88,11 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 				ft.add(systemDialog,null);
 				ft.commitAllowingStateLoss();
 				break;
+			case DEBUG:
+				systemDialog = SystemDialog.newInstance(null, getString(R.string.sys_msg_confirm_run_debug), getString(R.string.yes), getString(R.string.no), menuEnum);
+				ft.add(systemDialog,null);
+				ft.commitAllowingStateLoss();
+				break;
 			case QUIT:
 				systemDialog = SystemDialog.newInstance(null, getString(R.string.sys_msg_confirm_gameend), getString(R.string.yes), getString(R.string.no), menuEnum);
 				ft.add(systemDialog,null);
@@ -104,6 +113,10 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 				break;
 			case VERSION_INFO:
 				break;
+			case DEBUG:
+				startActivity(new Intent(TitleActivity.this, DebugActivity.class));
+				finish();
+				break;
 			case QUIT:
 				finish();
 				break;
@@ -120,6 +133,8 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 			case SETTINGS:
 				break;
 			case VERSION_INFO:
+				break;
+			case DEBUG:
 				break;
 			case QUIT:
 				break;

@@ -11,7 +11,8 @@ public enum SystemMenuEnum {
 	ACHIEVEMENTS(4),
 	VERSION_INFO(5),
 	RETURN_TITLE(6),
-	QUIT(7);
+	DEBUG(7),
+	QUIT(8);
 
 	int phase;
 
