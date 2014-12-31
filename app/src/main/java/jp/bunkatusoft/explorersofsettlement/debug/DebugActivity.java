@@ -34,8 +34,8 @@ public class DebugActivity extends FragmentActivity implements View.OnClickListe
 
     private Button createButtonStartSettlement(){
         Button button = new Button(mContext);
-		button.setTag("start_settlement");
-		button.setText("Start Settlement Test");
+		button.setTag(DebugMenu.START_SETTLEMENT.getTag());
+		button.setText(DebugMenu.START_SETTLEMENT.getText());
 		button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 		button.setOnClickListener(this);
         return button;
@@ -43,8 +43,8 @@ public class DebugActivity extends FragmentActivity implements View.OnClickListe
 
     private Button createButtonStartField(){
         Button button = new Button(mContext);
-        button.setTag("start_field");
-        button.setText("Start Field Test");
+        button.setTag(DebugMenu.START_FIELD.getTag());
+        button.setText(DebugMenu.START_FIELD.getText());
         button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         button.setOnClickListener(this);
         return button;
@@ -53,10 +53,10 @@ public class DebugActivity extends FragmentActivity implements View.OnClickListe
 	@Override
 	public void onClick(View view) {
 		String tag = view.getTag().toString();
-		if("start_settlement".equals(tag)){
+		if(DebugMenu.START_SETTLEMENT.getTag().equals(tag)){
 			startActivity(new Intent(DebugActivity.this, SettlementFieldActivity.class));
 			finish();
-		} else if("start_field".equals(tag)){
+		} else if(DebugMenu.START_FIELD.getTag().equals(tag)){
 			//TODO ワールドマップへ遷移
 		}
 	}
