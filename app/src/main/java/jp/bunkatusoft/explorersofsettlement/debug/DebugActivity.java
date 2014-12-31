@@ -19,10 +19,6 @@ public class DebugActivity extends FragmentActivity implements View.OnClickListe
 	Context mContext;
 	LinearLayout mBaseLayout;
 
-	//TODO 追加・削除に強くする
-	Button mButton1;
-	Button mButton2;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,20 +28,27 @@ public class DebugActivity extends FragmentActivity implements View.OnClickListe
 		mBaseLayout.setOrientation(LinearLayout.VERTICAL);
 		setContentView(mBaseLayout);
 
-		mButton1 = new Button(mContext);
-		mButton1.setTag("start_settlement");
-		mButton1.setText("Start Settlement Test");
-		mButton1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-		mButton1.setOnClickListener(this);
-		mBaseLayout.addView(mButton1);
-
-		mButton2 = new Button(mContext);
-		mButton2.setTag("start_field");
-		mButton2.setText("Start Field Test");
-		mButton2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-		mButton2.setOnClickListener(this);
-		mBaseLayout.addView(mButton2);
+        mBaseLayout.addView(createButtonStartSettlement());
+        mBaseLayout.addView(createButtonStartField());
 	}
+
+    private Button createButtonStartSettlement(){
+        Button button = new Button(mContext);
+		button.setTag("start_settlement");
+		button.setText("Start Settlement Test");
+		button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+		button.setOnClickListener(this);
+        return button;
+    }
+
+    private Button createButtonStartField(){
+        Button button = new Button(mContext);
+        button.setTag("start_field");
+        button.setText("Start Field Test");
+        button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        button.setOnClickListener(this);
+        return button;
+    }
 
 	@Override
 	public void onClick(View view) {
