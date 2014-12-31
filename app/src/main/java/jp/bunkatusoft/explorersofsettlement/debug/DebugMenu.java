@@ -5,7 +5,7 @@ package jp.bunkatusoft.explorersofsettlement.debug;
  */
 public enum DebugMenu {
     START_SETTLEMENT("start_settlement", "Start Settlement Test"),
-    START_FIELD("start_field", "Start Field Test");
+    START_WORLD_MAP("start_world_map", "Start World Map Test");
 
     private String text;
     private String tag;

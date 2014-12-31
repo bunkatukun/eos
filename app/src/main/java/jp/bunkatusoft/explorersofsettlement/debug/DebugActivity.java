@@ -43,8 +43,8 @@ public class DebugActivity extends FragmentActivity implements View.OnClickListe
 
     private Button createButtonStartField(){
         Button button = new Button(mContext);
-        button.setTag(DebugMenu.START_FIELD.getTag());
-        button.setText(DebugMenu.START_FIELD.getText());
+        button.setTag(DebugMenu.START_WORLD_MAP.getTag());
+        button.setText(DebugMenu.START_WORLD_MAP.getText());
         button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         button.setOnClickListener(this);
         return button;
@@ -56,7 +56,7 @@ public class DebugActivity extends FragmentActivity implements View.OnClickListe
 		if(DebugMenu.START_SETTLEMENT.getTag().equals(tag)){
 			startActivity(new Intent(DebugActivity.this, SettlementFieldActivity.class));
 			finish();
-		} else if(DebugMenu.START_FIELD.getTag().equals(tag)){
+		} else if(DebugMenu.START_WORLD_MAP.getTag().equals(tag)){
 			//TODO ワールドマップへ遷移
 		}
 	}
