@@ -1,4 +1,4 @@
-package jp.bunkatusoft.explorersofsettlement.field;
+package jp.bunkatusoft.explorersofsettlement.field.settlement;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import jp.bunkatusoft.explorersofsettlement.BaseSurfaceView;
 import jp.bunkatusoft.explorersofsettlement.R;
+import jp.bunkatusoft.explorersofsettlement.field.GameTime;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.time.GameMonthEnum;

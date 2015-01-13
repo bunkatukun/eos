@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 
 /**
  * Created by m_kagaya on 2014/11/25.
+ * 管理・設定の補助メソッド群<br>
  */
 public class Util {
 	public static String getPackageVersion(Context context) {

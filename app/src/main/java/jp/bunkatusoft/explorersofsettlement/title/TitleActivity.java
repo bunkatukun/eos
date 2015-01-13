@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.debug.DebugActivity;
-import jp.bunkatusoft.explorersofsettlement.field.SettlementFieldActivity;
+import jp.bunkatusoft.explorersofsettlement.field.settlement.SettlementFieldActivity;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.util.Util;

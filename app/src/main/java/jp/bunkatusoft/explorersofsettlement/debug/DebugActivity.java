@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import jp.bunkatusoft.explorersofsettlement.field.SettlementFieldActivity;
+import jp.bunkatusoft.explorersofsettlement.field.settlement.SettlementFieldActivity;
 
 /**
  * このActivity および関連項目のみ、可能な限りresourceに分担させないようにする<br>
