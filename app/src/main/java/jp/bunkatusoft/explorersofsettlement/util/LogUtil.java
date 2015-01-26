@@ -2,6 +2,8 @@ package jp.bunkatusoft.explorersofsettlement.util;
 
 import android.util.Log;
 
+import java.util.Arrays;
+
 /**
  * Created by bunkatukun on 2014/07/04.
  */
@@ -42,5 +44,9 @@ public class LogUtil {
 
     public static void e(String text){
         Log.e(TAG,format(text));
+    }
+
+    public static void e(Exception e) {
+        e(Arrays.toString(e.getStackTrace()));
     }
 }
