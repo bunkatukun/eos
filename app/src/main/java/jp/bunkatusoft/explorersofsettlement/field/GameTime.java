@@ -24,14 +24,14 @@ public class GameTime {
 	/**
 	 * コンストラクタ
 	 */
-	GameTime() {
+    public GameTime() {
 		this(1,GameMonthEnum.JANUARY,1,GameTimeEnum.MIDNIGHT);
 	}
 
 	/**
 	 * コンストラクタ
 	 */
-	GameTime(int year, GameMonthEnum month, int day, GameTimeEnum time){
+    public GameTime(int year, GameMonthEnum month, int day, GameTimeEnum time){
 		this.year = year;
 		this.month = month;
 		this.day = day;
