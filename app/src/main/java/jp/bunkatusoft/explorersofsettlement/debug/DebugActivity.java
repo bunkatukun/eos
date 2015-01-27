@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import jp.bunkatusoft.explorersofsettlement.field.settlement.SettlementFieldActivity;
+import jp.bunkatusoft.explorersofsettlement.field.world.WorldFieldActivity;
 
 /**
  * このActivity および関連項目のみ、可能な限りresourceに分担させないようにする<br>
@@ -57,7 +58,8 @@ public class DebugActivity extends FragmentActivity implements View.OnClickListe
             startActivity(new Intent(DebugActivity.this, SettlementFieldActivity.class));
             finish();
         } else if (DebugMenu.START_WORLD_MAP.getTag().equals(tag)) {
-            //TODO ワールドマップへ遷移
+			startActivity(new Intent(DebugActivity.this, WorldFieldActivity.class));
+			finish();
         }
     }
 }
