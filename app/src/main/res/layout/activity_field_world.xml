@@ -1,46 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/world_part_worldStatusLayout"
-        layout="@layout/part_world_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="4dp"/>
-
-    <TextView
+    <jp.bunkatusoft.explorersofsettlement.field.world.WorldSurfaceView
+        android:id="@+id/world_part_worldSurfaceViewLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="4dp"
-        android:layout_toRightOf="@+id/world_part_worldStatusLayout"
-        android:background="#88888888"
-        android:gravity="center_horizontal"
-        android:padding="4dp"
-        android:text="ここに通知用のアイコンを表示させる"
-        android:textSize="16dp"/>
+        android:layout_height="match_parent"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/back_dialog2"
-        android:src="@drawable/medal_sample"/>
+    <include layout="@layout/part_activity_field_uis"
+             android:id="@+id/world_part_worldUILayout"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/back_dialog2"
-        android:src="@drawable/medal_sample"/>
-</RelativeLayout>
+</FrameLayout>

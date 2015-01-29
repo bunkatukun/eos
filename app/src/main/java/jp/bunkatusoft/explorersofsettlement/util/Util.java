@@ -3,6 +3,10 @@ package jp.bunkatusoft.explorersofsettlement.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -60,5 +64,29 @@ public class Util {
 			}
 		}
 		return fileSource.toString();
+	}
+
+	public static Bitmap loadAssetsBitmapImage(Context context, String assetFilePath) {
+		Bitmap bitmap = null;
+
+		AssetManager assetManager = context.getResources().getAssets();
+		InputStream is = null;
+		try {
+			is = assetManager.open(assetFilePath);
+			bitmap = BitmapFactory.decodeStream(is);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return bitmap;
+	}
+
+	public static Bitmap loadResourceBitmapImage(Context context, int id) {
+		Bitmap bitmap = null;
+		//TODO idが無い時の例外処理
+
+		Resources resources = context.getResources();
+		bitmap = BitmapFactory.decodeResource(resources, id);
+
+		return bitmap;
 	}
 }

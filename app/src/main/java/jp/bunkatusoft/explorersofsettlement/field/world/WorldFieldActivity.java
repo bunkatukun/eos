@@ -8,8 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +17,15 @@ import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
+import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
 
 /**
  * Created by m_kagaya on 2014/12/22.
  */
-public class WorldFieldActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener{
+public class WorldFieldActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener,View.OnClickListener{
+
+	/** SurfaceViewのID */
+	int VIEW_ID_WORLD_SURFACEVIEW = 1;
 
 	Context mContext;
 
@@ -30,8 +33,8 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 	List<FieldPiece> mFieldPieces;
 	List<FieldRoad> mFieldRoads;
 
-	FrameLayout mBaseLayout;
 	WorldSurfaceView mSurfaceView;
+
 
 	View mUIView;
 
@@ -43,19 +46,17 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 		mFieldPieces = new ArrayList<FieldPiece>();
 		mFieldRoads = new ArrayList<FieldRoad>();
 
-		mBaseLayout = new FrameLayout(this);
-		setContentView(mBaseLayout);
+		setContentView(R.layout.activity_field_world);
 
 		mFieldPieces = WorldFieldUtil.loadFieldPieceData(this,"data/field_piece.json");
 		mFieldRoads = WorldFieldUtil.loadFieldRoadData(this,"data/field_road.json");
 
 		//SurfaceViewをまず追加
-		mSurfaceView = new WorldSurfaceView(this);
-		mBaseLayout.addView(mSurfaceView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+		mSurfaceView = (WorldSurfaceView) findViewById(R.id.world_part_worldSurfaceViewLayout);
+		mSurfaceView.setOnClickListener(this);
 
-		//XMLで作成したUIViewを追加
-		mUIView = getLayoutInflater().inflate(R.layout.activity_field_world, null);
-		mBaseLayout.addView(mUIView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+		//UIViewを追加
+		mUIView = (RelativeLayout) findViewById(R.id.world_part_worldUILayout);
 	}
 
 	@Override
@@ -146,6 +147,16 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 			case RETURN_TITLE:
 				break;
 			default:
+				break;
+		}
+	}
+
+	@Override
+	public void onClick(View view) {
+		int id = view.getId();
+		switch (id){
+			case R.id.world_part_worldSurfaceViewLayout:
+				LogUtil.i("触られた");
 				break;
 		}
 	}
