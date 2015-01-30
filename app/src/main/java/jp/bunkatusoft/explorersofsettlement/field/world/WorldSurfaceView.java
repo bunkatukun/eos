@@ -17,14 +17,7 @@ public class WorldSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
 	private Thread mThread;
 	private GameManager mGameManager;
-
-	/**
-	 * スクロール試験用
-	 */
-	private boolean isCanScroll = false;
-	private int mScrollXBuff = 0;
-	private int mScrollYBuff = 0;
-
+	private TouchStatus mTouchStatus;
 
 	public WorldSurfaceView(Context context) {
 		this(context, null);
@@ -38,6 +31,7 @@ public class WorldSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	public WorldSurfaceView(Context context, AttributeSet attributeSet, int style) {
 		super(context, attributeSet, style);
 		mGameManager = new GameManager(context);
+		mTouchStatus = new TouchStatus();
 		getHolder().addCallback(this);
 	}
 
@@ -59,7 +53,7 @@ public class WorldSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
 	@Override
 	public void run() {
-		while (mThread != null) {    //メインループ
+		while (mThread != null) {
 			mGameManager.onUpdate();
 			onDraws(getHolder());
 		}
@@ -70,55 +64,27 @@ public class WorldSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 		if (c == null) {
 			return;
 		}
-		//ここに描画処理を書く
 		mGameManager.onDraw(c);
 		holder.unlockCanvasAndPost(c);
 	}
 
-	private void onUpdates() {
-		//TODO "館"を参照
-	}
-
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		//TODO タッチイベントをキャッチするゾ
-		//LogUtil.i("WorldSurfaceView-TouchEvent\nX : " + event.getX() + "\nY : " + event.getY());
-
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
-				//単純なタップならここだけ見れば良さそう
-				//OnClickListenerなんていらなかった
-				if (!isCanScroll) {
-					LogUtil.i("スクロール開始");
-					isCanScroll = true;
-					mScrollXBuff = (int) event.getX();
-					mScrollYBuff = (int) event.getY();
-				}
+				mTouchStatus.actionDown(event);
 				break;
 			case MotionEvent.ACTION_MOVE:
-				//TODO 動かす間だけかな～とか思ってましたが、押している間はずっと呼ばれるようです
-				if (isCanScroll) {
-					int nowScrollXBuff = (int) event.getX();
-					int nowScrollYBuff = (int) event.getY();
-					int scrollX = mScrollXBuff - nowScrollXBuff;
-					int scrollY = mScrollYBuff - nowScrollYBuff;
-
-					if (scrollX != 0 && scrollY != 0) {
-						LogUtil.i("スクロール検知 - X : " + scrollX + " Y : " + scrollY);
-						mScrollXBuff = nowScrollXBuff;
-						mScrollYBuff = nowScrollYBuff;
-					}
-				}
+				mTouchStatus.actionMove(event);
 				break;
 			case MotionEvent.ACTION_UP:
-				if (isCanScroll) {
-					LogUtil.i("スクロール終了");
-					isCanScroll = false;
-				}
+				mTouchStatus.actionUp();
 				break;
 			default:
 				LogUtil.i("その他のイベント : " + event.getAction());
+				break;
 		}
+		mGameManager.onControl(mTouchStatus);
 
 		return true;
 	}

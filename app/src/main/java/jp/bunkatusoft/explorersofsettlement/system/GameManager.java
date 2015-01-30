@@ -7,6 +7,7 @@ import android.graphics.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.bunkatusoft.explorersofsettlement.field.world.TouchStatus;
 import jp.bunkatusoft.explorersofsettlement.field.world.WorldMapTask;
 
 /**
@@ -37,5 +38,15 @@ public class GameManager {
 		for(int i=0;i<mTaskList.size();i++) {
 			mTaskList.get(i).onDraw(canvas);
 		}
+	}
+
+    public void onControl(Touch touch) {
+        for (int i = 0; i < mTaskList.size(); i++) {
+            mTaskList.get(i).onControl(touch);
+        }
+    }
+
+	public void onControl(TouchStatus touchStatus){
+		onControl(touchStatus.getmTouch());
 	}
 }

@@ -1,13 +1,14 @@
 package jp.bunkatusoft.explorersofsettlement.field.world;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import jp.bunkatusoft.explorersofsettlement.R;
+import jp.bunkatusoft.explorersofsettlement.system.ExtendBitmap;
 import jp.bunkatusoft.explorersofsettlement.system.Task;
 import jp.bunkatusoft.explorersofsettlement.system.TaskPhaseEnum;
+import jp.bunkatusoft.explorersofsettlement.system.Touch;
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
 /**
@@ -21,7 +22,7 @@ public class WorldMapTask extends Task {
 	/**
 	 * 画像群
 	 */
-	private Bitmap mMapImage;
+	protected ExtendBitmap mMapImage;
 
 	public WorldMapTask(Context context) {
 		mContext = context;
@@ -38,13 +39,20 @@ public class WorldMapTask extends Task {
 		if (phase == TaskPhaseEnum.INITIALIZE || phase == TaskPhaseEnum.FINALIZE) {
 			return;
 		}
-		canvas.drawBitmap(mMapImage, 0, 0, mPaint);
+		canvas.drawBitmap(mMapImage.src, mMapImage.scrollX, mMapImage.scrollY, mPaint);
+	}
+
+	@Override
+	public void onControl(Touch touch) {
+		mMapImage.scrollX -= touch.scrollX;
+		mMapImage.scrollY -= touch.scrollY;
 	}
 
 	@Override
 	public void onInitialize() {
 		mPaint = new Paint();
-		mMapImage = Util.loadResourceBitmapImage(mContext, R.drawable.test_world_map);
+		mMapImage = new ExtendBitmap();
+		mMapImage.src = Util.loadResourceBitmapImage(mContext, R.drawable.test_world_map);
 	}
 
 	@Override
@@ -66,7 +74,6 @@ public class WorldMapTask extends Task {
 	@Override
 	public void onFinalize() {
 		mMapImage.recycle();
-		mMapImage = null;
 	}
 
 	@Override

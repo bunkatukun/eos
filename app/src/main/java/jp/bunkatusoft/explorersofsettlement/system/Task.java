@@ -17,6 +17,9 @@ public abstract class Task {
 	public void onDraw(Canvas canvas) {
 	}
 
+	public void onControl(Touch touch) {
+	}
+
 	/**
 	 * Update処理中のフェイズ更新メソッド
 	 */
@@ -27,7 +30,7 @@ public abstract class Task {
 				mTaskPhase = TaskPhaseEnum.STARTING;
 				break;
 			case STARTING:
-				if(onStarting()) {
+				if (onStarting()) {
 					mTaskPhase = TaskPhaseEnum.RUNNING;
 				}
 				break;
@@ -35,7 +38,7 @@ public abstract class Task {
 				onRunning();
 				break;
 			case STOPPING:
-				if(onStopping()) {
+				if (onStopping()) {
 					mTaskPhase = TaskPhaseEnum.FINALIZE;
 				}
 				break;
@@ -53,7 +56,8 @@ public abstract class Task {
 
 	/**
 	 * 現在のフェイズを取得する
-	 * @return	現在のフェイズ
+	 *
+	 * @return 現在のフェイズ
 	 */
 	public TaskPhaseEnum getTaskPhase() {
 		return mTaskPhase;
@@ -63,7 +67,7 @@ public abstract class Task {
 	 * 現在のフェイズがEndでない場合、Stoppingフェイズを開始する
 	 */
 	public void finish() {
-		if(!mTaskPhase.equals(TaskPhaseEnum.END)) {
+		if (!mTaskPhase.equals(TaskPhaseEnum.END)) {
 			mTaskPhase = TaskPhaseEnum.STOPPING;
 		}
 	}
@@ -76,7 +80,8 @@ public abstract class Task {
 
 	/**
 	 * StartingフェイズのUpdate処理
-	 * @return	trueでStartingフェイズを終了する。falseは継続する。
+	 *
+	 * @return trueでStartingフェイズを終了する。falseは継続する。
 	 */
 	public boolean onStarting() {
 		return true;
@@ -90,7 +95,8 @@ public abstract class Task {
 
 	/**
 	 * StoppingフェイズのUpdate処理
-	 * @return	trueでStoppingフェイズを終了する。falseなら継続する。
+	 *
+	 * @return trueでStoppingフェイズを終了する。falseなら継続する。
 	 */
 	public boolean onStopping() {
 		return true;
