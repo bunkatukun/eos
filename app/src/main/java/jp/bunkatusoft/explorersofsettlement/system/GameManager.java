@@ -25,17 +25,17 @@ public class GameManager {
 	}
 
 	public boolean onUpdate() {
-		if(mTaskList != null && mTaskList.size()>0) {
-			for(int i=0;i<mTaskList.size();i++) {
+		if (mTaskList != null && mTaskList.size() > 0) {
+			for (int i = 0; i < mTaskList.size(); i++) {
 				mTaskList.get(i).onUpdate();
 			}
 		}
 		return true;
 	}
 
-	public void onDraw(Canvas canvas){
+	public void onDraw(Canvas canvas) {
 		canvas.drawColor(Color.WHITE);
-		for(int i=0;i<mTaskList.size();i++) {
+		for (int i = 0; i < mTaskList.size(); i++) {
 			mTaskList.get(i).onDraw(canvas);
 		}
 	}
