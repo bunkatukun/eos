@@ -41,6 +41,7 @@ public abstract class MapBase extends SurfaceView implements SurfaceHolder.Callb
      */
     public MapBase(Context context, float gameWidth, float gameHeight, int tilePlacementX, int tilePlacementY) {
         super(context);
+		getHolder().addCallback(this);
         mGameWidth = gameWidth;
         mGameHeight = gameHeight;
         this.mTilePlacementX = tilePlacementX;
