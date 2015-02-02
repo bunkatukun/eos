@@ -25,10 +25,12 @@ public class GameManager {
 	}
 
 	public boolean onUpdate() {
-		if (mTaskList != null && mTaskList.size() > 0) {
-			for (int i = 0; i < mTaskList.size(); i++) {
-				mTaskList.get(i).onUpdate();
-			}
+		if(mTaskList.isEmpty()){
+			return true;
+		}
+
+		for (int i = 0; i < mTaskList.size(); i++) {
+			mTaskList.get(i).onUpdate();
 		}
 		return true;
 	}
