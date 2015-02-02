@@ -13,14 +13,9 @@ import jp.bunkatusoft.explorersofsettlement.field.world.WorldMapTask;
 /**
  * Created by m_kagaya on 2015/01/28.
  */
-public class GameManager {
+public abstract class GameManager {
 
-	private List<Task> mTaskList = new ArrayList<Task>();
-
-	public GameManager(Context context) {
-		//TODO ここに実行するタスクを追加
-		mTaskList.add(new WorldMapTask(context));
-	}
+	protected List<Task> mTaskList = new ArrayList<Task>();
 
 	public boolean onUpdate() {
 		if(mTaskList.isEmpty()){
@@ -33,8 +28,7 @@ public class GameManager {
 		return true;
 	}
 
-	public void onDraw(Canvas canvas) {
-		canvas.drawColor(Color.WHITE);
+	protected void onDraw(Canvas canvas) {
 		for (Task task : mTaskList) {
 			task.onDraw(canvas);
 		}

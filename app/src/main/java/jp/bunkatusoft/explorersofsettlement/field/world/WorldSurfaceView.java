@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import jp.bunkatusoft.explorersofsettlement.system.GameManager;
 import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
 
 /**
@@ -16,7 +15,7 @@ import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
 public class WorldSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 
 	private Thread mThread;
-	private GameManager mGameManager;
+	private WorldMapGameManager mWorldMapGameManager;
 	private TouchStatus mTouchStatus;
 
 	public WorldSurfaceView(Context context) {
@@ -30,7 +29,7 @@ public class WorldSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
 	public WorldSurfaceView(Context context, AttributeSet attributeSet, int style) {
 		super(context, attributeSet, style);
-		mGameManager = new GameManager(context);
+		mWorldMapGameManager = new WorldMapGameManager(context);
 		mTouchStatus = new TouchStatus();
 		getHolder().addCallback(this);
 	}
@@ -54,7 +53,7 @@ public class WorldSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	@Override
 	public void run() {
 		while (mThread != null) {
-			mGameManager.onUpdate();
+			mWorldMapGameManager.onUpdate();
 			onDraws(getHolder());
 		}
 	}
@@ -64,7 +63,7 @@ public class WorldSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 		if (c == null) {
 			return;
 		}
-		mGameManager.onDraw(c);
+		mWorldMapGameManager.onDraw(c);
 		holder.unlockCanvasAndPost(c);
 	}
 
@@ -84,7 +83,7 @@ public class WorldSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 				LogUtil.i("その他のイベント : " + event.getAction());
 				break;
 		}
-		mGameManager.onControl(mTouchStatus);
+		mWorldMapGameManager.onControl(mTouchStatus);
 
 		return true;
 	}
