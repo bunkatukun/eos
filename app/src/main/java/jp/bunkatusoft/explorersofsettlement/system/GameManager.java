@@ -15,11 +15,9 @@ import jp.bunkatusoft.explorersofsettlement.field.world.WorldMapTask;
  */
 public class GameManager {
 
-	private Context mContext;
 	private List<Task> mTaskList = new ArrayList<Task>();
 
 	public GameManager(Context context) {
-		mContext = context;
 		//TODO ここに実行するタスクを追加
 		mTaskList.add(new WorldMapTask(context));
 	}
