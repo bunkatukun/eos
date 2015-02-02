@@ -29,23 +29,23 @@ public class GameManager {
 			return true;
 		}
 
-		for (int i = 0; i < mTaskList.size(); i++) {
-			mTaskList.get(i).onUpdate();
+		for (Task task : mTaskList) {
+			task.onUpdate();
 		}
 		return true;
 	}
 
 	public void onDraw(Canvas canvas) {
 		canvas.drawColor(Color.WHITE);
-		for (int i = 0; i < mTaskList.size(); i++) {
-			mTaskList.get(i).onDraw(canvas);
+		for (Task task : mTaskList) {
+			task.onDraw(canvas);
 		}
 	}
 
     public void onControl(Touch touch) {
-        for (int i = 0; i < mTaskList.size(); i++) {
-            mTaskList.get(i).onControl(touch);
-        }
+		for (Task task : mTaskList) {
+			task.onControl(touch);
+		}
     }
 
 	public void onControl(TouchStatus touchStatus){
