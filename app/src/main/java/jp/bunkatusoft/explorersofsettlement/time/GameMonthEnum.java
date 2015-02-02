@@ -1,5 +1,7 @@
 package jp.bunkatusoft.explorersofsettlement.time;
 
+import java.util.NoSuchElementException;
+
 /**
  * Enum
  */
@@ -35,6 +37,6 @@ public enum GameMonthEnum {
 				return singleEnum;
 			}
 		}
-		return null;
+		throw new NoSuchElementException();
 	}
 }

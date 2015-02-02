@@ -1,5 +1,7 @@
 package jp.bunkatusoft.explorersofsettlement.time;
 
+import java.util.NoSuchElementException;
+
 /**
  * 時間帯のEnum
  */
@@ -24,6 +26,6 @@ public enum GameTimeEnum {
 				return singleEnum;
 			}
 		}
-		return null;
+		throw new NoSuchElementException();
 	}
 }

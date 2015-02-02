@@ -1,5 +1,7 @@
 package jp.bunkatusoft.explorersofsettlement.field.world;
 
+import java.util.NoSuchElementException;
+
 /**
  * Created by m_kagaya on 2015/01/16.
  * フィールドチップの種類(役割)
@@ -33,6 +35,6 @@ public enum PieceTypeEnum {
 				return singleEnum;
 			}
 		}
-		return null;
+		throw new NoSuchElementException();
 	}
 }
