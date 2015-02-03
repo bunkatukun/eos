@@ -13,37 +13,31 @@ import jp.bunkatusoft.explorersofsettlement.field.world.WorldMapTask;
 /**
  * Created by m_kagaya on 2015/01/28.
  */
-public class GameManager {
+public abstract class GameManager {
 
-	private Context mContext;
-	private List<Task> mTaskList = new ArrayList<Task>();
-
-	public GameManager(Context context) {
-		mContext = context;
-		//TODO ここに実行するタスクを追加
-		mTaskList.add(new WorldMapTask(context));
-	}
+	protected List<Task> mTaskList = new ArrayList<Task>();
 
 	public boolean onUpdate() {
-		if (mTaskList != null && mTaskList.size() > 0) {
-			for (int i = 0; i < mTaskList.size(); i++) {
-				mTaskList.get(i).onUpdate();
-			}
+		if(mTaskList.isEmpty()){
+			return true;
+		}
+
+		for (Task task : mTaskList) {
+			task.onUpdate();
 		}
 		return true;
 	}
 
-	public void onDraw(Canvas canvas) {
-		canvas.drawColor(Color.WHITE);
-		for (int i = 0; i < mTaskList.size(); i++) {
-			mTaskList.get(i).onDraw(canvas);
+	protected void onDraw(Canvas canvas) {
+		for (Task task : mTaskList) {
+			task.onDraw(canvas);
 		}
 	}
 
     public void onControl(Touch touch) {
-        for (int i = 0; i < mTaskList.size(); i++) {
-            mTaskList.get(i).onControl(touch);
-        }
+		for (Task task : mTaskList) {
+			task.onControl(touch);
+		}
     }
 
 	public void onControl(TouchStatus touchStatus){
