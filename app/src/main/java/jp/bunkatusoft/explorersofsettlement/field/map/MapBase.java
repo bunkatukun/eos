@@ -1,15 +1,11 @@
 package jp.bunkatusoft.explorersofsettlement.field.map;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import jp.bunkatusoft.explorersofsettlement.field.map.tile.Tile;
-import jp.bunkatusoft.explorersofsettlement.field.map.tile.TileUtil;
+import jp.bunkatusoft.explorersofsettlement.system.GameManager;
 
 public abstract class MapBase extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 	private float mScale;
@@ -18,10 +14,7 @@ public abstract class MapBase extends SurfaceView implements SurfaceHolder.Callb
 	private float mGameWidth;
 	private float mGameHeight;
 
-	private final int mTilePlacementX;
-	private final int mTilePlacementY;
-
-	private Bitmap mMap;
+	private GameManager mGameManager;
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
@@ -36,24 +29,19 @@ public abstract class MapBase extends SurfaceView implements SurfaceHolder.Callb
 	/**
 	 * @param gameWidth      ゲームサイズ 横
 	 * @param gameHeight     ゲームサイズ 縦
-	 * @param tilePlacementX タイルの配置数 横
-	 * @param tilePlacementY タイルの配置数 縦
 	 */
-	public MapBase(Context context, float gameWidth, float gameHeight, int tilePlacementX, int tilePlacementY) {
+	public MapBase(Context context, float gameWidth, float gameHeight, GameManager gameManager) {
 		super(context);
 		getHolder().addCallback(this);
 		mGameWidth = gameWidth;
 		mGameHeight = gameHeight;
-		this.mTilePlacementX = tilePlacementX;
-		this.mTilePlacementY = tilePlacementY;
-
-		//FIXME 直接指定せず、配置セットを受け取るように
-		mMap = TileUtil.findImage(context, Tile.TEST);
+		this.mGameManager = gameManager;
 	}
 
 	@Override
 	public void run() {
 		while (mThread != null) {
+			mGameManager.onUpdate();
 			onDraws(getHolder());
 		}
 	}
@@ -70,19 +58,8 @@ public abstract class MapBase extends SurfaceView implements SurfaceHolder.Callb
 		//XXX ここ怪しい
 		canvas.scale(mScale, mScale);
 
-		//TODO 外部から設定できるように
-		canvas.drawColor(Color.BLACK);
-		createTile(canvas, new Paint());
+		mGameManager.onDraw(canvas);
 		holder.unlockCanvasAndPost(canvas);
-	}
-
-	protected void createTile(Canvas canvas, Paint paint) {
-		for (int i = 0; i < mTilePlacementX; i++) {
-			for (int j = 0; j < mTilePlacementY; j++) {
-				canvas.drawBitmap(mMap, MapConfig.IMAGE_WIDTH / 2 * i - MapConfig.IMAGE_WIDTH / 2 * j
-						, -MapConfig.IMAGE_HEIGHT * 5 + MapConfig.IMAGE_HEIGHT / 2 * i + MapConfig.IMAGE_HEIGHT / 2 * j, paint);
-			}
-		}
 	}
 
 	@Override
