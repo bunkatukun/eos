@@ -1,5 +1,7 @@
 package jp.bunkatusoft.explorersofsettlement.system;
 
+import java.util.NoSuchElementException;
+
 /**
  * Created by m_kagaya on 2014/11/21.
  */
@@ -31,6 +33,6 @@ public enum SystemMenuEnum {
 				return singleEnum;
 			}
 		}
-		return null;
+		throw new NoSuchElementException();
 	}
 }
