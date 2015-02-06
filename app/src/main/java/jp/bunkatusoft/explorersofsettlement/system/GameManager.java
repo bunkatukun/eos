@@ -28,7 +28,7 @@ public abstract class GameManager {
 		return true;
 	}
 
-	protected void onDraw(Canvas canvas) {
+	public void onDraw(Canvas canvas) {
 		for (Task task : mTaskList) {
 			task.onDraw(canvas);
 		}
