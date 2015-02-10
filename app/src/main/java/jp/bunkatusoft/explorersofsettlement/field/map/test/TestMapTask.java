@@ -9,6 +9,7 @@ import jp.bunkatusoft.explorersofsettlement.field.map.MapConfig;
 import jp.bunkatusoft.explorersofsettlement.field.map.tile.Tile;
 import jp.bunkatusoft.explorersofsettlement.system.ExtendBitmap;
 import jp.bunkatusoft.explorersofsettlement.system.Task;
+import jp.bunkatusoft.explorersofsettlement.system.Touch;
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
 public class TestMapTask extends Task {
@@ -31,6 +32,10 @@ public class TestMapTask extends Task {
 		createTile(canvas);
 	}
 
+	@Override
+	protected void onControl(Touch touch) {
+	}
+
 	protected void createTile(Canvas canvas) {
 		for (int i = 0; i < mTilePlacementX; i++) {
 			for (int j = 0; j < mTilePlacementY; j++) {
@@ -50,7 +55,15 @@ public class TestMapTask extends Task {
 	}
 
 	@Override
+	protected void onRunning() {
+	}
+
+	@Override
 	public void onFinalize() {
 		mTileImage.recycle();
+	}
+
+	@Override
+	protected void onEnd() {
 	}
 }
