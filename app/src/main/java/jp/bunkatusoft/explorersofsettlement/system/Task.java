@@ -14,11 +14,9 @@ public abstract class Task {
 		return true;
 	}
 
-	public void onDraw(Canvas canvas) {
-	}
+	protected abstract void onDraw(Canvas canvas);
 
-	public void onControl(Touch touch) {
-	}
+	protected abstract void onControl(Touch touch);
 
 	/**
 	 * Update処理中のフェイズ更新メソッド
@@ -75,8 +73,7 @@ public abstract class Task {
 	/**
 	 * InitializeフェイズのUpdate処理
 	 */
-	public void onInitialize() {
-	}
+	protected abstract void onInitialize();
 
 	/**
 	 * StartingフェイズのUpdate処理
@@ -90,8 +87,7 @@ public abstract class Task {
 	/**
 	 * RunningフェイズのUpdate処理
 	 */
-	public void onRunning() {
-	}
+	protected abstract void onRunning();
 
 	/**
 	 * StoppingフェイズのUpdate処理
@@ -105,12 +101,10 @@ public abstract class Task {
 	/**
 	 * FinalizeフェイズのUpdate処理
 	 */
-	public void onFinalize() {
-	}
+	protected abstract void onFinalize();
 
 	/**
 	 * Endフェイズの処理
 	 */
-	public void onEnd() {
-	}
+	protected abstract void onEnd();
 }

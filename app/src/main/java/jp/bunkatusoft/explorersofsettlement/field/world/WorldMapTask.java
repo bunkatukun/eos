@@ -29,11 +29,6 @@ public class WorldMapTask extends Task {
 	}
 
 	@Override
-	public boolean onUpdate() {
-		return super.onUpdate();
-	}
-
-	@Override
 	public void onDraw(Canvas canvas) {
 		TaskPhaseEnum phase = getTaskPhase();
 		if (phase == TaskPhaseEnum.INITIALIZE || phase == TaskPhaseEnum.FINALIZE) {
@@ -56,19 +51,9 @@ public class WorldMapTask extends Task {
 	}
 
 	@Override
-	public boolean onStarting() {
-		return super.onStarting();
-	}
-
-	@Override
 	public void onRunning() {
 		//ここに処理を追加してゆく
 		//終了時はfinish()を呼び出し
-	}
-
-	@Override
-	public boolean onStopping() {
-		return super.onStopping();
 	}
 
 	@Override
