@@ -26,10 +26,6 @@ public abstract class MapBase extends SurfaceView implements SurfaceHolder.Callb
 		mThread.start();
 	}
 
-	/**
-	 * @param gameWidth      ゲームサイズ 横
-	 * @param gameHeight     ゲームサイズ 縦
-	 */
 	public MapBase(Context context, float gameWidth, float gameHeight, GameManager gameManager) {
 		super(context);
 		getHolder().addCallback(this);
