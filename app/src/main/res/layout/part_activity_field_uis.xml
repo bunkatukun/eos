@@ -13,12 +13,23 @@
         android:layout_alignParentTop="true"
         android:layout_margin="4dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/world_part_settingsButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_margin="4dp"
+        android:background="@drawable/icon_background"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_setting"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="4dp"
+        android:layout_toLeftOf="@+id/world_part_settingsButton"
         android:layout_toRightOf="@+id/world_part_worldStatusLayout"
         android:background="#88888888"
         android:gravity="center_horizontal"
@@ -26,21 +37,13 @@
         android:text="ここに通知用のアイコンを表示させる"
         android:textSize="16dp"/>
 
-    <ImageButton
+    <include
+        layout="@layout/part_world_commands"
+        android:id="@+id/world_part_commandsLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:layout_alignParentLeft="true"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/world_part_settingsButton"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/back_dialog2"
-        android:src="@drawable/medal_sample"/>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/back_dialog2"
-        android:src="@drawable/medal_sample"/>
+        android:layout_margin="4dp"/>
 </RelativeLayout>
