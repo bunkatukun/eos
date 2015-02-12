@@ -71,4 +71,14 @@ public class Util {
 	public static int getDensityPoint(Context context, int value) {
 		return (int) (value * context.getResources().getDisplayMetrics().density);
 	}
+
+	public static int intCompare(int no1, int no2) {
+		if (no1 > no2) {
+			return 1;
+		} else if (no1 == no2) {
+			return 0;
+		} else {
+			return -1;
+		}
+	}
 }
