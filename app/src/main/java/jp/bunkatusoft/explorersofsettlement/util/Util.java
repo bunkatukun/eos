@@ -42,20 +42,20 @@ public class Util {
 				fileSource.append(buffer);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			LogUtil.e(e);
 		} finally {
 			if (is != null) {
 				try {
 					is.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					LogUtil.e(e);
 				}
 			}
 			if (br != null) {
 				try {
 					br.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					LogUtil.e(e);
 				}
 			}
 		}
