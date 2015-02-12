@@ -63,8 +63,6 @@ public class Util {
 	}
 
 	public static Bitmap loadResourceBitmapImage(Context context, int id) {
-		//TODO idが無い時の例外処理
-
 		Resources resources = context.getResources();
 		return BitmapFactory.decodeResource(resources, id);
 	}
