@@ -14,16 +14,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * Created by m_kagaya on 2014/11/25.
- * 管理・設定の補助メソッド群<br>
+ * 管理・設定の補助メソッド群
  */
 public class Util {
 	public static String getPackageVersion(Context context) {
 
 		PackageManager pm = context.getPackageManager();
 		try {
-			PackageInfo info = null;
-			info = pm.getPackageInfo(context.getPackageName(), 0);
+			PackageInfo info = pm.getPackageInfo(context.getPackageName(), 0);
 			return info.versionName;
 		} catch (PackageManager.NameNotFoundException e) {
 			return "";
@@ -31,7 +29,7 @@ public class Util {
 	}
 
 	public static String getAssetsJSONText(Context context, String assetsFilePath) {
-		StringBuffer fileSource = new StringBuffer();
+		StringBuilder fileSource = new StringBuilder();
 
 		InputStream is = null;
 		BufferedReader br = null;
@@ -44,49 +42,28 @@ public class Util {
 				fileSource.append(buffer);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			LogUtil.e(e);
 		} finally {
 			if (is != null) {
 				try {
 					is.close();
-					is = null;
 				} catch (IOException e) {
-					e.printStackTrace();
+					LogUtil.e(e);
 				}
 			}
 			if (br != null) {
 				try {
 					br.close();
-					br = null;
 				} catch (IOException e) {
-					e.printStackTrace();
+					LogUtil.e(e);
 				}
 			}
 		}
 		return fileSource.toString();
 	}
 
-	public static Bitmap loadAssetsBitmapImage(Context context, String assetFilePath) {
-		Bitmap bitmap = null;
-
-		AssetManager assetManager = context.getResources().getAssets();
-		InputStream is = null;
-		try {
-			is = assetManager.open(assetFilePath);
-			bitmap = BitmapFactory.decodeStream(is);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return bitmap;
-	}
-
 	public static Bitmap loadResourceBitmapImage(Context context, int id) {
-		Bitmap bitmap = null;
-		//TODO idが無い時の例外処理
-
 		Resources resources = context.getResources();
-		bitmap = BitmapFactory.decodeResource(resources, id);
-
-		return bitmap;
+		return BitmapFactory.decodeResource(resources, id);
 	}
 }
