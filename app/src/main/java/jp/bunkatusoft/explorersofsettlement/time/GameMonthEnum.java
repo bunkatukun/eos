@@ -1,7 +1,5 @@
 package jp.bunkatusoft.explorersofsettlement.time;
 
-import java.util.NoSuchElementException;
-
 /**
  * Enum
  */
@@ -30,13 +28,13 @@ public enum GameMonthEnum {
 		return month;
 	}
 
-	public static GameMonthEnum valueOf(int month) {
+	public static GameMonthEnum valueOf(int month) throws NoSuchTimeException {
 		GameMonthEnum[] enumArray = GameMonthEnum.values();
 		for (GameMonthEnum singleEnum : enumArray) {
 			if (month == singleEnum.month) {
 				return singleEnum;
 			}
 		}
-		throw new NoSuchElementException();
+		throw new NoSuchTimeException();
 	}
 }
