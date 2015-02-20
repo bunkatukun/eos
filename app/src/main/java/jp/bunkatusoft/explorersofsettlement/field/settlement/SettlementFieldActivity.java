@@ -23,6 +23,7 @@ import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.time.GameMonthEnum;
 import jp.bunkatusoft.explorersofsettlement.time.GameTimeEnum;
+import jp.bunkatusoft.explorersofsettlement.time.NoSuchTimeException;
 import jp.bunkatusoft.explorersofsettlement.time.TimeUtil;
 import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.util.Util;
@@ -124,6 +125,8 @@ public class SettlementFieldActivity extends FragmentActivity implements SystemD
 				timeBuf = GameTimeEnum.valueOf(elementObj.getInt("time"));
 			}
 		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (NoSuchTimeException e) {
 			e.printStackTrace();
 		}
 

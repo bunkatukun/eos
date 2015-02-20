@@ -86,18 +86,24 @@ public class GameTimeTest {
 			GameTime actual = new GameTime(1, GameMonthEnum.JANUARY, 30, GameTimeEnum.MIDNIGHT);
 			actual.incrementDay();
 			assertThat(actual.getMonth(), is(GameMonthEnum.FEBRUARY));
-			assertThat(actual.getDay(), is(30));
+			assertThat(actual.getDay(), is(1));
 		}
 
 	}
 
 	@RunWith(AndroidJUnit4.class)
 	public static class 時間帯 {
-		@Test
 		public void 時間帯を進めることができる() {
+			GameTime actual = new GameTime(1, GameMonthEnum.JANUARY, 1, GameTimeEnum.MORNING);
+			actual.incrementTime();
+			assertThat(actual.getTime(), is(GameTimeEnum.NOON));
+		}
+
+		@Test
+		public void 時間帯を進めることができる_MIDNIGHTは2つ分である() {
 			GameTime actual = new GameTime(1, GameMonthEnum.JANUARY, 1, GameTimeEnum.MIDNIGHT);
 			actual.incrementTime();
-			assertThat(actual.getTime(), is(GameTimeEnum.MORNING));
+			assertThat(actual.getTime(), is(GameTimeEnum.MIDNIGHT));
 		}
 
 		@Test
