@@ -1,0 +1,6 @@
+[
+		{"id":1,"action":"TEXT","value":"JSONでテキストを表示します。"},
+		{"id":2,"action":"TEXT","value":"Text命令でテキストが表示されます。"},
+		{"id":3,"action":"CLEAN","value":"text"},
+		{"id":4,"action":"TEXT","value":"clean命令で指定の領域を内容削除します。"}
+]

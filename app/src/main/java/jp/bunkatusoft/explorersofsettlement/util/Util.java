@@ -3,7 +3,6 @@ package jp.bunkatusoft.explorersofsettlement.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -59,11 +58,17 @@ public class Util {
 				}
 			}
 		}
+
+		LogUtil.i("filefile:\n" + fileSource.toString());
 		return fileSource.toString();
 	}
 
 	public static Bitmap loadResourceBitmapImage(Context context, int id) {
 		Resources resources = context.getResources();
 		return BitmapFactory.decodeResource(resources, id);
+	}
+
+	public static int getDensityPoint(Context context, int value) {
+		return (int) (value * context.getResources().getDisplayMetrics().density);
 	}
 }

@@ -16,25 +16,25 @@ public class CustomAnimationUtil {
 	public static AnimationSet generateCustomAnimation(Context context, CustomAnimationEnum animationType){
 		AnimationSet resultAnimationSet = new AnimationSet(false);
 		switch (animationType){
-			case PROTRUDE_IN_FROM_CENTER:
+			case SLIDE_IN_FROM_RIGHT_10P:
 				TranslateAnimation inTranslateAnimation = (TranslateAnimation) AnimationUtils.loadAnimation(context, R.anim.fade_in_from_right);
 				AlphaAnimation inAlphaAnimation = (AlphaAnimation) AnimationUtils.loadAnimation(context, R.anim.fade_in_alpha);
 				resultAnimationSet.addAnimation(inTranslateAnimation);
 				resultAnimationSet.addAnimation(inAlphaAnimation);
 				break;
-			case RECEDE_OUT_TO_CENTER:
+			case SLIDE_OUT_TO_RIGHT_10P:
 				TranslateAnimation outTranslateAnimation = (TranslateAnimation) AnimationUtils.loadAnimation(context, R.anim.fade_out_to_right);
 				AlphaAnimation outAlphaAnimation = (AlphaAnimation) AnimationUtils.loadAnimation(context, R.anim.fade_out_alpha);
 				resultAnimationSet.addAnimation(outTranslateAnimation);
 				resultAnimationSet.addAnimation(outAlphaAnimation);
 				break;
-			case SLIDE_IN_FROM_RIGHT_10P:
+			case PROTRUDE_IN_FROM_CENTER:
 				ScaleAnimation protrudeScaleAnimation = (ScaleAnimation) AnimationUtils.loadAnimation(context, R.anim.protrude_from_center);
 				AlphaAnimation protrudeAlphaAnimation = (AlphaAnimation) AnimationUtils.loadAnimation(context, R.anim.fade_in_alpha);
 				resultAnimationSet.addAnimation(protrudeScaleAnimation);
 				resultAnimationSet.addAnimation(protrudeAlphaAnimation);
 				break;
-			case SLIDE_OUT_TO_RIGHT_10P:
+			case RECEDE_OUT_TO_CENTER:
 				ScaleAnimation recedeScaleAnimation = (ScaleAnimation) AnimationUtils.loadAnimation(context, R.anim.recede_to_center);
 				AlphaAnimation recedeAlphaAnimation = (AlphaAnimation) AnimationUtils.loadAnimation(context, R.anim.fade_out_alpha);
 				resultAnimationSet.addAnimation(recedeScaleAnimation);

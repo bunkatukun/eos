@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.bunkatusoft.explorersofsettlement.R;
+import jp.bunkatusoft.explorersofsettlement.event.Event;
+import jp.bunkatusoft.explorersofsettlement.event.EventUtil;
+import jp.bunkatusoft.explorersofsettlement.event.EventView;
 import jp.bunkatusoft.explorersofsettlement.system.ButtonGroup;
 import jp.bunkatusoft.explorersofsettlement.system.ButtonGroupEnum;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
@@ -30,9 +33,10 @@ import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationEnum;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationUtil;
 import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
+import jp.bunkatusoft.explorersofsettlement.util.Util;
 
 
-public class WorldFieldActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener, View.OnClickListener, ButtonGroup.OnClickListener {
+public class WorldFieldActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener, View.OnClickListener, ButtonGroup.OnClickListener, EventView.OnEventPhase{
 
 	Context mContext;
 
@@ -56,6 +60,9 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 	AnimationSet mProtrudeAnimation;
 	AnimationSet mRecedeAnimation;
 
+	EventView mEventView;
+	List<Event> mEvents;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,6 +81,15 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 		}
 		try {
 			mFieldRoads = WorldFieldUtil.loadFieldRoadData(this, "data/field_road.json");
+		} catch (IOException e) {
+			LogUtil.e(e);
+		}
+
+		// イベントデータの読み込み
+		//TODO コモンイベント+該当パートのイベント飲み読み込んでいる状態とするべし
+		mEvents = new ArrayList<Event>();
+		try {
+			mEvents = EventUtil.loadEventsJSONData(this, "events/event0004.json");
 		} catch (IOException e) {
 			LogUtil.e(e);
 		}
@@ -112,6 +128,9 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 		mOverlayWindow.setVisibility(View.GONE);
 		Button closeOverlayButton = (Button) mOverlayWindow.findViewById(R.id.general_part_closeOverlayButton);
 		closeOverlayButton.setOnClickListener(this);
+
+		mEventView = new EventView(this,rootLayout,this);
+		mEventView.setVisibility(View.GONE);
 	}
 
 	/**
@@ -134,7 +153,7 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 		firstLineLayout.addView(optionLoadGroup.getBaseLayout(), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
 		firstLineLayoutParam.gravity = Gravity.BOTTOM;
-		firstLineLayoutParam.setMargins(0, 0, 0, getDensityPoint(mContext, 16));
+		firstLineLayoutParam.setMargins(0, 0, 0, Util.getDensityPoint(mContext, 16));
 		mOptionLayout.addView(firstLineLayout, firstLineLayoutParam);
 
 		LinearLayout secondLineLayout = new LinearLayout(mContext);
@@ -148,7 +167,7 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 		secondLineLayout.addView(settingReturnTitleGroup.getBaseLayout(), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
 		secondLineLayoutParam.gravity = Gravity.BOTTOM;
-		secondLineLayoutParam.setMargins(getDensityPoint(mContext, 16), 0, 0, 0);
+		secondLineLayoutParam.setMargins(Util.getDensityPoint(mContext, 16), 0, 0, 0);
 		mOptionLayout.addView(secondLineLayout, secondLineLayoutParam);
 
 		optionLayoutParam.addRule(RelativeLayout.BELOW, R.id.world_part_settingsButton);
@@ -179,7 +198,7 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 		firstLineLayout.addView(commandItemsGroup.getBaseLayout(), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
 		firstLineLayoutParam.gravity = Gravity.BOTTOM;
-		firstLineLayoutParam.setMargins(0, 0, 0, getDensityPoint(mContext, 16));
+		firstLineLayoutParam.setMargins(0, 0, 0, Util.getDensityPoint(mContext, 16));
 		mCommandLayout.addView(firstLineLayout, firstLineLayoutParam);
 
 		LinearLayout secondLineLayout = new LinearLayout(mContext);
@@ -195,18 +214,13 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 		secondLineLayout.addView(commandLeaveGroup.getBaseLayout(), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
 		secondLineLayoutParam.gravity = Gravity.BOTTOM;
-		secondLineLayoutParam.setMargins(getDensityPoint(mContext, 16), 0, 0, 0);
+		secondLineLayoutParam.setMargins(Util.getDensityPoint(mContext, 16), 0, 0, 0);
 		mCommandLayout.addView(secondLineLayout, secondLineLayoutParam);
 
 		commandLayoutParam.addRule(RelativeLayout.BELOW, R.id.world_part_settingsButton);
 		commandLayoutParam.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 		commandLayoutParam.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		UILayout.addView(mCommandLayout, commandLayoutParam);
-	}
-
-	//TODO DensityPointはいずれ他の場所でも使うと思われるので、その場合はUtil化すべし
-	private int getDensityPoint(Context context, int value) {
-		return (int) (value * context.getResources().getDisplayMetrics().density);
 	}
 
 	@Override
@@ -344,10 +358,12 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 				break;
 			case ACTIONS:
 				LogUtil.i("ACTIONSが押された");
+				//TODO OK、じゃあここを小イベントの起点としよう
 				mCommandLayout.startAnimation(mOutAnimation);
 				mCommandLayout.setVisibility(View.INVISIBLE);
-				mOverlayWindow.startAnimation(mProtrudeAnimation);
-				mOverlayWindow.setVisibility(View.VISIBLE);
+				mEventView.startAnimation(mProtrudeAnimation);
+				mEventView.setVisibility(View.VISIBLE);
+				mEventView.startEvent(mEvents);
 				break;
 			case LEAVE:
 				LogUtil.i("LEAVEが押された");
@@ -371,5 +387,13 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 			default:
 				break;
 		}
+	}
+
+	@Override
+	public void onFinish() {
+		mEventView.startAnimation(mRecedeAnimation);
+		mEventView.setVisibility(View.GONE);
+		mCommandLayout.startAnimation(mInAnimation);
+		mCommandLayout.setVisibility(View.VISIBLE);
 	}
 }
