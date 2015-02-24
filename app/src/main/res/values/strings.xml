@@ -57,17 +57,11 @@
     <string name="titlemenu_start_debug">Debug Menu</string>
     <string name="titlemenu_quit">Quit</string>
 
-    <!-- Settlement Field Menu -->
-    <string name="settle_fieldmenu_load">Load</string>
-    <string name="settle_fieldmenu_save">Save</string>
-    <string name="settle_fieldmenu_setting">Settings</string>
-    <string name="settle_fieldmenu_return_title">Return to Title</string>
-
-    <!-- World Field Menu -->
-    <string name="world_fieldmenu_load">Load</string>
-    <string name="world_fieldmenu_save">Save</string>
-    <string name="world_fieldmenu_setting">Settings</string>
-    <string name="world_fieldmenu_return_title">Return to Title</string>
+    <!-- Menu -->
+    <string name="menu_load">Load</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_setting">Settings</string>
+    <string name="menu_return_title">Return to Title</string>
 
     <!-- image.System -->
     <string name="sys_dialogtitle">System</string>
