@@ -5,17 +5,17 @@
     <item
         android:id="@+id/menu_world_field_load"
         android:icon="@android:drawable/ic_menu_save"
-        android:title="@string/world_fieldmenu_load"/>
+        android:title="@string/menu_load"/>
     <item
         android:id="@+id/menu_world_field_save"
         android:icon="@android:drawable/ic_menu_save"
-        android:title="@string/world_fieldmenu_save"/>
+        android:title="@string/menu_save"/>
     <item
         android:id="@+id/menu_world_field_setting"
         android:icon="@android:drawable/ic_menu_info_details"
-        android:title="@string/world_fieldmenu_setting"/>
+        android:title="@string/menu_setting"/>
     <item
         android:id="@+id/menu_world_field_return_title"
         android:icon="@android:drawable/ic_menu_revert"
-        android:title="@string/world_fieldmenu_return_title"/>
+        android:title="@string/menu_return_title"/>
 </menu>

@@ -54,17 +54,11 @@
     <string name="titlemenu_start_debug">デバッグメニュー</string>
     <string name="titlemenu_quit">終了</string>
 
-    <!-- Settlemnt Field Menu -->
-    <string name="settle_fieldmenu_load">ロード</string>
-    <string name="settle_fieldmenu_save">セーブ</string>
-    <string name="settle_fieldmenu_setting">設定</string>
-    <string name="settle_fieldmenu_return_title">タイトルへ戻る</string>
-
-    <!-- World Field Menu -->
-    <string name="world_fieldmenu_load">ロード</string>
-    <string name="world_fieldmenu_save">セーブ</string>
-    <string name="world_fieldmenu_setting">設定</string>
-    <string name="world_fieldmenu_return_title">タイトルへ戻る</string>
+    <!-- Menu -->
+    <string name="menu_load">ロード</string>
+    <string name="menu_save">セーブ</string>
+    <string name="menu_setting">設定</string>
+    <string name="menu_return_title">タイトルへ戻る</string>
 
     <!-- image.System -->
     <string name="sys_dialogtitle">システム</string>
