@@ -22,12 +22,12 @@ public class WorldFieldUtil {
 	 * フィールドのチップデータを読み込むメソッド
 	 * @return	読み込んだチップデータ
 	 */
-	public static ArrayList<FieldPiece> loadFieldPieceData(Context context, String filePath) throws IOException {
+	public static List<FieldPiece> loadFieldPieceData(Context context, String filePath) throws IOException {
 		return new ObjectMapper().readValue(Util.getAssetsJSONText(context, filePath),
 				new TypeReference<ArrayList<FieldPiece>>() {});
 	}
 
-	public static ArrayList<FieldRoad> loadFieldRoadData(Context context, String filePath) throws IOException {
+	public static List<FieldRoad> loadFieldRoadData(Context context, String filePath) throws IOException {
 		return new ObjectMapper().readValue(Util.getAssetsJSONText(context, filePath),
 				new TypeReference<ArrayList<FieldRoad>>() {});
 	}

@@ -8,6 +8,7 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.support.test.InstrumentationRegistry.getContext;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -21,7 +22,7 @@ public class WorldFieldUtilTest {
 	public static class loadFieldRoadDataを使って {
 		@Test
 		public void loadFieldRoadDataでJSONがパースできる() throws Exception {
-			ArrayList<FieldRoad> fieldRoads = WorldFieldUtil.loadFieldRoadData(getContext(), "world-field-util/parse-json.json");
+			List<FieldRoad> fieldRoads = WorldFieldUtil.loadFieldRoadData(getContext(), "world-field-util/parse-json.json");
 
 			assertThat(fieldRoads.get(0).id, is(1));
 			assertThat(fieldRoads.get(0).connectA, is(1));
@@ -49,7 +50,7 @@ public class WorldFieldUtilTest {
 	public static class loadFieldPieceDataを使って {
 		@Test
 		public void JSONがパースできる() throws Exception {
-			ArrayList<FieldPiece> fieldPieces = WorldFieldUtil.loadFieldPieceData(getContext(), "world-field-util/field-pieces.json");
+			List<FieldPiece> fieldPieces = WorldFieldUtil.loadFieldPieceData(getContext(), "world-field-util/field-pieces.json");
 
 			assertThat(fieldPieces.get(0).id, is(1));
 			assertThat(fieldPieces.get(0).x, is(10));
