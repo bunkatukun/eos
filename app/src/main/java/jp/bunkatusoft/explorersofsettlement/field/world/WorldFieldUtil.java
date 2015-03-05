@@ -28,7 +28,7 @@ public class WorldFieldUtil {
 	public static final String KEY_ROAD_ID = "id";
 	public static final String KEY_ROAD_CONNECT_A = "connectA";
 	public static final String KEY_ROAD_CONNECT_B = "connectB";
-	public static final String KEY_ROAD_DIRECTION = "direction";
+	public static final String KEY_ROAD_DIRECTION = "directivity";
 
 	/**
 	 * フィールドのチップデータを読み込むメソッド
