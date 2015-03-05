@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,8 +67,16 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 		// データの読み込み
 		mFieldPieces = new ArrayList<FieldPiece>();
 		mFieldRoads = new ArrayList<FieldRoad>();
-		mFieldPieces = WorldFieldUtil.loadFieldPieceData(this, "data/field_piece.json");
-		mFieldRoads = WorldFieldUtil.loadFieldRoadData(this, "data/field_road.json");
+		try {
+			mFieldPieces = WorldFieldUtil.loadFieldPieceData(this, "data/field_piece.json");
+		} catch (IOException e) {
+			LogUtil.e(e);
+		}
+		try {
+			mFieldRoads = WorldFieldUtil.loadFieldRoadData(this, "data/field_road.json");
+		} catch (IOException e) {
+			LogUtil.e(e);
+		}
 
 		// アニメーションの設定
 		mInAnimation = CustomAnimationUtil.generateCustomAnimation(this, CustomAnimationEnum.SLIDE_IN_FROM_RIGHT_10P);
