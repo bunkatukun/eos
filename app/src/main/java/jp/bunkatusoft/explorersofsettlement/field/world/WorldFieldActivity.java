@@ -67,7 +67,11 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 		// データの読み込み
 		mFieldPieces = new ArrayList<FieldPiece>();
 		mFieldRoads = new ArrayList<FieldRoad>();
-		mFieldPieces = WorldFieldUtil.loadFieldPieceData(this, "data/field_piece.json");
+		try {
+			mFieldPieces = WorldFieldUtil.loadFieldPieceData(this, "data/field_piece.json");
+		} catch (IOException e) {
+			LogUtil.e(e);
+		}
 		try {
 			mFieldRoads = WorldFieldUtil.loadFieldRoadData(this, "data/field_road.json");
 		} catch (IOException e) {
