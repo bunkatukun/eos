@@ -56,7 +56,7 @@ public class WorldFieldUtilTest {
 			assertThat(fieldPieces.get(0).x, is(10));
 			assertThat(fieldPieces.get(0).y, is(10));
 			assertThat(fieldPieces.get(0).type, is(PieceTypeEnum.valueOf(1)));
-			ArrayList<Integer> expected0 = new ArrayList<Integer>() {{
+			List<Integer> expected0 = new ArrayList<Integer>() {{
 				add(1);
 			}};
 			assertThat(fieldPieces.get(0).connects, is(expected0));
@@ -65,7 +65,7 @@ public class WorldFieldUtilTest {
 			assertThat(fieldPieces.get(1).x, is(30));
 			assertThat(fieldPieces.get(1).y, is(30));
 			assertThat(fieldPieces.get(1).type, is(PieceTypeEnum.valueOf(0)));
-			ArrayList<Integer> expected1 = new ArrayList<Integer>() {{
+			List<Integer> expected1 = new ArrayList<Integer>() {{
 				add(1);
 				add(2);
 				add(3);
@@ -76,7 +76,7 @@ public class WorldFieldUtilTest {
 			assertThat(fieldPieces.get(2).x, is(50));
 			assertThat(fieldPieces.get(2).y, is(30));
 			assertThat(fieldPieces.get(2).type, is(PieceTypeEnum.valueOf(0)));
-			ArrayList<Integer> expected2 = new ArrayList<Integer>() {{
+			List<Integer> expected2 = new ArrayList<Integer>() {{
 				add(2);
 				add(4);
 			}};
@@ -86,7 +86,7 @@ public class WorldFieldUtilTest {
 			assertThat(fieldPieces.get(3).x, is(50));
 			assertThat(fieldPieces.get(3).y, is(30));
 			assertThat(fieldPieces.get(3).type, is(PieceTypeEnum.valueOf(4)));
-			ArrayList<Integer> expected3 = new ArrayList<Integer>() {{
+			List<Integer> expected3 = new ArrayList<Integer>() {{
 				add(3);
 				add(4);
 			}};
