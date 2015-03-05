@@ -17,9 +17,6 @@ import java.util.List;
 
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
-/**
- * Created by m_kagaya on 2015/01/27.
- */
 public class WorldFieldUtil {
 	/**
 	 * フィールドのチップデータを読み込むメソッド
