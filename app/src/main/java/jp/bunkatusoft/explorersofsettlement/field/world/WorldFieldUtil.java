@@ -2,11 +2,18 @@ package jp.bunkatusoft.explorersofsettlement.field.world;
 
 import android.content.Context;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
@@ -23,12 +30,6 @@ public class WorldFieldUtil {
 	public static final String KEY_TIP_TYPE = "Type";
 	public static final String KEY_TIP_CONNECTS = "connects";
 	public static final String KEY_TIP_CONNECTS_ID = "id";
-	/** JSONキー フィールドルートデータ */
-	public static final String KEY_ROAD_HEADER = "roads";
-	public static final String KEY_ROAD_ID = "id";
-	public static final String KEY_ROAD_CONNECT_A = "connectA";
-	public static final String KEY_ROAD_CONNECT_B = "connectB";
-	public static final String KEY_ROAD_DIRECTION = "directivity";
 
 	/**
 	 * フィールドのチップデータを読み込むメソッド
@@ -73,45 +74,8 @@ public class WorldFieldUtil {
 		return resultPieces;
 	}
 
-	public static ArrayList<FieldRoad> loadFieldRoadData(Context context, String filePath){
-		ArrayList<FieldRoad> resultRoads = new ArrayList<FieldRoad>();
-		try {
-			JSONObject rawJSONObject = new JSONObject(Util.getAssetsJSONText(context,filePath));
-			JSONArray rawJSONArray = rawJSONObject.getJSONArray(KEY_ROAD_HEADER);
-			for(int i=0;i<rawJSONArray.length();i++){
-				FieldRoad buffRoad = new FieldRoad();
-				JSONObject elements = rawJSONArray.getJSONObject(i);
-				if(elements.has(KEY_ROAD_ID)){
-					buffRoad.id = elements.getInt(KEY_ROAD_ID);
-				}
-				if(elements.has(KEY_ROAD_CONNECT_A)){
-					buffRoad.connectA = elements.getInt(KEY_ROAD_CONNECT_A);
-				}
-				if(elements.has(KEY_ROAD_CONNECT_B)){
-					buffRoad.connectB = elements.getInt(KEY_ROAD_CONNECT_B);
-				}
-				if(elements.has(KEY_ROAD_DIRECTION)){
-					buffRoad.directivity = getRoadDirection(elements.getString(KEY_ROAD_DIRECTION));
-				}
-				//確定して追加
-				resultRoads.add(buffRoad);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return resultRoads;
-	}
-
-	//TODO Enum化
-	public static int getRoadDirection(String direction){
-		if("mutual".equals(direction)){
-			return 0;
-		} else if("AtoB".equals(direction)){
-			return 1;
-		} else if("BtoA".equals(direction)){
-			return 2;
-		} else {
-			return -1;
-		}
+	public static ArrayList<FieldRoad> loadFieldRoadData(Context context, String filePath) throws IOException {
+		return new ObjectMapper().readValue(Util.getAssetsJSONText(context, filePath),
+				new TypeReference<ArrayList<FieldRoad>>() {});
 	}
 }
