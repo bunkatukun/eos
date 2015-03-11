@@ -27,6 +27,7 @@ import jp.bunkatusoft.explorersofsettlement.event.EventUtil;
 import jp.bunkatusoft.explorersofsettlement.event.EventView;
 import jp.bunkatusoft.explorersofsettlement.system.ButtonGroup;
 import jp.bunkatusoft.explorersofsettlement.system.ButtonGroupEnum;
+import jp.bunkatusoft.explorersofsettlement.system.item.ItemInventory;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
@@ -63,6 +64,8 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 	EventView mEventView;
 	List<Event> mEvents;
 
+	ItemInventory mItemInventory;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,6 +73,10 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		mContext = this;
+
+		//TODO インベントリ定義＆初期化 本当はここじゃない方がいいかも？
+		//TODO プレイヤーデータの設定タイミングを作ったら、そこへ引っ越すこと
+		mItemInventory = WorldFieldUtil.initItemInventory();
 
 		// データの読み込み
 		mFieldPieces = new ArrayList<FieldPiece>();
