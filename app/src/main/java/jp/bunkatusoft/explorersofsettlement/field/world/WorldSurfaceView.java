@@ -47,7 +47,7 @@ public class WorldSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-
+		mThread = null;
 	}
 
 	@Override
