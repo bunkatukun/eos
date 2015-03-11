@@ -1,0 +1,4 @@
+[
+		{"id":1,"action":"TEXT","value":"JSONでテキストを表示します。"},
+		{"id":2,"action":"CLEAN","value":"text"}
+]
