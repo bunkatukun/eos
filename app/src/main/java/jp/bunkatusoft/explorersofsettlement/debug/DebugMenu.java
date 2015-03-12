@@ -7,7 +7,8 @@ public enum DebugMenu {
     START_SETTLEMENT("start_settlement", "Start Settlement Test"),
     START_WORLD_MAP("start_world_map", "Start World Map Test"),
 	START_EXPLORE("start_Explore", "Start Explore"),
-    START_TEST_MAP("start_test_map", "Start Test Map");
+    START_TEST_MAP("start_test_map", "Start Test Map"),
+	START_BATTLE("start_battle", "Start_Battle");
 
 
     private String text;
