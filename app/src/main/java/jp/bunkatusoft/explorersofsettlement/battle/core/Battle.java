@@ -3,6 +3,7 @@ package jp.bunkatusoft.explorersofsettlement.battle.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.bunkatusoft.explorersofsettlement.battle.BattleViewController;
 import jp.bunkatusoft.explorersofsettlement.battle.Order;
 import jp.bunkatusoft.explorersofsettlement.battle.unit.Enemy;
 import jp.bunkatusoft.explorersofsettlement.battle.unit.Player;
@@ -16,12 +17,14 @@ public class Battle {
 
 	private final List<Player> mPlayerList;
 	private final List<Enemy> mEnemyList;
+	private final BattleViewController mBattleViewController;
 
 	private boolean mBattleEnd = false;
 
-	public Battle(final List<Player> playerList, final List<Enemy> enemyList) {
+	public Battle(final List<Player> playerList, final List<Enemy> enemyList, BattleViewController battleViewController) {
 		mPlayerList = playerList;
 		mEnemyList = enemyList;
+		mBattleViewController = battleViewController;
 	}
 
 	public void exec() {
@@ -68,7 +71,7 @@ public class Battle {
 		}
 
 		// 素早い順に行動
-		final List<TurnAction> sortedAgiList = new AgilityManager(turnActionList).calc();
+		List<TurnAction> sortedAgiList = new AgilityManager(turnActionList).calc();
 
 		for (TurnAction turnAction : sortedAgiList) {
 			LogUtil.i("攻撃 " + turnAction.getActUnit().getName() + " -> " + turnAction.getTargetUnit().getName());
@@ -86,7 +89,7 @@ public class Battle {
 			if (turnAction.getTargetUnit().isDead()) {
 				LogUtil.i(turnAction.getTargetUnit().getName() + " is dead.");
 				//TODO どちらか一方が全滅したか確認する処理を入れる
-
+				mBattleViewController.findById(turnAction.getTargetUnit().getId()).dead();
 				//FIXME
 				mBattleEnd = true;
 				return;

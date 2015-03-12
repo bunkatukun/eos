@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
     package="jp.bunkatusoft.explorersofsettlement"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="0"
     android:versionName="pre-alpha">
 
@@ -48,6 +49,11 @@
         </activity>
         <activity
             android:name=".field.map.test.TestMapActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity
+            android:name=".battle.BattleActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape">
         </activity>
