@@ -236,6 +236,7 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 		return true;
 	}
 
+	//TODO SystemMenu関連は(Listener除き)ここから分離できそう
 	private void showSystemDialog(SystemMenuEnum menuEnum) {
 		SystemDialog systemDialog;
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -351,6 +352,7 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 				break;
 			case ITEMS:
 				LogUtil.i("ITEMSが押された");
+				//TODO アイテムインベントリを開いちゃう
 				mCommandLayout.startAnimation(mOutAnimation);
 				mCommandLayout.setVisibility(View.INVISIBLE);
 				mOverlayWindow.startAnimation(mProtrudeAnimation);

@@ -45,8 +45,8 @@ public class WorldFieldUtil {
 		resultInventory.itemList.add(item2);
 
 		Item item3 = new Item();
-		item1.id = 3;
-		item1.name = "アイテム3";
+		item3.id = 3;
+		item3.name = "アイテム3";
 		resultInventory.itemList.add(item3);
 
 		return resultInventory;

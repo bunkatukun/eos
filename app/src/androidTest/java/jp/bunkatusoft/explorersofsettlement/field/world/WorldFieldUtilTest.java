@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.bunkatusoft.explorersofsettlement.system.item.ItemInventory;
+
 import static android.support.test.InstrumentationRegistry.getContext;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -43,6 +45,23 @@ public class WorldFieldUtilTest {
 			assertThat(fieldRoads.get(3).connectA, is(3));
 			assertThat(fieldRoads.get(3).connectB, is(4));
 			assertThat(fieldRoads.get(3).directivity.getId(), is(1));
+		}
+	}
+
+	@RunWith(AndroidJUnit4.class)
+	public static class initItemInventoryを使って {
+		@Test
+		public void ItemInventoryが初期化できる() throws Exception {
+			ItemInventory inventory = WorldFieldUtil.initItemInventory();
+
+			assertThat(inventory.itemList.get(0).id,is(1));
+			assertThat(inventory.itemList.get(0).name,is("アイテム1"));
+
+			assertThat(inventory.itemList.get(1).id,is(2));
+			assertThat(inventory.itemList.get(1).name,is("アイテム2"));
+
+			assertThat(inventory.itemList.get(2).id,is(3));
+			assertThat(inventory.itemList.get(2).name,is("アイテム3"));
 		}
 	}
 
