@@ -27,9 +27,10 @@ import jp.bunkatusoft.explorersofsettlement.event.EventUtil;
 import jp.bunkatusoft.explorersofsettlement.event.EventView;
 import jp.bunkatusoft.explorersofsettlement.system.ButtonGroup;
 import jp.bunkatusoft.explorersofsettlement.system.ButtonGroupEnum;
-import jp.bunkatusoft.explorersofsettlement.system.item.ItemInventory;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
+import jp.bunkatusoft.explorersofsettlement.system.item.InventoryView;
+import jp.bunkatusoft.explorersofsettlement.system.item.Item;
 import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationEnum;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationUtil;
@@ -37,7 +38,7 @@ import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
 
-public class WorldFieldActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener, View.OnClickListener, ButtonGroup.OnClickListener, EventView.OnEventPhase{
+public class WorldFieldActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener, View.OnClickListener, ButtonGroup.OnClickListener, EventView.OnEventPhase, InventoryView.OnInventoryActionListener {
 
 	Context mContext;
 
@@ -64,7 +65,8 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 	EventView mEventView;
 	List<Event> mEvents;
 
-	ItemInventory mItemInventory;
+	List<Item> mItemList;
+	InventoryView mInventoryView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,7 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 
 		//TODO インベントリ定義＆初期化 本当はここじゃない方がいいかも？
 		//TODO プレイヤーデータの設定タイミングを作ったら、そこへ引っ越すこと
-		mItemInventory = WorldFieldUtil.initItemInventory();
+		mItemList = WorldFieldUtil.initItemInventory();
 
 		// データの読み込み
 		mFieldPieces = new ArrayList<FieldPiece>();
@@ -138,6 +140,9 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 
 		mEventView = new EventView(this,rootLayout,this);
 		mEventView.setVisibility(View.GONE);
+
+		mInventoryView = new InventoryView(this,rootLayout,this,(ArrayList)mItemList);
+		mInventoryView.setVisibility(View.GONE);
 	}
 
 	/**
@@ -355,8 +360,8 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 				//TODO アイテムインベントリを開いちゃう
 				mCommandLayout.startAnimation(mOutAnimation);
 				mCommandLayout.setVisibility(View.INVISIBLE);
-				mOverlayWindow.startAnimation(mProtrudeAnimation);
-				mOverlayWindow.setVisibility(View.VISIBLE);
+				mInventoryView.startAnimation(mProtrudeAnimation);
+				mInventoryView.setVisibility(View.VISIBLE);
 				break;
 			case INFO:
 				LogUtil.i("INFOが押された");
@@ -402,6 +407,14 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 	public void onFinish() {
 		mEventView.startAnimation(mRecedeAnimation);
 		mEventView.setVisibility(View.GONE);
+		mCommandLayout.startAnimation(mInAnimation);
+		mCommandLayout.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void onInventoryClose() {
+		mInventoryView.startAnimation(mRecedeAnimation);
+		mInventoryView.setVisibility(View.GONE);
 		mCommandLayout.startAnimation(mInAnimation);
 		mCommandLayout.setVisibility(View.VISIBLE);
 	}
