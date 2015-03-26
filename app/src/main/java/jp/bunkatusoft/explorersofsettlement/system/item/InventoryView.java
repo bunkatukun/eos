@@ -28,6 +28,8 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 	//TODO アクション追加
 	//TODO フィルタ追加
 
+	//TODO インベントリを閉じた際の、保持する値、初期化する値を決めること
+
 	public interface OnInventoryActionListener {
 		void onInventoryClose();
 	}
@@ -39,19 +41,30 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 	RelativeLayout mBaseLayout;
 	ListView mItemListView;
 	InventoryAdapter mInventoryAdapter;
+	boolean nowItemSelected;
 
 	Button mOpenDetailButton;
 	Button mOpenUseButton;
 	Button mTrashButton;
 	Button mCloseButton;
 
-	public InventoryView(Context context,  FrameLayout rootLayout,OnInventoryActionListener listener, ArrayList<Item> itemList) {
+	InventoryFilterEnum mSelectFilter;
+	Button mFilterAllButton;
+	Button mFilterEquipmentButton;
+	Button mFilterSuppliesButton;
+	Button mFilterMiscellaneousButton;
+	Button mFilterMaterialButton;
+	Button mFilterImportantButton;
+
+	public InventoryView(Context context, FrameLayout rootLayout, OnInventoryActionListener listener, ArrayList<Item> itemList) {
 		mContext = context;
 		mListener = listener;
 		mItemList = itemList;
 
 		initBaseLayout(rootLayout);
+		initFilterButtons();
 		initInventoryAdapter();
+		setItemSelected(false);
 	}
 
 	private void initBaseLayout(FrameLayout rootLayout) {
@@ -60,26 +73,53 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 
 		mOpenDetailButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_openDetailButton);
 		mOpenDetailButton.setOnClickListener(this);
+		mOpenDetailButton.setEnabled(false);
 		mOpenUseButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_openUseButton);
 		mOpenUseButton.setOnClickListener(this);
+		mOpenUseButton.setEnabled(false);
 		mTrashButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_trashButton);
 		mTrashButton.setOnClickListener(this);
+		mTrashButton.setEnabled(false);
 		mCloseButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_closeInventoryButton);
 		mCloseButton.setOnClickListener(this);
+
 	}
 
-	private void initInventoryAdapter(){
+	private void initFilterButtons() {
+		mFilterAllButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_filterAllButton);
+		mFilterAllButton.setOnClickListener(this);
+		mFilterEquipmentButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_filterEquipmentButton);
+		mFilterEquipmentButton.setOnClickListener(this);
+		mFilterSuppliesButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_filterSuppliesButton);
+		mFilterSuppliesButton.setOnClickListener(this);
+		mFilterMiscellaneousButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_filterMiscellaneousButton);
+		mFilterMiscellaneousButton.setOnClickListener(this);
+		mFilterMaterialButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_filterMaterialButton);
+		mFilterMaterialButton.setOnClickListener(this);
+		mFilterImportantButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_filterImportantButton);
+		mFilterImportantButton.setOnClickListener(this);
+
+		changeFilter(InventoryFilterEnum.ALL);
+	}
+
+	private void initInventoryAdapter() {
 		mItemListView = (ListView) mBaseLayout.findViewById(R.id.part_inventory_itemList);
 		mItemListView.setOnItemClickListener(this);
 
-		mInventoryAdapter = new InventoryAdapter(mContext,new ArrayList<Item>());
+		mInventoryAdapter = new InventoryAdapter(mContext, new ArrayList<Item>());
 		mItemListView.setAdapter(mInventoryAdapter);
 
-		if(mInventoryAdapter != null) {
+		updateInventoryAdapter();
+	}
+
+	private void updateInventoryAdapter() {
+		if (mInventoryAdapter != null) {
 			mInventoryAdapter.clear();
-			if(mItemList != null && mItemList.size()>0){
-				for(Item item : mItemList){
-					mInventoryAdapter.add(item);
+			if (mItemList != null && mItemList.size() > 0) {
+				for (Item item : mItemList) {
+					if (mSelectFilter.equals(InventoryFilterEnum.ALL) || item.filter.equals(mSelectFilter)) {
+						mInventoryAdapter.add(item);
+					}
 				}
 			}
 			mInventoryAdapter.notifyDataSetChanged();
@@ -94,12 +134,93 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 		mBaseLayout.startAnimation(animationSet);
 	}
 
+	private void setItemSelected(boolean select){
+		nowItemSelected = select;
+
+		mOpenDetailButton.setEnabled(select);
+		mOpenUseButton.setEnabled(select);
+		mTrashButton.setEnabled(select);
+	}
+
+	private void changeFilter(InventoryFilterEnum select) {
+		mSelectFilter = select;
+
+		//TODO これもっと何とかしたい
+		if(mSelectFilter.equals(InventoryFilterEnum.ALL)) {
+			mFilterAllButton.setBackgroundResource(R.drawable.window_frame_pressed);
+		} else {
+			mFilterAllButton.setBackgroundResource(R.drawable.window_frame);
+		}
+		if(mSelectFilter.equals(InventoryFilterEnum.EQUIPMENT)) {
+			mFilterEquipmentButton.setBackgroundResource(R.drawable.window_frame_pressed);
+		} else {
+			mFilterEquipmentButton.setBackgroundResource(R.drawable.window_frame);
+		}
+		if(mSelectFilter.equals(InventoryFilterEnum.SUPPLIES)) {
+			mFilterSuppliesButton.setBackgroundResource(R.drawable.window_frame_pressed);
+		} else {
+			mFilterSuppliesButton.setBackgroundResource(R.drawable.window_frame);
+		}
+		if(mSelectFilter.equals(InventoryFilterEnum.MISCELLANEOUS)) {
+			mFilterMiscellaneousButton.setBackgroundResource(R.drawable.window_frame_pressed);
+		} else {
+			mFilterMiscellaneousButton.setBackgroundResource(R.drawable.window_frame);
+		}
+		if(mSelectFilter.equals(InventoryFilterEnum.MATERIAL)) {
+			mFilterMaterialButton.setBackgroundResource(R.drawable.window_frame_pressed);
+		} else {
+			mFilterMaterialButton.setBackgroundResource(R.drawable.window_frame);
+		}
+		if(mSelectFilter.equals(InventoryFilterEnum.IMPORTANT)) {
+			mFilterImportantButton.setBackgroundResource(R.drawable.window_frame_pressed);
+		} else {
+			mFilterImportantButton.setBackgroundResource(R.drawable.window_frame);
+		}
+	}
+
 	@Override
 	public void onClick(View view) {
 		int viewID = view.getId();
 		switch (viewID) {
 			case R.id.part_inventory_closeInventoryButton:
 				mListener.onInventoryClose();
+				break;
+			case R.id.part_inventory_openDetailButton:
+				break;
+			case R.id.part_inventory_openUseButton:
+				break;
+			case R.id.part_inventory_trashButton:
+				break;
+
+			case R.id.part_inventory_filterAllButton:
+				changeFilter(InventoryFilterEnum.ALL);
+				setItemSelected(false);
+				updateInventoryAdapter();
+				break;
+			case R.id.part_inventory_filterEquipmentButton:
+				changeFilter(InventoryFilterEnum.EQUIPMENT);
+				setItemSelected(false);
+				updateInventoryAdapter();
+				break;
+			case R.id.part_inventory_filterSuppliesButton:
+				changeFilter(InventoryFilterEnum.SUPPLIES);
+				setItemSelected(false);
+				updateInventoryAdapter();
+				break;
+			case R.id.part_inventory_filterMiscellaneousButton:
+				changeFilter(InventoryFilterEnum.MISCELLANEOUS);
+				setItemSelected(false);
+				updateInventoryAdapter();
+				break;
+			case R.id.part_inventory_filterMaterialButton:
+				changeFilter(InventoryFilterEnum.MATERIAL);
+				setItemSelected(false);
+				updateInventoryAdapter();
+				break;
+			case R.id.part_inventory_filterImportantButton:
+				changeFilter(InventoryFilterEnum.IMPORTANT);
+				setItemSelected(false);
+				updateInventoryAdapter();
 				break;
 			default:
 				break;
@@ -128,7 +249,7 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 			if (convertView == null) {
 				convertView = mInflater.inflate(R.layout.listitem_item, null);
 			}
-			Item item = (Item) getItem(position);
+			Item item = getItem(position);
 			if (item != null) {
 				// アイテムアイコン
 				itemIcon = (ImageView) convertView.findViewById(R.id.part_inventory_list_itemImageView);
@@ -160,5 +281,6 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 		//リストがタップされた時のあれこれ
+		setItemSelected(true);
 	}
 }

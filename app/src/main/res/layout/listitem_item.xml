@@ -54,7 +54,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="x 5"
-            android:textSize="24dp"/>
+            android:textSize="20dp"/>
 
         <TextView
             android:id="@+id/part_inventory_list_itemWeightText"
@@ -64,7 +64,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="wgt : 4"
-            android:textSize="20dp"/>
+            android:textSize="16dp"/>
 
 
     </LinearLayout>
