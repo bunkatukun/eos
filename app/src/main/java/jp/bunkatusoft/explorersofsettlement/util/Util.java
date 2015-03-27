@@ -71,4 +71,39 @@ public class Util {
 	public static int getDensityPoint(Context context, int value) {
 		return (int) (value * context.getResources().getDisplayMetrics().density);
 	}
+
+	/**
+	 * 画像セットを分割して読み込む
+	 * @param context	コンテキスト
+	 * @param resourceID	使用画像のリソースＩＤ
+	 * @param xNum	横方向分割数
+	 * @param yNum	縦方向分割数
+	 * @return	ビットマップ配列<br>xNum * yNumの要素を持つ
+	 */
+	public static Bitmap[] loadSplitBitmapImage(Context context, int resourceID, int xNum, int yNum) {
+		int rawWidth, rawHeight;
+		int splitWidth, splitHeight;
+		int cursorX = 0;
+		int cursorY = 0;
+		int allNum = xNum * yNum;
+		Bitmap splitImage[] = new Bitmap[allNum];
+		Bitmap rawImage = loadResourceBitmapImage(context, resourceID);
+
+		rawWidth = rawImage.getWidth();
+		rawHeight = rawImage.getHeight();
+		splitWidth = rawWidth / xNum;
+		splitHeight = rawHeight / yNum;
+
+		for (int i = 0; i < allNum; i++) {
+			if (i != 0 && i % xNum == 0) {
+				cursorX = 0;
+				cursorY += splitHeight;
+			} else if (i != 0) {
+				cursorX += splitWidth;
+			}
+			splitImage[i] = Bitmap.createBitmap(rawImage, cursorX, cursorY,
+					splitWidth, splitHeight);
+		}
+		return splitImage;
+	}
 }

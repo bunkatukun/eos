@@ -38,6 +38,7 @@ public class WorldFieldUtil {
 
 		Item item1 = new Item();
 		item1.id = 1;
+		item1.imageID =0;
 		item1.name = "アイテム1";
 		item1.category = 0;
 		item1.filter = InventoryFilterEnum.EQUIPMENT;
@@ -49,6 +50,7 @@ public class WorldFieldUtil {
 
 		Item item2 = new Item();
 		item2.id = 2;
+		item2.imageID =1;
 		item2.name = "アイテム2";
 		item2.category = 0;
 		item2.filter = InventoryFilterEnum.SUPPLIES;
@@ -60,6 +62,7 @@ public class WorldFieldUtil {
 
 		Item item3 = new Item();
 		item3.id = 3;
+		item3.imageID =2;
 		item3.name = "アイテム3";
 		item3.category = 0;
 		item3.filter = InventoryFilterEnum.MATERIAL;
@@ -71,6 +74,7 @@ public class WorldFieldUtil {
 
 		Item item4 = new Item();
 		item4.id = 4;
+		item4.imageID =3;
 		item4.name = "アイテム4";
 		item4.category = 0;
 		item4.filter = InventoryFilterEnum.EQUIPMENT;
@@ -82,6 +86,7 @@ public class WorldFieldUtil {
 
 		Item item5 = new Item();
 		item5.id = 5;
+		item5.imageID =4;
 		item5.name = "アイテム5";
 		item5.category = 0;
 		item5.filter = InventoryFilterEnum.MISCELLANEOUS;
