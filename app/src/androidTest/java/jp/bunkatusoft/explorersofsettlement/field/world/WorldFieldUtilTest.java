@@ -10,7 +10,9 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.bunkatusoft.explorersofsettlement.system.item.ItemInventory;
+import jp.bunkatusoft.explorersofsettlement.system.item.InventoryFilterEnum;
+import jp.bunkatusoft.explorersofsettlement.system.item.Item;
+import jp.bunkatusoft.explorersofsettlement.system.item.ItemCategoryEnum;
 
 import static android.support.test.InstrumentationRegistry.getContext;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -52,16 +54,57 @@ public class WorldFieldUtilTest {
 	public static class initItemInventoryを使って {
 		@Test
 		public void ItemInventoryが初期化できる() throws Exception {
-			ItemInventory inventory = WorldFieldUtil.initItemInventory();
+			List<Item> itemList = WorldFieldUtil.initItemInventory();
 
-			assertThat(inventory.itemList.get(0).id,is(1));
-			assertThat(inventory.itemList.get(0).name,is("アイテム1"));
+			assertThat(itemList.get(0).id,is(1));
+			assertThat(itemList.get(0).imageID,is(0));
+			assertThat(itemList.get(0).name,is("アイテム1"));
+			assertThat(itemList.get(0).category,is(ItemCategoryEnum.CATEGORY1));
+			assertThat(itemList.get(0).filter,is(InventoryFilterEnum.EQUIPMENT));
+			assertThat(itemList.get(0).num,is(1));
+			assertThat(itemList.get(0).weight,is(5));
+			assertThat(itemList.get(0).canUse,is(false));
+			assertThat(itemList.get(0).canTrash,is(true));
 
-			assertThat(inventory.itemList.get(1).id,is(2));
-			assertThat(inventory.itemList.get(1).name,is("アイテム2"));
+			assertThat(itemList.get(1).id,is(2));
+			assertThat(itemList.get(1).imageID,is(1));
+			assertThat(itemList.get(1).name,is("アイテム2"));
+			assertThat(itemList.get(1).category,is(ItemCategoryEnum.CATEGORY2));
+			assertThat(itemList.get(1).filter,is(InventoryFilterEnum.SUPPLIES));
+			assertThat(itemList.get(1).num,is(3));
+			assertThat(itemList.get(1).weight,is(1));
+			assertThat(itemList.get(1).canUse,is(true));
+			assertThat(itemList.get(1).canTrash,is(true));
 
-			assertThat(inventory.itemList.get(2).id,is(3));
-			assertThat(inventory.itemList.get(2).name,is("アイテム3"));
+			assertThat(itemList.get(2).id,is(3));
+			assertThat(itemList.get(2).imageID,is(2));
+			assertThat(itemList.get(2).name,is("アイテム3"));
+			assertThat(itemList.get(2).category,is(ItemCategoryEnum.CATEGORY3));
+			assertThat(itemList.get(2).filter,is(InventoryFilterEnum.MATERIAL));
+			assertThat(itemList.get(2).num,is(2));
+			assertThat(itemList.get(2).weight,is(2));
+			assertThat(itemList.get(2).canUse,is(false));
+			assertThat(itemList.get(2).canTrash,is(true));
+
+			assertThat(itemList.get(3).id,is(4));
+			assertThat(itemList.get(3).imageID,is(3));
+			assertThat(itemList.get(3).name,is("アイテム4"));
+			assertThat(itemList.get(3).category,is(ItemCategoryEnum.CATEGORY2));
+			assertThat(itemList.get(3).filter,is(InventoryFilterEnum.EQUIPMENT));
+			assertThat(itemList.get(3).num,is(1));
+			assertThat(itemList.get(3).weight,is(7));
+			assertThat(itemList.get(3).canUse,is(false));
+			assertThat(itemList.get(3).canTrash,is(true));
+
+			assertThat(itemList.get(4).id,is(5));
+			assertThat(itemList.get(4).imageID,is(4));
+			assertThat(itemList.get(4).name,is("アイテム5"));
+			assertThat(itemList.get(4).category,is(ItemCategoryEnum.CATEGORY1));
+			assertThat(itemList.get(4).filter,is(InventoryFilterEnum.MISCELLANEOUS));
+			assertThat(itemList.get(4).num,is(2));
+			assertThat(itemList.get(4).weight,is(2));
+			assertThat(itemList.get(4).canUse,is(true));
+			assertThat(itemList.get(4).canTrash,is(true));
 		}
 	}
 
