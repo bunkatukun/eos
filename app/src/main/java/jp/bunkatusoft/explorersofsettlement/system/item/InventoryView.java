@@ -285,7 +285,6 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 				}
 				// アイテムアイコン
 				itemIcon = (ImageView) convertView.findViewById(R.id.part_inventory_list_itemImageView);
-				//TODO 解析・メモリ展開済みの画像群を呼び出し、ID一致で当てはめる仕組みを作る
 				itemIcon.setImageBitmap(ExploreOfSettlementApplication.getItemIconBitmap(item.imageID));
 
 				// アイテム名称
@@ -295,8 +294,7 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 
 				// アイテム種別
 				itemCategory = (TextView) convertView.findViewById(R.id.part_inventory_list_itemCategoryText);
-				//TODO 種別idからテキストへ起こすメソッドの追加
-				itemCategory.setText(String.valueOf(item.category));
+				itemCategory.setText(item.category.getCategory());
 
 				// アイテム個数
 				itemNum = (TextView) convertView.findViewById(R.id.part_inventory_list_itemNumText);

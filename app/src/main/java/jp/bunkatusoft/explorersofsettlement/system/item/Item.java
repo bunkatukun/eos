@@ -5,8 +5,7 @@ public class Item {
 	//TODO 将来的にCategoryと統一したい
 	public int imageID;
 	public String name;
-	//TODO 種別はenum化した方が良い気がする
-	public int category;
+	public ItemCategoryEnum category;
 	//TODO filter は category と統一したい
 	public InventoryFilterEnum filter;
 	public int weight;

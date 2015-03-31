@@ -11,6 +11,7 @@ import java.util.List;
 
 import jp.bunkatusoft.explorersofsettlement.system.item.InventoryFilterEnum;
 import jp.bunkatusoft.explorersofsettlement.system.item.Item;
+import jp.bunkatusoft.explorersofsettlement.system.item.ItemCategoryEnum;
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
 public class WorldFieldUtil {
@@ -40,7 +41,7 @@ public class WorldFieldUtil {
 		item1.id = 1;
 		item1.imageID =0;
 		item1.name = "アイテム1";
-		item1.category = 0;
+		item1.category = ItemCategoryEnum.CATEGORY1;
 		item1.filter = InventoryFilterEnum.EQUIPMENT;
 		item1.num = 1;
 		item1.weight = 5;
@@ -52,7 +53,7 @@ public class WorldFieldUtil {
 		item2.id = 2;
 		item2.imageID =1;
 		item2.name = "アイテム2";
-		item2.category = 0;
+		item2.category = ItemCategoryEnum.CATEGORY2;
 		item2.filter = InventoryFilterEnum.SUPPLIES;
 		item2.num = 3;
 		item2.weight = 1;
@@ -64,7 +65,7 @@ public class WorldFieldUtil {
 		item3.id = 3;
 		item3.imageID =2;
 		item3.name = "アイテム3";
-		item3.category = 0;
+		item3.category = ItemCategoryEnum.CATEGORY3;
 		item3.filter = InventoryFilterEnum.MATERIAL;
 		item3.num = 2;
 		item3.weight = 2;
@@ -76,7 +77,7 @@ public class WorldFieldUtil {
 		item4.id = 4;
 		item4.imageID =3;
 		item4.name = "アイテム4";
-		item4.category = 0;
+		item4.category = ItemCategoryEnum.CATEGORY2;
 		item4.filter = InventoryFilterEnum.EQUIPMENT;
 		item4.num = 1;
 		item4.weight = 7;
@@ -88,7 +89,7 @@ public class WorldFieldUtil {
 		item5.id = 5;
 		item5.imageID =4;
 		item5.name = "アイテム5";
-		item5.category = 0;
+		item5.category = ItemCategoryEnum.CATEGORY1;
 		item5.filter = InventoryFilterEnum.MISCELLANEOUS;
 		item5.num = 2;
 		item5.weight =2;

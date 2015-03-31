@@ -71,4 +71,10 @@
     <string name="sys_msg_wip">I\'m sorry.\nThis function is not implemented yet.</string>
     <string name="sys_version_name">v %s</string>
 
+    <!-- System.ItemCategory.Name -->
+    <!-- test Edition -->
+    <string name="sys_item_category_1">Category 1</string>
+    <string name="sys_item_category_2">Category 2</string>
+    <string name="sys_item_category_3">Category 3</string>
+
 </resources>

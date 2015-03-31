@@ -9,36 +9,58 @@ import java.util.Map;
 
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
+/**
+ * EoS起動中に動き続ける Application クラス
+ */
+public class ExploreOfSettlementApplication extends Application {
 
-public class ExploreOfSettlementApplication extends Application{
+	private static final int ITEMICON_SPLIT_W = 16;
+	private static final int ITEMICON_SPLIT_H = 16;
 
+	/**
+	 * コンストラクタ
+	 */
 	Context mContext;
-	//TODO MAPにするべきかな？
-	private static Map<Integer,Bitmap> mItemIconMap;
+
+	/**
+	 * アイテムアイコン用画像セット
+	 */
+	private static Map<Integer, Bitmap> mItemIconMap;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		//TODO 各種画像等、プログラムの開始時に読み込む必要があるものはここで
 		mContext = this;
-		mItemIconMap = new HashMap<Integer, Bitmap>();
 
+		// 画像群・データ群の読み込み
 		loadItemIconBitmaps();
 	}
 
-	private void loadItemIconBitmaps(){
-		Bitmap[] itemIconBitmaps = Util.loadSplitBitmapImage(mContext,R.drawable.iconset_test,16,16);
+	/**
+	 * アイテムアイコン画像群を読み込む
+	 */
+	private void loadItemIconBitmaps() {
+		mItemIconMap = new HashMap<Integer, Bitmap>();
+		Bitmap[] itemIconBitmaps = Util.loadSplitBitmapImage(mContext, R.drawable.iconset_test, ITEMICON_SPLIT_W, ITEMICON_SPLIT_H);
 
-		if(itemIconBitmaps != null && itemIconBitmaps.length>0){
+		if (itemIconBitmaps != null && itemIconBitmaps.length > 0) {
 			int loopCount = 0;
-			for(Bitmap itemIcon : itemIconBitmaps){
-				mItemIconMap.put(loopCount,itemIcon);
+			for (Bitmap itemIcon : itemIconBitmaps) {
+				mItemIconMap.put(loopCount, itemIcon);
 				loopCount++;
 			}
 		}
+		//TODO 読み込みの成否で処理を行う
 	}
 
-	public static Bitmap getItemIconBitmap(int key){
+	/**
+	 * アイテムアイコン画像を取得する
+	 *
+	 * @param key 取得するアイコン画像のキー値
+	 * @return アイコン画像
+	 */
+	public static Bitmap getItemIconBitmap(int key) {
 		return mItemIconMap.get(key);
 	}
 
@@ -50,11 +72,15 @@ public class ExploreOfSettlementApplication extends Application{
 		releaseItemIconBitmaps();
 	}
 
-	private void releaseItemIconBitmaps(){
-		if(mItemIconMap != null && mItemIconMap.size()>0){
-			for(Map.Entry<Integer, Bitmap> bitmap : mItemIconMap.entrySet()){
+	/**
+	 * アイテムアイコン画像群を破棄する
+	 */
+	private void releaseItemIconBitmaps() {
+		if (mItemIconMap != null && mItemIconMap.size() > 0) {
+			for (Map.Entry<Integer, Bitmap> bitmap : mItemIconMap.entrySet()) {
 				bitmap.getValue().recycle();
 			}
 		}
+		//TODO 破棄の成否で処理を行う
 	}
 }

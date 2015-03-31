@@ -67,5 +67,11 @@
     <string name="sys_msg_confirm_run_debug">デバッグ画面を開始します。</string>
     <string name="sys_msg_wip">申し訳ありません。\n本機能は未実装です。</string>
     <string name="sys_version_name">v %s</string>
+    
+    <!-- System.ItemCategory.Name -->
+    <!-- test Edition -->
+    <string name="sys_item_category_1">カテゴリ1</string>
+    <string name="sys_item_category_2">カテゴリ2</string>
+    <string name="sys_item_category_3">カテゴリ3</string>
 
 </resources>
