@@ -4,43 +4,60 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.debug.DebugActivity;
 import jp.bunkatusoft.explorersofsettlement.field.settlement.SettlementFieldActivity;
-import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
+import jp.bunkatusoft.explorersofsettlement.system.SystemDialogView;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
-/**
- * Created by m_kagaya on 2014/11/25.
- */
-public class TitleActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener,View.OnClickListener{
+//OverlayLayoutが出現する場合、下層のClickListenerを解除する必要がある
+public class TitleActivity extends FragmentActivity implements View.OnClickListener, SystemDialogView.OnDialogClickListener, View.OnTouchListener {
 
 	Context mContext;
+	FrameLayout mRootLayout;
+	RelativeLayout mMainLayout;
+
+	boolean isOverlayNow;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//TODO TITLE
-		setContentView(R.layout.activity_title);
+
 		mContext = this;
+		isOverlayNow = false;
+		//requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		mRootLayout = new FrameLayout(this);
+		setContentView(mRootLayout);
+
+		setMainLayout();
+	}
+
+	private void setMainLayout() {
+		mMainLayout = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.activity_title, null);
+		mRootLayout.addView(mMainLayout);
 
 		Button newStartButton = (Button) findViewById(R.id.part_title_newStartButton);
+		newStartButton.setOnTouchListener(this);
 		newStartButton.setOnClickListener(this);
-
 		Button continueButton = (Button) findViewById(R.id.part_title_continueButton);
+		continueButton.setOnTouchListener(this);
 		continueButton.setOnClickListener(this);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.title_activity,menu);
+		getMenuInflater().inflate(R.menu.title_activity, menu);
 		return true;
 	}
 
@@ -70,33 +87,28 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 	}
 
 	private void showSystemDialog(SystemMenuEnum menuEnum) {
-		SystemDialog systemDialog;
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		SystemDialogView systemDialogView;
+		isOverlayNow = true;
 		switch (menuEnum) {
 			case ACHIEVEMENTS:
-				systemDialog = SystemDialog.newInstance(null, getString(R.string.sys_msg_wip), getString(R.string.back), null, menuEnum);
-				ft.add(systemDialog,null);
-				ft.commitAllowingStateLoss();
+				systemDialogView = new SystemDialogView(this, mRootLayout, this, getString(R.string.sys_msg_wip), getString(R.string.back), null, menuEnum);
+				systemDialogView.startAnimation(true);
 				break;
 			case SETTINGS:
-				systemDialog = SystemDialog.newInstance(null, getString(R.string.sys_msg_wip), getString(R.string.back), null, menuEnum);
-				ft.add(systemDialog,null);
-				ft.commitAllowingStateLoss();
+				systemDialogView = new SystemDialogView(this, mRootLayout, this, getString(R.string.sys_msg_wip), getString(R.string.back), null, menuEnum);
+				systemDialogView.startAnimation(true);
 				break;
 			case VERSION_INFO:
-				systemDialog = SystemDialog.newInstance(null, String.format(getString(R.string.title_text_version_info), Util.getPackageVersion(mContext)), getString(R.string.back), null, menuEnum);
-				ft.add(systemDialog,null);
-				ft.commitAllowingStateLoss();
+				systemDialogView = new SystemDialogView(this, mRootLayout, this, String.format(getString(R.string.title_text_version_info), Util.getPackageVersion(mContext)), getString(R.string.back), null, menuEnum);
+				systemDialogView.startAnimation(true);
 				break;
 			case DEBUG:
-				systemDialog = SystemDialog.newInstance(null, getString(R.string.sys_msg_confirm_run_debug), getString(R.string.yes), getString(R.string.no), menuEnum);
-				ft.add(systemDialog,null);
-				ft.commitAllowingStateLoss();
+				systemDialogView = new SystemDialogView(this, mRootLayout, this, getString(R.string.sys_msg_confirm_run_debug), getString(R.string.yes), getString(R.string.no), menuEnum);
+				systemDialogView.startAnimation(true);
 				break;
 			case QUIT:
-				systemDialog = SystemDialog.newInstance(null, getString(R.string.sys_msg_confirm_gameend), getString(R.string.yes), getString(R.string.no), menuEnum);
-				ft.add(systemDialog,null);
-				ft.commitAllowingStateLoss();
+				systemDialogView = new SystemDialogView(this, mRootLayout, this, getString(R.string.sys_msg_confirm_gameend), getString(R.string.yes), getString(R.string.no), menuEnum);
+				systemDialogView.startAnimation(true);
 				break;
 			default:
 				//未実装の定義は省略
@@ -105,8 +117,25 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 	}
 
 	@Override
-	public void OnPositiveClickListener(SystemMenuEnum menuEnum) {
-		switch (menuEnum) {
+	public void onClick(View view) {
+		int id = view.getId();
+		switch (id) {
+			case R.id.part_title_newStartButton:
+				startActivity(new Intent(TitleActivity.this, SettlementFieldActivity.class));
+				finish();
+				break;
+			case R.id.part_title_continueButton:
+				finish();
+				break;
+			default:
+				break;
+		}
+	}
+
+	@Override
+	public void onPositiveClick(SystemMenuEnum menu) {
+		isOverlayNow = false;
+		switch (menu) {
 			case ACHIEVEMENTS:
 				break;
 			case SETTINGS:
@@ -120,14 +149,13 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 			case QUIT:
 				finish();
 				break;
-			default:
-				break;
 		}
 	}
 
 	@Override
-	public void OnNegativeClickListener(SystemMenuEnum menuEnum) {
-		switch (menuEnum) {
+	public void onNegativeClick(SystemMenuEnum menu) {
+		isOverlayNow = false;
+		switch (menu) {
 			case ACHIEVEMENTS:
 				break;
 			case SETTINGS:
@@ -144,18 +172,7 @@ public class TitleActivity extends FragmentActivity implements SystemDialog.OnSy
 	}
 
 	@Override
-	public void onClick(View view) {
-		int id = view.getId();
-		switch (id){
-			case R.id.part_title_newStartButton:
-				startActivity(new Intent(TitleActivity.this, SettlementFieldActivity.class));
-				finish();
-				break;
-			case R.id.part_title_continueButton:
-				finish();
-				break;
-			default:
-				break;
-		}
+	public boolean onTouch(View view, MotionEvent motionEvent) {
+		return isOverlayNow;
 	}
 }

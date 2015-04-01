@@ -40,6 +40,14 @@ public class CustomAnimationUtil {
 				resultAnimationSet.addAnimation(recedeScaleAnimation);
 				resultAnimationSet.addAnimation(recedeAlphaAnimation);
 				break;
+			case FADE_IN:
+				inAlphaAnimation = (AlphaAnimation) AnimationUtils.loadAnimation(context, R.anim.fade_in_alpha);
+				resultAnimationSet.addAnimation(inAlphaAnimation);
+				break;
+			case FADE_OUT:
+				outAlphaAnimation = (AlphaAnimation) AnimationUtils.loadAnimation(context, R.anim.fade_out_alpha);
+				resultAnimationSet.addAnimation(outAlphaAnimation);
+				break;
 			default:
 				break;
 		}
