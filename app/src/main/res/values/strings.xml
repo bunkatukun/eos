@@ -77,4 +77,10 @@
     <string name="sys_item_category_2">Category 2</string>
     <string name="sys_item_category_3">Category 3</string>
 
+    <!-- System.ItemQuality.Name -->
+    <!-- test Edition -->
+    <string name="sys_item_quality_good">good</string>
+    <string name="sys_item_quality_normal">normal</string>
+    <string name="sys_item_quality_poor">poor</string>
+
 </resources>

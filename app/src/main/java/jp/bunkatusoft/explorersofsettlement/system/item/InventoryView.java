@@ -2,6 +2,7 @@ package jp.bunkatusoft.explorersofsettlement.system.item;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -273,7 +275,7 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ImageView itemIcon;
-			TextView itemName;
+			LinearLayout itemNameArea;
 			TextView itemCategory;
 			TextView itemNum;
 			TextView itemWeight;
@@ -291,9 +293,16 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 				itemIcon.setImageBitmap(ExploreOfSettlementApplication.getItemIconBitmap(item.imageID));
 
 				// アイテム名称
-				itemName = (TextView) convertView.findViewById(R.id.part_inventory_list_itemNameText);
-				//TODO 種類・レアリティで文字色を変えるか？
-				itemName.setText(item.name);
+				itemNameArea = (LinearLayout) convertView.findViewById(R.id.part_inventory_list_itemNameLayout);
+				itemNameArea.removeAllViews();
+				TextView itemNameText = new TextView(mContext);
+				itemNameText.setText(setItemName(item.name,item.quality));
+				itemNameText.setTextSize(TypedValue.COMPLEX_UNIT_DIP,20);
+				//TODO 不確定名の挿入が可能
+				//TODO 接頭句・接尾句の挿入が可能
+				//TODO 属性・状態アイコンの挿入が可能
+				//TODO つまりもっとフレキシブルになれる
+				itemNameArea.addView(itemNameText);
 
 				// アイテム種別
 				itemCategory = (TextView) convertView.findViewById(R.id.part_inventory_list_itemCategoryText);
@@ -308,6 +317,16 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 				itemWeight.setText("wgt : " + item.weight);
 			}
 			return convertView;
+		}
+
+		private String setItemName(String name, QualityEnum quality){
+			String resultName = name;
+
+			if(!quality.equals(QualityEnum.NORMAL)){
+				resultName += "(" + mContext.getString(quality.getQuality()) + ")";
+			}
+
+			return resultName;
 		}
 	}
 

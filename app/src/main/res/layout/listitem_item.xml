@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="horizontal"
-    android:background="#ffffccaa">
+              android:background="#ffffccaa"
+              android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/part_inventory_list_itemImageView"
@@ -19,15 +19,15 @@
         android:layout_weight="5"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/part_inventory_list_itemNameText"
+        <LinearLayout
+            android:id="@+id/part_inventory_list_itemNameLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:text="だみこだみこ"
-            android:textSize="20dp"/>
+            android:orientation="horizontal">
+        </LinearLayout>
 
         <TextView
             android:id="@+id/part_inventory_list_itemCategoryText"

@@ -74,4 +74,10 @@
     <string name="sys_item_category_2">カテゴリ2</string>
     <string name="sys_item_category_3">カテゴリ3</string>
 
+    <!-- System.ItemQuality.Name -->
+    <!-- test Edition -->
+    <string name="sys_item_quality_good">上質</string>
+    <string name="sys_item_quality_normal">普通</string>
+    <string name="sys_item_quality_poor">劣悪</string>
+
 </resources>

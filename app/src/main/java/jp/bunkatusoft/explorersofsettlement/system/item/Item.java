@@ -4,6 +4,7 @@ public class Item {
 	public int id;
 	//TODO 将来的にCategoryと統一したい
 	public int imageID;
+	public QualityEnum quality;
 	public String name;
 	public ItemCategoryEnum category;
 	//TODO filter は category と統一したい
