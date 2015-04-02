@@ -42,16 +42,19 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 	Inventory mItemInventory;
 
 	RelativeLayout mBaseLayout;
+
+	// アイテムリスト関連
 	ListView mItemListView;
 	InventoryItemAdapter mInventoryItemAdapter;
-	//TODO positionだけだとまずいかも
 	int mSelectItemPosition;
 
+	// コマンドボタン
 	Button mOpenDetailButton;
 	Button mOpenUseButton;
 	Button mTrashButton;
 	Button mCloseButton;
 
+	// アイテムリストのフィルタ関連
 	InventoryFilterEnum mSelectFilter;
 	Button mFilterAllButton;
 	Button mFilterEquipmentButton;
@@ -60,21 +63,38 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 	Button mFilterMaterialButton;
 	Button mFilterImportantButton;
 
+	/**
+	 * コンストラクタ
+	 * @param context	コンテキスト
+	 * @param rootLayout	Viewを追加する親FrameLayout
+	 * @param listener	アクションリスナ
+	 * @param inventory	インベントリデータ
+	 */
 	public InventoryView(Context context, FrameLayout rootLayout, OnInventoryActionListener listener, Inventory inventory) {
 		mContext = context;
 		mListener = listener;
 		mItemInventory = inventory;
 
 		initBaseLayout(rootLayout);
+		initCommandButtons();
 		initFilterButtons();
 		initInventoryAdapter();
 		setSelectItemPosition(NO_SELECT);
 	}
 
+	/**
+	 * ベースとなるレイアウトを設定する
+	 * @param rootLayout	Viewを追加する親FrameLayout
+	 */
 	private void initBaseLayout(FrameLayout rootLayout) {
 		mBaseLayout = (RelativeLayout) LayoutInflater.from(mContext).inflate(R.layout.overlay_inventory, null);
 		rootLayout.addView(mBaseLayout);
+	}
 
+	/**
+	 * コマンドボタンを初期化する
+	 */
+	private void initCommandButtons(){
 		mOpenDetailButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_openDetailButton);
 		mOpenDetailButton.setOnClickListener(this);
 		mOpenDetailButton.setEnabled(false);
@@ -88,6 +108,9 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 		mCloseButton.setOnClickListener(this);
 	}
 
+	/**
+	 * リストのフィルタボタンを初期化する
+	 */
 	private void initFilterButtons() {
 		mFilterAllButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_filterAllButton);
 		mFilterAllButton.setOnClickListener(this);
@@ -105,6 +128,9 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 		changeFilter(InventoryFilterEnum.ALL);
 	}
 
+	/**
+	 * アイテムリストを初期化する
+	 */
 	private void initInventoryAdapter() {
 		mItemListView = (ListView) mBaseLayout.findViewById(R.id.part_inventory_itemList);
 		mItemListView.setOnItemClickListener(this);
@@ -266,6 +292,11 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 		private Context mContext;
 		private final LayoutInflater mInflater;
 
+		/**
+		 * コンストラクタ
+		 * @param context	コンテキスト
+		 * @param objects	アイテムリスト
+		 */
 		public InventoryItemAdapter(Context context, List<Item> objects) {
 			super(context, 0, objects);
 			mContext = context;
@@ -299,7 +330,6 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 				itemNameText.setText(setItemName(item.name,item.quality));
 				itemNameText.setTextSize(TypedValue.COMPLEX_UNIT_DIP,20);
 				//TODO 不確定名の挿入が可能
-				//TODO 接頭句・接尾句の挿入が可能
 				//TODO 属性・状態アイコンの挿入が可能
 				//TODO つまりもっとフレキシブルになれる
 				itemNameArea.addView(itemNameText);
@@ -319,13 +349,17 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 			return convertView;
 		}
 
+		/**
+		 * アイテム名を設定する
+		 * @param name	デフォルト名
+		 * @param quality	品質
+		 * @return	各種ステータスを加味した表示名
+		 */
 		private String setItemName(String name, QualityEnum quality){
 			String resultName = name;
-
 			if(!quality.equals(QualityEnum.NORMAL)){
 				resultName += "(" + mContext.getString(quality.getQuality()) + ")";
 			}
-
 			return resultName;
 		}
 	}
