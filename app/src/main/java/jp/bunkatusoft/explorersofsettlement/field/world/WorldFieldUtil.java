@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.bunkatusoft.explorersofsettlement.system.item.Inventory;
 import jp.bunkatusoft.explorersofsettlement.system.item.InventoryFilterEnum;
 import jp.bunkatusoft.explorersofsettlement.system.item.Item;
 import jp.bunkatusoft.explorersofsettlement.system.item.ItemCategoryEnum;
@@ -34,8 +35,8 @@ public class WorldFieldUtil {
 
 	//TODO 不要になった動作用メソッドは速やかに削除すべし
 	/* 動作用(≠test)メソッド */
-	public static List<Item> initItemInventory() {
-		List<Item> resultList = new ArrayList<Item>();
+	public static Inventory initItemInventory() {
+		List<Item> itemList = new ArrayList<Item>();
 
 		Item item1 = new Item();
 		item1.id = 1;
@@ -47,7 +48,7 @@ public class WorldFieldUtil {
 		item1.weight = 5;
 		item1.canUse = false;
 		item1.canTrash = true;
-		resultList.add(item1);
+		itemList.add(item1);
 
 		Item item2 = new Item();
 		item2.id = 2;
@@ -59,7 +60,7 @@ public class WorldFieldUtil {
 		item2.weight = 1;
 		item2.canUse = true;
 		item2.canTrash = true;
-		resultList.add(item2);
+		itemList.add(item2);
 
 		Item item3 = new Item();
 		item3.id = 3;
@@ -71,7 +72,7 @@ public class WorldFieldUtil {
 		item3.weight = 2;
 		item3.canUse = false;
 		item3.canTrash = true;
-		resultList.add(item3);
+		itemList.add(item3);
 
 		Item item4 = new Item();
 		item4.id = 4;
@@ -83,7 +84,7 @@ public class WorldFieldUtil {
 		item4.weight = 7;
 		item4.canUse = false;
 		item4.canTrash = true;
-		resultList.add(item4);
+		itemList.add(item4);
 
 		Item item5 = new Item();
 		item5.id = 5;
@@ -95,8 +96,8 @@ public class WorldFieldUtil {
 		item5.weight =2;
 		item5.canUse = true;
 		item5.canTrash = true;
-		resultList.add(item5);
+		itemList.add(item5);
 
-		return resultList;
+		return new Inventory(itemList);
 	}
 }

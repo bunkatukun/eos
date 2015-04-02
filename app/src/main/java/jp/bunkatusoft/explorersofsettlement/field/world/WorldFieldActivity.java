@@ -29,6 +29,7 @@ import jp.bunkatusoft.explorersofsettlement.system.ButtonGroup;
 import jp.bunkatusoft.explorersofsettlement.system.ButtonGroupEnum;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
+import jp.bunkatusoft.explorersofsettlement.system.item.Inventory;
 import jp.bunkatusoft.explorersofsettlement.system.item.InventoryView;
 import jp.bunkatusoft.explorersofsettlement.system.item.Item;
 import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
@@ -65,7 +66,7 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 	EventView mEventView;
 	List<Event> mEvents;
 
-	List<Item> mItemList;
+	Inventory mItemInventory;
 	InventoryView mInventoryView;
 
 	@Override
@@ -78,7 +79,7 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 
 		//TODO インベントリ定義＆初期化 本当はここじゃない方がいいかも？
 		//TODO プレイヤーデータの設定タイミングを作ったら、そこへ引っ越すこと
-		mItemList = WorldFieldUtil.initItemInventory();
+		mItemInventory = WorldFieldUtil.initItemInventory();
 
 		// データの読み込み
 		mFieldPieces = new ArrayList<FieldPiece>();
@@ -141,7 +142,7 @@ public class WorldFieldActivity extends FragmentActivity implements SystemDialog
 		mEventView = new EventView(this,rootLayout,this);
 		mEventView.setVisibility(View.GONE);
 
-		mInventoryView = new InventoryView(this,rootLayout,this,(ArrayList)mItemList);
+		mInventoryView = new InventoryView(this,rootLayout,this,mItemInventory);
 		mInventoryView.setVisibility(View.GONE);
 	}
 

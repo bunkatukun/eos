@@ -37,11 +37,11 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 
 	Context mContext;
 	OnInventoryActionListener mListener;
-	ArrayList<Item> mItemList;
+	Inventory mItemInventory;
 
 	RelativeLayout mBaseLayout;
 	ListView mItemListView;
-	InventoryAdapter mInventoryAdapter;
+	InventoryItemAdapter mInventoryItemAdapter;
 	//TODO positionだけだとまずいかも
 	int mSelectItemPosition;
 
@@ -58,10 +58,10 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 	Button mFilterMaterialButton;
 	Button mFilterImportantButton;
 
-	public InventoryView(Context context, FrameLayout rootLayout, OnInventoryActionListener listener, ArrayList<Item> itemList) {
+	public InventoryView(Context context, FrameLayout rootLayout, OnInventoryActionListener listener, Inventory inventory) {
 		mContext = context;
 		mListener = listener;
-		mItemList = itemList;
+		mItemInventory = inventory;
 
 		initBaseLayout(rootLayout);
 		initFilterButtons();
@@ -107,8 +107,8 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 		mItemListView = (ListView) mBaseLayout.findViewById(R.id.part_inventory_itemList);
 		mItemListView.setOnItemClickListener(this);
 
-		mInventoryAdapter = new InventoryAdapter(mContext, new ArrayList<Item>());
-		mItemListView.setAdapter(mInventoryAdapter);
+		mInventoryItemAdapter = new InventoryItemAdapter(mContext, new ArrayList<Item>());
+		mItemListView.setAdapter(mInventoryItemAdapter);
 
 		updateInventoryAdapter();
 	}
@@ -117,16 +117,19 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 	 * ItemListを更新する
 	 */
 	private void updateInventoryAdapter() {
-		if (mInventoryAdapter != null) {
-			mInventoryAdapter.clear();
-			if (mItemList != null && mItemList.size() > 0) {
-				for (Item item : mItemList) {
-					if (mSelectFilter.equals(InventoryFilterEnum.ALL) || item.filter.equals(mSelectFilter)) {
-						mInventoryAdapter.add(item);
+		if (mInventoryItemAdapter != null) {
+			mInventoryItemAdapter.clear();
+			if (mItemInventory != null) {
+				ArrayList<Item> itemList = (ArrayList) mItemInventory.getItemList();
+				if(itemList != null && itemList.size()>0) {
+					for (Item item : itemList) {
+						if (mSelectFilter.equals(InventoryFilterEnum.ALL) || item.filter.equals(mSelectFilter)) {
+							mInventoryItemAdapter.add(item);
+						}
 					}
 				}
 			}
-			mInventoryAdapter.notifyDataSetChanged();
+			mInventoryItemAdapter.notifyDataSetChanged();
 		}
 	}
 
@@ -256,12 +259,12 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 		}
 	}
 
-	private class InventoryAdapter extends ArrayAdapter<Item> {
+	private class InventoryItemAdapter extends ArrayAdapter<Item> {
 
 		private Context mContext;
 		private final LayoutInflater mInflater;
 
-		public InventoryAdapter(Context context, List<Item> objects) {
+		public InventoryItemAdapter(Context context, List<Item> objects) {
 			super(context, 0, objects);
 			mContext = context;
 			mInflater = LayoutInflater.from(context);

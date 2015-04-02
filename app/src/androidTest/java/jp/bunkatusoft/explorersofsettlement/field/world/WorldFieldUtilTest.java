@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.bunkatusoft.explorersofsettlement.system.item.Inventory;
 import jp.bunkatusoft.explorersofsettlement.system.item.InventoryFilterEnum;
 import jp.bunkatusoft.explorersofsettlement.system.item.Item;
 import jp.bunkatusoft.explorersofsettlement.system.item.ItemCategoryEnum;
@@ -54,7 +55,9 @@ public class WorldFieldUtilTest {
 	public static class initItemInventoryを使って {
 		@Test
 		public void ItemInventoryが初期化できる() throws Exception {
-			List<Item> itemList = WorldFieldUtil.initItemInventory();
+			Inventory inventory = WorldFieldUtil.initItemInventory();
+			List<Item> itemList = inventory.getItemList();
+			int totalWeight = inventory.getTotalWeight();
 
 			assertThat(itemList.get(0).id,is(1));
 			assertThat(itemList.get(0).imageID,is(0));
@@ -105,6 +108,8 @@ public class WorldFieldUtilTest {
 			assertThat(itemList.get(4).weight,is(2));
 			assertThat(itemList.get(4).canUse,is(true));
 			assertThat(itemList.get(4).canTrash,is(true));
+
+			assertThat(totalWeight,is(23));
 		}
 	}
 
