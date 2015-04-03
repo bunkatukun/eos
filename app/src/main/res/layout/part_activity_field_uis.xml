@@ -4,15 +4,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-    <include
-        android:id="@+id/world_part_worldStatusLayout"
-        layout="@layout/part_world_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="4dp"/>
-
     <ImageButton
         android:id="@+id/world_part_settingsButton"
         android:layout_width="48dp"
@@ -24,18 +15,32 @@
         android:scaleType="centerInside"
         android:src="@drawable/icon_setting"/>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_margin="4dp"
         android:layout_toLeftOf="@+id/world_part_settingsButton"
-        android:layout_toRightOf="@+id/world_part_worldStatusLayout"
-        android:background="#88888888"
-        android:gravity="center_horizontal"
-        android:padding="4dp"
-        android:text="ここに通知用のアイコンを表示させる"
-        android:textSize="16dp"/>
+        android:orientation="horizontal">
+        <include
+            android:id="@+id/world_part_worldStatusLayout"
+            layout="@layout/parts_general_world_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_margin="4dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_margin="4dp"
+            android:background="#88888888"
+            android:gravity="center_horizontal"
+            android:padding="4dp"
+            android:text="ここに通知用のアイコンを表示させる"
+            android:textSize="16dp"/>
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>
