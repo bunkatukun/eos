@@ -1,21 +1,44 @@
 package jp.bunkatusoft.explorersofsettlement.field.explore;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
 
-public class ExploreActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener{
+public class ExploreActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener, View.OnClickListener {
+
+	Context mContext;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		mContext = this;
+
+		//TODO オーバーレイ表示時の下層押下防止対策を行うべし
+		FrameLayout rootLayout = new FrameLayout(this);
+		setContentView(rootLayout);
+
+		ExploreSurfaceView surfaceView = new ExploreSurfaceView(this);
+		surfaceView.setOnClickListener(this);
+		rootLayout.addView(surfaceView);
+
+		RelativeLayout UILayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.ui_activity_explore,null);
+		rootLayout.addView(UILayout);
 	}
 
 	@Override
@@ -108,5 +131,10 @@ public class ExploreActivity extends FragmentActivity implements SystemDialog.On
 			default:
 				break;
 		}
+	}
+
+	@Override
+	public void onClick(View view) {
+
 	}
 }
