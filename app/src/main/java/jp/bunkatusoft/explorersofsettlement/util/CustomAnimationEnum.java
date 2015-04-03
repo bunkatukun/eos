@@ -9,7 +9,9 @@ public enum CustomAnimationEnum {
 	PROTRUDE_IN_FROM_CENTER(0),
 	RECEDE_OUT_TO_CENTER(1),
 	SLIDE_IN_FROM_RIGHT_10P(2),
-	SLIDE_OUT_TO_RIGHT_10P(3);
+	SLIDE_OUT_TO_RIGHT_10P(3),
+	FADE_IN(4),
+	FADE_OUT(5);
 
 	int animationNum;
 
