@@ -42,19 +42,7 @@
     <!-- Settlement -->
     <string name="settle_state_time_format">第二紀 %1$d年 %2$s %3$d日 %4$s</string>
 
-    <!-- Main Menu -->
-    <string name="mainmenu_save_and_load">セーブ&amp;ロード</string>
-    <string name="mainmenu_setting">設定</string>
-    <string name="mainmenu_gameend">ゲームを終了</string>
-
-    <!-- Title Menu -->
-    <string name="titlemenu_achievements">実績</string>
-    <string name="titlemenu_setting">設定</string>
-    <string name="titlemenu_versioninfo">バージョン情報</string>
-    <string name="titlemenu_start_debug">デバッグメニュー</string>
-    <string name="titlemenu_quit">終了</string>
-
-    <!-- Menu -->
+    <!-- System.Menu.Name -->
     <string name="menu_load">ロード</string>
     <string name="menu_save">セーブ</string>
     <string name="menu_achievements">実績</string>
@@ -64,7 +52,7 @@
     <string name="menu_setting">設定</string>
     <string name="menu_return_title">タイトルへ戻る</string>
 
-    <!-- image.System -->
+    <!-- System.Menu.Dialog.Message -->
     <string name="sys_dialogtitle">システム</string>
     <string name="sys_msg_confirm_gameend">終了しますか?</string>
     <string name="sys_msg_confirm_back_title">タイトルへ戻ります。</string>
@@ -83,5 +71,13 @@
     <string name="sys_item_quality_good">上質</string>
     <string name="sys_item_quality_normal">普通</string>
     <string name="sys_item_quality_poor">劣悪</string>
+
+    <!-- World.Command.Name -->
+    <string name="world_command_enter">進入</string>
+    <string name="world_command_members">メンバ</string>
+    <string name="world_command_inventory">インベントリ</string>
+    <string name="world_command_info">情報</string>
+    <string name="world_command_action">アクション</string>
+    <string name="world_command_leave">他の場所へ</string>
 
 </resources>

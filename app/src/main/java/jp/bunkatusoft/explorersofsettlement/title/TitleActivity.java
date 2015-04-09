@@ -31,9 +31,9 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 	RelativeLayout mUILayout;
 
 	SystemMenuView mMenuView;
+	boolean isOpenMenu;
 
 	boolean isBlockTouch;
-	boolean isOpenMenu;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		initSystemMenuView();
 	}
 
-	private void initScreenBackground(){
+	private void initScreenBackground() {
 		//TODO 状況に応じ、複数のBGを切り替えるようにする
 		//TODO アニメーションするBGに対応
 		mRootLayout.setBackgroundResource(R.drawable.background_title_test);
@@ -72,7 +72,7 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		settingButton.setOnClickListener(this);
 	}
 
-	private void initSystemMenuView(){
+	private void initSystemMenuView() {
 		List<SystemMenuEnum> systemMenuList = new ArrayList<SystemMenuEnum>();
 		systemMenuList.add(SystemMenuEnum.ACHIEVEMENTS);
 		systemMenuList.add(SystemMenuEnum.SETTINGS);
@@ -80,37 +80,18 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		systemMenuList.add(SystemMenuEnum.VERSION_INFO);
 		systemMenuList.add(SystemMenuEnum.QUIT);
 
-		mMenuView = new SystemMenuView(this,mUILayout,this,R.id.title_part_settingsButton,(ArrayList)systemMenuList);
+		mMenuView = new SystemMenuView(this, mUILayout, this, R.id.title_part_settingsButton, (ArrayList) systemMenuList);
 		isOpenMenu = false;
 	}
 
-	private void initBlockTouch(){
+	private void initBlockTouch() {
 		isBlockTouch = false;
 	}
 
-	private void setBlockTouch(boolean block){
+	private void setBlockTouch(boolean block) {
 		isBlockTouch = block;
 	}
 
-	@Override
-	public void onClick(View view) {
-		int id = view.getId();
-		switch (id) {
-			case R.id.part_title_newStartButton:
-				startActivity(new Intent(TitleActivity.this, SettlementFieldActivity.class));
-				finish();
-				break;
-			case R.id.part_title_continueButton:
-				finish();
-				break;
-			case R.id.title_part_settingsButton:
-				mMenuView.startAnimation(isOpenMenu);
-				isOpenMenu = !isOpenMenu;
-				break;
-			default:
-				break;
-		}
-	}
 
 	@Override
 	public void onPositiveClick(SystemMenuEnum menu) {
@@ -153,12 +134,29 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		}
 	}
 
-
-
 	@Override
 	public boolean onTouch(View view, MotionEvent motionEvent) {
-		//trueで下層クラスのonClickをブロックする
 		return isBlockTouch;
+	}
+
+	@Override
+	public void onClick(View view) {
+		int id = view.getId();
+		switch (id) {
+			case R.id.title_part_newStartButton:
+				startActivity(new Intent(TitleActivity.this, SettlementFieldActivity.class));
+				finish();
+				break;
+			case R.id.title_part_continueButton:
+				finish();
+				break;
+			case R.id.title_part_settingsButton:
+				mMenuView.startAnimation(isOpenMenu);
+				isOpenMenu = !isOpenMenu;
+				break;
+			default:
+				break;
+		}
 	}
 
 	@Override
@@ -166,6 +164,8 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		SystemDialogView systemDialogView;
 		setBlockTouch(true);
 		mMenuView.setBlockTouch(true);
+		mMenuView.startAnimation(isOpenMenu);
+		isOpenMenu = !isOpenMenu;
 		switch (menuEnum) {
 			case ACHIEVEMENTS:
 				systemDialogView = new SystemDialogView(this, mRootLayout, this, getString(R.string.sys_msg_wip), getString(R.string.back), null, menuEnum);

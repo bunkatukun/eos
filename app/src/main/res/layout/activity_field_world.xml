@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <include layout="@layout/part_activity_field_uis"
+    <include layout="@layout/ui_activity_field"
              android:id="@+id/world_part_worldUILayout"
              android:layout_width="match_parent"
              android:layout_height="match_parent"/>

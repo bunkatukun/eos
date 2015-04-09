@@ -14,7 +14,6 @@ import java.util.List;
 import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationEnum;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationUtil;
-import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
 
 public class SystemMenuView implements View.OnTouchListener {
 
@@ -24,7 +23,7 @@ public class SystemMenuView implements View.OnTouchListener {
 
 	Context mContext;
 	OnMenuChoiceListener mListener;
-	boolean isNeedBlock;
+	boolean isBlockTouch;
 
 	protected RelativeLayout mRootLayout;
 	protected LinearLayout mBaseLayout;
@@ -124,13 +123,13 @@ public class SystemMenuView implements View.OnTouchListener {
 	/**
 	 * システムメニュー項目群のアニメーションを設定・開始する
 	 *
-	 * @param isOpen 開くアニメーションであるか
+	 * @param isOpen 開いた状態であるか
 	 */
 	public void startAnimation(boolean isOpen) {
 		if (mMenuTextList != null && mMenuTextList.size() > 0) {
 			for (int i = 0; i < mMenuTextList.size(); i++) {
-				mMenuTextList.get(i).startAnimation(CustomAnimationUtil.generateMenuAnimation(mContext, (isOpen ? CustomAnimationEnum.DESCENT_PERCENT : CustomAnimationEnum.RISE_PERCENT), i + 1));
-				mMenuTextList.get(i).setVisibility((isOpen ? View.VISIBLE : View.INVISIBLE));
+				mMenuTextList.get(i).startAnimation(CustomAnimationUtil.generateMenuAnimation(mContext, (isOpen ? CustomAnimationEnum.RISE_PERCENT : CustomAnimationEnum.DESCENT_PERCENT), i + 1));
+				mMenuTextList.get(i).setVisibility((isOpen ? View.INVISIBLE : View.VISIBLE));
 			}
 		}
 	}
@@ -138,22 +137,21 @@ public class SystemMenuView implements View.OnTouchListener {
 	/**
 	 * SystemMenuViewのタップ操作許可フラグを設定する
 	 *
-	 * @param isNeedBlock View内のタップ操作を許可するか
+	 * @param block View内のタップ操作を許可するか
 	 */
-	public void setBlockTouch(boolean isNeedBlock) {
-		this.isNeedBlock = isNeedBlock;
+	public void setBlockTouch(boolean block) {
+		isBlockTouch = block;
 	}
 
 	/**
 	 * SystemMenuViewのタップ操作許可フラグを初期化する
 	 */
 	private void initBlockTouch() {
-		isNeedBlock = false;
+		isBlockTouch = false;
 	}
 
 	@Override
 	public boolean onTouch(View view, MotionEvent motionEvent) {
-		LogUtil.i("isNeedBlack : " + isNeedBlock);
-		return isNeedBlock;
+		return isBlockTouch;
 	}
 }

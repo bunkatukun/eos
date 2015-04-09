@@ -2,19 +2,16 @@ package jp.bunkatusoft.explorersofsettlement.system;
 
 import java.util.NoSuchElementException;
 
+import jp.bunkatusoft.explorersofsettlement.R;
+
 // TODO もっといい名前に変更
 public enum ButtonGroupEnum {
-	ENTER(0),
-	MEMBERS(1),
-	ITEMS(2),
-	INFO(3),
-	ACTIONS(4),
-	LEAVE(5),
-
-	LOAD(6),
-	SAVE(7),
-	CONFIGS(8),
-	RETURN_TITLE(9);
+	ENTER(R.string.world_command_enter),
+	MEMBERS(R.string.world_command_members),
+	ITEMS(R.string.world_command_inventory),
+	INFO(R.string.world_command_info),
+	ACTIONS(R.string.world_command_action),
+	LEAVE(R.string.world_command_leave);
 
 	private int value;
 
