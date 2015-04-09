@@ -11,7 +11,9 @@ public enum CustomAnimationEnum {
 	SLIDE_IN_FROM_RIGHT_10P(2),
 	SLIDE_OUT_TO_RIGHT_10P(3),
 	FADE_IN(4),
-	FADE_OUT(5);
+	FADE_OUT(5),
+	RISE_PERCENT(6),
+	DESCENT_PERCENT(7);
 
 	int animationNum;
 

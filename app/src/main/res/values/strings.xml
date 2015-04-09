@@ -60,6 +60,10 @@
     <!-- Menu -->
     <string name="menu_load">Load</string>
     <string name="menu_save">Save</string>
+    <string name="menu_achievements">Achievements</string>
+    <string name="menu_versioninfo">Version Info</string>
+    <string name="menu_start_debug">Debug Menu</string>
+    <string name="menu_quit">Quit</string>
     <string name="menu_setting">Settings</string>
     <string name="menu_return_title">Return to Title</string>
 

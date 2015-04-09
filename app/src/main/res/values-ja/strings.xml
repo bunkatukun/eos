@@ -57,6 +57,10 @@
     <!-- Menu -->
     <string name="menu_load">ロード</string>
     <string name="menu_save">セーブ</string>
+    <string name="menu_achievements">実績</string>
+    <string name="menu_versioninfo">バージョン情報</string>
+    <string name="menu_start_debug">デバッグメニュー</string>
+    <string name="menu_quit">終了</string>
     <string name="menu_setting">設定</string>
     <string name="menu_return_title">タイトルへ戻る</string>
 
@@ -67,7 +71,7 @@
     <string name="sys_msg_confirm_run_debug">デバッグ画面を開始します。</string>
     <string name="sys_msg_wip">申し訳ありません。\n本機能は未実装です。</string>
     <string name="sys_version_name">v %s</string>
-    
+
     <!-- System.ItemCategory.Name -->
     <!-- test Edition -->
     <string name="sys_item_category_1">カテゴリ1</string>
