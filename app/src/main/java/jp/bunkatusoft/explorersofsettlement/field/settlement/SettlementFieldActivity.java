@@ -28,9 +28,6 @@ import jp.bunkatusoft.explorersofsettlement.time.TimeUtil;
 import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
-/**
- * Created by m_kagaya on 2014/12/02.
- */
 public class SettlementFieldActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener, View.OnClickListener {
 	FrameLayout mBaseLayout;
 	BaseSurfaceView mSurfaceView;

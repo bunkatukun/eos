@@ -29,8 +29,11 @@ import jp.bunkatusoft.explorersofsettlement.system.ButtonGroupEnum;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialogView;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuView;
+import jp.bunkatusoft.explorersofsettlement.system.fellowship.Fellowship;
 import jp.bunkatusoft.explorersofsettlement.system.item.Inventory;
 import jp.bunkatusoft.explorersofsettlement.system.item.InventoryView;
+import jp.bunkatusoft.explorersofsettlement.system.member.PartyView;
+import jp.bunkatusoft.explorersofsettlement.system.member.PlayerParty;
 import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationEnum;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationUtil;
@@ -39,7 +42,7 @@ import jp.bunkatusoft.explorersofsettlement.util.Util;
 
 
 public class WorldFieldActivity extends FragmentActivity
-		implements View.OnClickListener, View.OnTouchListener, ButtonGroup.OnClickListener, EventView.OnEventPhase, InventoryView.OnInventoryActionListener, SystemMenuView.OnMenuChoiceListener, SystemDialogView.OnDialogClickListener {
+		implements View.OnClickListener, View.OnTouchListener, ButtonGroup.OnClickListener, EventView.OnEventPhase, InventoryView.OnInventoryActionListener, SystemMenuView.OnMenuChoiceListener, SystemDialogView.OnDialogClickListener, PartyView.OnPartyActionListener {
 
 	Context mContext;
 	boolean isBlockTouch;
@@ -74,6 +77,9 @@ public class WorldFieldActivity extends FragmentActivity
 	Inventory mItemInventory;
 	InventoryView mInventoryView;
 
+	Fellowship mFellowship;
+	PartyView mPartyView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -85,6 +91,9 @@ public class WorldFieldActivity extends FragmentActivity
 		//TODO インベントリ定義＆初期化 本当はここじゃない方がいいかも？
 		//TODO プレイヤーデータの設定タイミングを作ったら、そこへ引っ越すこと
 		mItemInventory = WorldFieldUtil.initItemInventory();
+
+		//TODO パーティの初期化はここで行う
+		mFellowship = new PlayerParty();
 
 		// データの読み込み
 		mFieldPieces = new ArrayList<FieldPiece>();
@@ -144,11 +153,19 @@ public class WorldFieldActivity extends FragmentActivity
 		Button closeOverlayButton = (Button) mOverlayWindow.findViewById(R.id.general_part_closeOverlayButton);
 		closeOverlayButton.setOnClickListener(this);
 
+		//TODO 必要に応じて読み込む方式に変更するべき？
 		mEventView = new EventView(this,mRootLayout,this);
 		mEventView.setVisibility(View.GONE);
 
+		// パーティ画面の作成
+		mPartyView = new PartyView(this,mRootLayout,this,mFellowship);
+		mPartyView.setVisibility(View.GONE);
+
+		// インベントリ画面の作成
 		mInventoryView = new InventoryView(this,mRootLayout,this,mItemInventory);
 		mInventoryView.setVisibility(View.GONE);
+
+
 	}
 
 	private void initSystemMenuView(RelativeLayout UILayout){
@@ -265,10 +282,11 @@ public class WorldFieldActivity extends FragmentActivity
 				break;
 			case MEMBERS:
 				LogUtil.i("MEMBERSが押された");
+				//TODO パーティ管理を開いちゃう
 				mCommandLayout.startAnimation(mOutAnimation);
 				mCommandLayout.setVisibility(View.INVISIBLE);
-				mOverlayWindow.startAnimation(mProtrudeAnimation);
-				mOverlayWindow.setVisibility(View.VISIBLE);
+				mPartyView.startAnimation(mProtrudeAnimation);
+				mPartyView.setVisibility(View.VISIBLE);
 				break;
 			case ITEMS:
 				LogUtil.i("ITEMSが押された");
@@ -316,8 +334,17 @@ public class WorldFieldActivity extends FragmentActivity
 
 	@Override
 	public void onInventoryClose() {
+		//TODO 呼び出し元によって、ここの戻る画面を変化させる
 		mInventoryView.startAnimation(mRecedeAnimation);
 		mInventoryView.setVisibility(View.GONE);
+		mCommandLayout.startAnimation(mInAnimation);
+		mCommandLayout.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void onPartyClose() {
+		mPartyView.startAnimation(mRecedeAnimation);
+		mPartyView.setVisibility(View.GONE);
 		mCommandLayout.startAnimation(mInAnimation);
 		mCommandLayout.setVisibility(View.VISIBLE);
 	}

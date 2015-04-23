@@ -1,18 +1,12 @@
 package jp.bunkatusoft.explorersofsettlement.system;
 
-import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import jp.bunkatusoft.explorersofsettlement.field.world.TouchStatus;
-import jp.bunkatusoft.explorersofsettlement.field.world.WorldMapTask;
 
-/**
- * Created by m_kagaya on 2015/01/28.
- */
 public abstract class GameManager {
 
 	protected List<Task> mTaskList = new ArrayList<Task>();

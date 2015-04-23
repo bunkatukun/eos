@@ -1,8 +1,5 @@
 package jp.bunkatusoft.explorersofsettlement.system;
 
-/**
- * Created by m_kagaya on 2015/01/29.
- */
 public class Touch {
 	//TODO なんかクラス名が標準と被りそう もっといい名前に変更する
 	public boolean isTouch;

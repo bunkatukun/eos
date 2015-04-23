@@ -9,9 +9,6 @@ import android.view.SurfaceView;
 
 import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
 
-/**
- * Created by m_kagaya on 2015/01/27.
- */
 public class WorldSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 
 	private Thread mThread;

@@ -2,9 +2,6 @@ package jp.bunkatusoft.explorersofsettlement.system;
 
 import android.graphics.Canvas;
 
-/**
- * Created by m_kagaya on 2015/01/28.
- */
 public abstract class Task {
 
 	private TaskPhaseEnum mTaskPhase = TaskPhaseEnum.INITIALIZE;
