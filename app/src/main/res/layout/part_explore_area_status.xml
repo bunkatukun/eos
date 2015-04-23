@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@null"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/part_explore_status_turnCountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/frame_textview_02"
+        android:gravity="center"
+        android:minWidth="96dp"
+        android:text="Turn : 12"
+        android:textColor="#ffcccccc"
+        android:textSize="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/part_explore_status_mapNameText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@drawable/frame_textview_02"
+            android:gravity="center"
+            android:text="月光の洞窟"
+            android:textColor="#ffcccccc"
+            android:textSize="24dp"/>
+
+        <TextView
+            android:id="@+id/part_explore_status_areaNameText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/frame_textview_02"
+            android:gravity="center"
+            android:text="中層"
+            android:textColor="#ffcccccc"
+            android:textSize="20dp"/>
+    </LinearLayout>
+</LinearLayout>

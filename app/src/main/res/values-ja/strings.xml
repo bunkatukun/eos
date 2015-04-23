@@ -42,30 +42,42 @@
     <!-- Settlement -->
     <string name="settle_state_time_format">第二紀 %1$d年 %2$s %3$d日 %4$s</string>
 
-    <!-- Main Menu -->
-    <string name="mainmenu_save_and_load">セーブ&amp;ロード</string>
-    <string name="mainmenu_setting">設定</string>
-    <string name="mainmenu_gameend">ゲームを終了</string>
+    <!-- System.Menu.Name -->
+    <string name="menu_load">ロード</string>
+    <string name="menu_save">セーブ</string>
+    <string name="menu_achievements">実績</string>
+    <string name="menu_versioninfo">バージョン情報</string>
+    <string name="menu_start_debug">デバッグメニュー</string>
+    <string name="menu_quit">終了</string>
+    <string name="menu_setting">設定</string>
+    <string name="menu_return_title">タイトルへ戻る</string>
 
-    <!-- Title Menu -->
-    <string name="titlemenu_achievements">実績</string>
-    <string name="titlemenu_setting">設定</string>
-    <string name="titlemenu_versioninfo">バージョン情報</string>
-    <string name="titlemenu_quit">終了</string>
-
-    <!-- Settlemnt Field Menu -->
-    <string name="settle_fieldmenu_load">ロード</string>
-    <string name="settle_fieldmenu_save">セーブ</string>
-    <string name="settle_fieldmenu_setting">設定</string>
-    <string name="titlemenu_start_debug">デバッグメニュー</string>
-    <string name="settle_fieldmenu_return_title">タイトルへ戻る</string>
-
-    <!-- image.System -->
+    <!-- System.Menu.Dialog.Message -->
     <string name="sys_dialogtitle">システム</string>
     <string name="sys_msg_confirm_gameend">終了しますか?</string>
     <string name="sys_msg_confirm_back_title">タイトルへ戻ります。</string>
     <string name="sys_msg_confirm_run_debug">デバッグ画面を開始します。</string>
     <string name="sys_msg_wip">申し訳ありません。\n本機能は未実装です。</string>
     <string name="sys_version_name">v %s</string>
+
+    <!-- System.ItemCategory.Name -->
+    <!-- test Edition -->
+    <string name="sys_item_category_1">カテゴリ1</string>
+    <string name="sys_item_category_2">カテゴリ2</string>
+    <string name="sys_item_category_3">カテゴリ3</string>
+
+    <!-- System.ItemQuality.Name -->
+    <!-- test Edition -->
+    <string name="sys_item_quality_good">上質</string>
+    <string name="sys_item_quality_normal">普通</string>
+    <string name="sys_item_quality_poor">劣悪</string>
+
+    <!-- World.Command.Name -->
+    <string name="world_command_enter">進入</string>
+    <string name="world_command_members">メンバ</string>
+    <string name="world_command_inventory">インベントリ</string>
+    <string name="world_command_info">情報</string>
+    <string name="world_command_action">アクション</string>
+    <string name="world_command_leave">他の場所へ</string>
 
 </resources>

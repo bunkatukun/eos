@@ -2,9 +2,8 @@ package jp.bunkatusoft.explorersofsettlement.util;
 
 import android.util.Log;
 
-/**
- * Created by bunkatukun on 2014/07/04.
- */
+import java.util.Arrays;
+
 public class LogUtil {
 
     public static final String TAG = "TownBuilder";
@@ -42,5 +41,9 @@ public class LogUtil {
 
     public static void e(String text){
         Log.e(TAG,format(text));
+    }
+
+    public static void e(Exception e) {
+        e(Arrays.toString(e.getStackTrace()));
     }
 }

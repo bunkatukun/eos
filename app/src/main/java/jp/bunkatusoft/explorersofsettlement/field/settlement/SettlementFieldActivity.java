@@ -1,4 +1,4 @@
-package jp.bunkatusoft.explorersofsettlement.field;
+package jp.bunkatusoft.explorersofsettlement.field.settlement;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,17 +18,16 @@ import org.json.JSONObject;
 
 import jp.bunkatusoft.explorersofsettlement.BaseSurfaceView;
 import jp.bunkatusoft.explorersofsettlement.R;
+import jp.bunkatusoft.explorersofsettlement.field.GameTime;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.time.GameMonthEnum;
 import jp.bunkatusoft.explorersofsettlement.time.GameTimeEnum;
+import jp.bunkatusoft.explorersofsettlement.time.NoSuchTimeException;
 import jp.bunkatusoft.explorersofsettlement.time.TimeUtil;
 import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
-/**
- * Created by m_kagaya on 2014/12/02.
- */
 public class SettlementFieldActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener, View.OnClickListener {
 	FrameLayout mBaseLayout;
 	BaseSurfaceView mSurfaceView;
@@ -123,6 +122,8 @@ public class SettlementFieldActivity extends FragmentActivity implements SystemD
 				timeBuf = GameTimeEnum.valueOf(elementObj.getInt("time"));
 			}
 		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (NoSuchTimeException e) {
 			e.printStackTrace();
 		}
 

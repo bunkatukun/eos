@@ -1,0 +1,23 @@
+[
+        {
+            "id" : 1,
+            "connectA" : 1,
+            "connectB" : 2,
+            "directivity" : "mutual"
+        },{
+            "id" : 2,
+            "connectA" : 2,
+            "connectB" : 3,
+            "directivity" : "mutual"
+        },{
+            "id" : 3,
+            "connectA" : 2,
+            "connectB" : 4,
+            "directivity" : "mutual"
+        },{
+             "id" : 4,
+             "connectA" : 3,
+             "connectB" : 4,
+             "directivity" : "AtoB"
+        }
+]
