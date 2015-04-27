@@ -11,9 +11,6 @@ import jp.bunkatusoft.explorersofsettlement.system.TaskPhaseEnum;
 import jp.bunkatusoft.explorersofsettlement.system.Touch;
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
-/**
- * Created by m_kagaya on 2015/01/28.
- */
 public class WorldMapTask extends Task {
 
 	private Context mContext;
