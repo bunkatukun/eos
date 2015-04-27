@@ -21,18 +21,20 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/world_part_settingsButton"
         android:orientation="horizontal">
+
         <include
             android:id="@+id/world_part_worldStatusLayout"
             layout="@layout/parts_general_world_status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_margin="4dp"/>
+            android:layout_margin="4dp"
+            android:layout_weight="2"/>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
             android:layout_margin="4dp"
+            android:layout_weight="2"
             android:background="#88888888"
             android:gravity="center_horizontal"
             android:padding="4dp"
@@ -40,7 +42,22 @@
             android:textSize="16dp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/world_part_worldStaticCommandAreaLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal">
 
+        </LinearLayout>
 
+    <HorizontalScrollView
+        android:id="@+id/world_part_worldDynamicCommandAreaView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/world_part_worldStaticCommandAreaLayout">
+        </HorizontalScrollView>
 
 </RelativeLayout>
