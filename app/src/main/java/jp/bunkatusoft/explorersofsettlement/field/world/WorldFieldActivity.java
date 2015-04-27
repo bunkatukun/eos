@@ -38,44 +38,41 @@ public class WorldFieldActivity extends FragmentActivity
 		implements View.OnClickListener, View.OnTouchListener, EventView.OnEventPhase, InventoryView.OnInventoryActionListener, SystemMenuView.OnMenuChoiceListener, SystemDialogView.OnDialogClickListener, StaticCommandGroup.OnStaticCommandClickListener, DynamicCommandGroup.OnDynamicCommandClickListener {
 
 	Context mContext;
-	boolean isBlockTouch;
 
-	RelativeLayout mUILayout;
-
-	/**
-	 * フィールドデータ用
-	 */
-	List<FieldPiece> mFieldPieces;
-	List<FieldRoad> mFieldRoads;
-
+	// レイアウト系
 	FrameLayout mRootLayout;
-
+	RelativeLayout mUILayout;
 	StaticCommandGroup mStaticCommandGroup;
 	DynamicCommandGroup mDynamicCommandGroup;
 
-	/**
-	 * オプションコマンドのレイアウト
-	 */
+	// システムメニュー
 	SystemMenuView mMenuView;
 	boolean isOpenMenu;
+	boolean isBlockTouch;
 
+	// イベント
+	EventView mEventView;
+	List<Event> mEvents;
+
+	// インベントリ
+	Inventory mItemInventory;
+	InventoryView mInventoryView;
+
+	// フィールドデータ用
+	List<FieldPiece> mFieldPieces;
+	List<FieldRoad> mFieldRoads;
+
+	// アニメーション
 	AnimationSet mInAnimation;
 	AnimationSet mOutAnimation;
 	AnimationSet mProtrudeAnimation;
 	AnimationSet mRecedeAnimation;
-
-	EventView mEventView;
-	List<Event> mEvents;
-
-	Inventory mItemInventory;
-	InventoryView mInventoryView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mContext = this;
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 
 		// データの読み込み
 		loadInventoryData();
@@ -88,9 +85,11 @@ public class WorldFieldActivity extends FragmentActivity
 		mProtrudeAnimation = CustomAnimationUtil.generateCustomAnimation(this, CustomAnimationEnum.PROTRUDE_IN_FROM_CENTER);
 		mRecedeAnimation = CustomAnimationUtil.generateCustomAnimation(this, CustomAnimationEnum.RECEDE_OUT_TO_CENTER);
 
+		// 基礎レイアウトの設定
 		mRootLayout = new FrameLayout(this);
 		setContentView(mRootLayout);
 
+		// たくさん初期化
 		initBlockTouch();
 		initSurfaceView();
 		initUILayout();
@@ -100,12 +99,18 @@ public class WorldFieldActivity extends FragmentActivity
 		initInventoryView();
 	}
 
+	/**
+	 * SurfaceViewの初期化、追加
+	 */
 	private void initSurfaceView(){
 		WorldSurfaceView surfaceView = new WorldSurfaceView(this);
 		surfaceView.setOnClickListener(this);
 		mRootLayout.addView(surfaceView);
 	}
 
+	/**
+	 * UIレイアウトの初期化、追加
+	 */
 	private void initUILayout(){
 		mUILayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.ui_activity_field, null);
 		mRootLayout.addView(mUILayout);
@@ -113,6 +118,9 @@ public class WorldFieldActivity extends FragmentActivity
 		openSettingButton.setOnClickListener(this);
 	}
 
+	/**
+	 * システムメニューの初期化、追加
+	 */
 	private void initSystemMenuView() {
 		List<SystemMenuEnum> systemMenuList = new ArrayList<SystemMenuEnum>();
 		systemMenuList.add(SystemMenuEnum.LOAD);
@@ -124,23 +132,33 @@ public class WorldFieldActivity extends FragmentActivity
 		isOpenMenu = false;
 	}
 
+	/**
+	 * コマンド群の初期化、追加
+	 */
 	private void initCommandGroups(){
 		mDynamicCommandGroup = new DynamicCommandGroup(this, mUILayout, this);
 		mDynamicCommandGroup.setCommandList(createDynamicCommandList());
 		mStaticCommandGroup = new StaticCommandGroup(this, mUILayout, this);
-		setCommandArea(mUILayout);
+		setCommandArea();
 	}
 
-	private void setCommandArea(RelativeLayout UILayout) {
-		LinearLayout staticCommandAreaLayout = (LinearLayout) UILayout.findViewById(R.id.world_part_worldStaticCommandAreaLayout);
+	/**
+	 * コマンド群を登録する親レイアウトの設定
+	 */
+	private void setCommandArea() {
+		LinearLayout staticCommandAreaLayout = (LinearLayout) mUILayout.findViewById(R.id.world_part_worldStaticCommandAreaLayout);
 		LinearLayout.LayoutParams staticLayoutParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		staticCommandAreaLayout.addView(mStaticCommandGroup.getBaseLayout(), staticLayoutParam);
 
-		HorizontalScrollView dynamicCommandScrollView = (HorizontalScrollView) UILayout.findViewById(R.id.world_part_worldDynamicCommandAreaView);
+		HorizontalScrollView dynamicCommandScrollView = (HorizontalScrollView) mUILayout.findViewById(R.id.world_part_worldDynamicCommandAreaView);
 		LinearLayout.LayoutParams dynamicLayoutParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		dynamicCommandScrollView.addView(mDynamicCommandGroup.getBaseLayout(), dynamicLayoutParam);
 	}
 
+	/**
+	 * 動的コマンドの項目を設定する
+	 * @return	追加するコマンド群リスト
+	 */
 	private List<DynamicCommandEnum> createDynamicCommandList() {
 		List<DynamicCommandEnum> resultList = new ArrayList<DynamicCommandEnum>();
 
@@ -153,16 +171,25 @@ public class WorldFieldActivity extends FragmentActivity
 		return resultList;
 	}
 
+	/**
+	 * イベント用オーバーレイ画面の初期化、追加
+	 */
 	private void initEventView(){
 		mEventView = new EventView(this, mRootLayout, this);
 		mEventView.setVisibility(View.GONE);
 	}
 
+	/**
+	 * インベントリオーバレイ画面の初期化、追加
+	 */
 	private void initInventoryView(){
 		mInventoryView = new InventoryView(this, mRootLayout, this, mItemInventory);
 		mInventoryView.setVisibility(View.GONE);
 	}
 
+	/**
+	 * フィールドデータを読み込む
+	 */
 	private void loadFieldData(){
 		mFieldPieces = new ArrayList<FieldPiece>();
 		mFieldRoads = new ArrayList<FieldRoad>();
@@ -178,10 +205,16 @@ public class WorldFieldActivity extends FragmentActivity
 		}
 	}
 
+	/**
+	 * インベントリデータを読み込む
+	 */
 	private void loadInventoryData(){
 		mItemInventory = WorldFieldUtil.initItemInventory();
 	}
 
+	/**
+	 * イベントデータを読み込む
+	 */
 	private void loadEventData(){
 		//TODO コモンイベント+該当パートのイベントのみ読み込んでいる状態とするべし
 		mEvents = new ArrayList<Event>();
