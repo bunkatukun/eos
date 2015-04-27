@@ -4,9 +4,6 @@ import android.util.Log;
 
 import java.util.Arrays;
 
-/**
- * Created by bunkatukun on 2014/07/04.
- */
 public class LogUtil {
 
     public static final String TAG = "TownBuilder";

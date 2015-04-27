@@ -25,7 +25,7 @@ public class EventView implements View.OnClickListener {
 
 
 	public interface OnEventPhase {
-		void onFinish();
+		void onEventFinish();
 	}
 
 	private static final int TEXTVIEW_MAXROW = 30;
@@ -201,7 +201,7 @@ public class EventView implements View.OnClickListener {
 	 */
 	private void onEventFinalize() {
 		LogUtil.i("イベントセットを終了します。");
-		mListener.onFinish();
+		mListener.onEventFinish();
 	}
 
 	/**

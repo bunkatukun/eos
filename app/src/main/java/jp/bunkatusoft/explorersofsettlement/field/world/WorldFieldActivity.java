@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AnimationSet;
-import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,8 +23,6 @@ import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.event.Event;
 import jp.bunkatusoft.explorersofsettlement.event.EventUtil;
 import jp.bunkatusoft.explorersofsettlement.event.EventView;
-import jp.bunkatusoft.explorersofsettlement.system.ButtonGroup;
-import jp.bunkatusoft.explorersofsettlement.system.ButtonGroupEnum;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialogView;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuView;
@@ -35,192 +32,204 @@ import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationEnum;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationUtil;
 import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
-import jp.bunkatusoft.explorersofsettlement.util.Util;
 
 
 public class WorldFieldActivity extends FragmentActivity
-		implements View.OnClickListener, View.OnTouchListener, ButtonGroup.OnClickListener, EventView.OnEventPhase, InventoryView.OnInventoryActionListener, SystemMenuView.OnMenuChoiceListener, SystemDialogView.OnDialogClickListener {
+		implements View.OnClickListener, View.OnTouchListener, EventView.OnEventPhase, InventoryView.OnInventoryActionListener, SystemMenuView.OnMenuChoiceListener, SystemDialogView.OnDialogClickListener, StaticCommandGroup.OnStaticCommandClickListener, DynamicCommandGroup.OnDynamicCommandClickListener {
 
 	Context mContext;
+
+	// レイアウト系
+	FrameLayout mRootLayout;
+	RelativeLayout mUILayout;
+	StaticCommandGroup mStaticCommandGroup;
+	DynamicCommandGroup mDynamicCommandGroup;
+
+	// システムメニュー
+	SystemMenuView mMenuView;
+	boolean isOpenMenu;
 	boolean isBlockTouch;
 
-	/**
-	 * フィールドデータ用
-	 */
+	// イベント
+	EventView mEventView;
+	List<Event> mEvents;
+
+	// インベントリ
+	Inventory mItemInventory;
+	InventoryView mInventoryView;
+
+	// フィールドデータ用
 	List<FieldPiece> mFieldPieces;
 	List<FieldRoad> mFieldRoads;
 
-
-	FrameLayout mRootLayout;
-
-	/** フィールドコマンドのレイアウト */
-	LinearLayout mCommandLayout;
-	List<ButtonGroup> mCommandButtonGroupList;
-
-	/** オプションコマンドのレイアウト */
-	SystemMenuView mMenuView;
-	boolean isOpenMenu;
-
-	View mOverlayWindow;
-
+	// アニメーション
 	AnimationSet mInAnimation;
 	AnimationSet mOutAnimation;
 	AnimationSet mProtrudeAnimation;
 	AnimationSet mRecedeAnimation;
 
-	EventView mEventView;
-	List<Event> mEvents;
-
-	Inventory mItemInventory;
-	InventoryView mInventoryView;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		mContext = this;
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		mContext = this;
-
-		//TODO インベントリ定義＆初期化 本当はここじゃない方がいいかも？
-		//TODO プレイヤーデータの設定タイミングを作ったら、そこへ引っ越すこと
-		mItemInventory = WorldFieldUtil.initItemInventory();
-
 		// データの読み込み
+		loadInventoryData();
+		loadFieldData();
+		loadEventData();
+
+		// アニメーションの設定
+		mInAnimation = CustomAnimationUtil.generateCustomAnimation(this, CustomAnimationEnum.SLIDE_IN_FROM_RIGHT_10P);
+		mOutAnimation = CustomAnimationUtil.generateCustomAnimation(this, CustomAnimationEnum.SLIDE_OUT_TO_RIGHT_10P);
+		mProtrudeAnimation = CustomAnimationUtil.generateCustomAnimation(this, CustomAnimationEnum.PROTRUDE_IN_FROM_CENTER);
+		mRecedeAnimation = CustomAnimationUtil.generateCustomAnimation(this, CustomAnimationEnum.RECEDE_OUT_TO_CENTER);
+
+		// 基礎レイアウトの設定
+		mRootLayout = new FrameLayout(this);
+		setContentView(mRootLayout);
+
+		// たくさん初期化
+		initBlockTouch();
+		initSurfaceView();
+		initUILayout();
+		initSystemMenuView();
+		initCommandGroups();
+		initEventView();
+		initInventoryView();
+	}
+
+	/**
+	 * SurfaceViewの初期化、追加
+	 */
+	private void initSurfaceView(){
+		WorldSurfaceView surfaceView = new WorldSurfaceView(this);
+		surfaceView.setOnClickListener(this);
+		mRootLayout.addView(surfaceView);
+	}
+
+	/**
+	 * UIレイアウトの初期化、追加
+	 */
+	private void initUILayout(){
+		mUILayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.ui_activity_field, null);
+		mRootLayout.addView(mUILayout);
+		ImageButton openSettingButton = (ImageButton) mUILayout.findViewById(R.id.world_part_settingsButton);
+		openSettingButton.setOnClickListener(this);
+	}
+
+	/**
+	 * システムメニューの初期化、追加
+	 */
+	private void initSystemMenuView() {
+		List<SystemMenuEnum> systemMenuList = new ArrayList<SystemMenuEnum>();
+		systemMenuList.add(SystemMenuEnum.LOAD);
+		systemMenuList.add(SystemMenuEnum.SAVE);
+		systemMenuList.add(SystemMenuEnum.SETTINGS);
+		systemMenuList.add(SystemMenuEnum.RETURN_TITLE);
+
+		mMenuView = new SystemMenuView(this, mUILayout, this, R.id.world_part_settingsButton, (ArrayList) systemMenuList);
+		isOpenMenu = false;
+	}
+
+	/**
+	 * コマンド群の初期化、追加
+	 */
+	private void initCommandGroups(){
+		mDynamicCommandGroup = new DynamicCommandGroup(this, mUILayout, this);
+		mDynamicCommandGroup.setCommandList(createDynamicCommandList());
+		mStaticCommandGroup = new StaticCommandGroup(this, mUILayout, this);
+		setCommandArea();
+	}
+
+	/**
+	 * コマンド群を登録する親レイアウトの設定
+	 */
+	private void setCommandArea() {
+		LinearLayout staticCommandAreaLayout = (LinearLayout) mUILayout.findViewById(R.id.world_part_worldStaticCommandAreaLayout);
+		LinearLayout.LayoutParams staticLayoutParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+		staticCommandAreaLayout.addView(mStaticCommandGroup.getBaseLayout(), staticLayoutParam);
+
+		HorizontalScrollView dynamicCommandScrollView = (HorizontalScrollView) mUILayout.findViewById(R.id.world_part_worldDynamicCommandAreaView);
+		LinearLayout.LayoutParams dynamicLayoutParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+		dynamicCommandScrollView.addView(mDynamicCommandGroup.getBaseLayout(), dynamicLayoutParam);
+	}
+
+	/**
+	 * 動的コマンドの項目を設定する
+	 * @return	追加するコマンド群リスト
+	 */
+	private List<DynamicCommandEnum> createDynamicCommandList() {
+		List<DynamicCommandEnum> resultList = new ArrayList<DynamicCommandEnum>();
+
+		resultList.add(DynamicCommandEnum.ENTER);
+		resultList.add(DynamicCommandEnum.MINE);
+		resultList.add(DynamicCommandEnum.GATHER);
+		resultList.add(DynamicCommandEnum.FISHING);
+		resultList.add(DynamicCommandEnum.ACTIVATE);
+
+		return resultList;
+	}
+
+	/**
+	 * イベント用オーバーレイ画面の初期化、追加
+	 */
+	private void initEventView(){
+		mEventView = new EventView(this, mRootLayout, this);
+		mEventView.setVisibility(View.GONE);
+	}
+
+	/**
+	 * インベントリオーバレイ画面の初期化、追加
+	 */
+	private void initInventoryView(){
+		mInventoryView = new InventoryView(this, mRootLayout, this, mItemInventory);
+		mInventoryView.setVisibility(View.GONE);
+	}
+
+	/**
+	 * フィールドデータを読み込む
+	 */
+	private void loadFieldData(){
 		mFieldPieces = new ArrayList<FieldPiece>();
 		mFieldRoads = new ArrayList<FieldRoad>();
 		try {
-			mFieldPieces = WorldFieldUtil.loadFieldPieceData(this, "data/field_piece.json");
+			mFieldPieces = WorldFieldUtil.loadFieldPieceData(this, "data/field_pieces.json");
 		} catch (IOException e) {
 			LogUtil.e(e);
 		}
 		try {
-			mFieldRoads = WorldFieldUtil.loadFieldRoadData(this, "data/field_road.json");
+			mFieldRoads = WorldFieldUtil.loadFieldRoadData(this, "data/field_roads.json");
 		} catch (IOException e) {
 			LogUtil.e(e);
 		}
+	}
 
-		// イベントデータの読み込み
-		//TODO コモンイベント+該当パートのイベント飲み読み込んでいる状態とするべし
+	/**
+	 * インベントリデータを読み込む
+	 */
+	private void loadInventoryData(){
+		mItemInventory = WorldFieldUtil.initItemInventory();
+	}
+
+	/**
+	 * イベントデータを読み込む
+	 */
+	private void loadEventData(){
+		//TODO コモンイベント+該当パートのイベントのみ読み込んでいる状態とするべし
 		mEvents = new ArrayList<Event>();
 		try {
 			mEvents = EventUtil.loadEventsJSONData(this, "events/event0004.json");
 		} catch (IOException e) {
 			LogUtil.e(e);
 		}
-
-		// アニメーションの設定
-		mInAnimation = CustomAnimationUtil.generateCustomAnimation(this, CustomAnimationEnum.SLIDE_IN_FROM_RIGHT_10P);
-		mOutAnimation = CustomAnimationUtil.generateCustomAnimation(this,CustomAnimationEnum.SLIDE_OUT_TO_RIGHT_10P);
-		mProtrudeAnimation = CustomAnimationUtil.generateCustomAnimation(this,CustomAnimationEnum.PROTRUDE_IN_FROM_CENTER);
-		mRecedeAnimation = CustomAnimationUtil.generateCustomAnimation(this,CustomAnimationEnum.RECEDE_OUT_TO_CENTER);
-
-		mRootLayout = new FrameLayout(this);
-		setContentView(mRootLayout);
-
-		//SurfaceViewをまず追加
-		WorldSurfaceView surfaceView = new WorldSurfaceView(this);
-		surfaceView.setOnClickListener(this);
-		mRootLayout.addView(surfaceView);
-
-		//UIレイアウトを追加
-		RelativeLayout UILayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.ui_activity_field, null);
-		mRootLayout.addView(UILayout);
-		ImageButton openSettingButton = (ImageButton) UILayout.findViewById(R.id.world_part_settingsButton);
-		openSettingButton.setOnClickListener(this);
-
-		// フィールドコマンドを作成して追加、初期表示設定
-		createCommandList(UILayout);
-		mCommandLayout.setVisibility(View.VISIBLE);
-
-		// オプションコマンドを作成して追加、初期表示設定
-		initSystemMenuView(UILayout);
-		initBlockTouch();
-
-		//ポップアップウインドウは初期状態で非表示とする
-		mOverlayWindow = getLayoutInflater().inflate(R.layout.overlay_window_base, null);
-		mRootLayout.addView(mOverlayWindow);
-		mOverlayWindow.setVisibility(View.GONE);
-		Button closeOverlayButton = (Button) mOverlayWindow.findViewById(R.id.general_part_closeOverlayButton);
-		closeOverlayButton.setOnClickListener(this);
-
-		mEventView = new EventView(this,mRootLayout,this);
-		mEventView.setVisibility(View.GONE);
-
-		mInventoryView = new InventoryView(this,mRootLayout,this,mItemInventory);
-		mInventoryView.setVisibility(View.GONE);
 	}
 
-	private void initSystemMenuView(RelativeLayout UILayout){
-		List<SystemMenuEnum> systemMenuList = new ArrayList<SystemMenuEnum>();
-		systemMenuList.add(SystemMenuEnum.SAVE);
-		systemMenuList.add(SystemMenuEnum.LOAD);
-		systemMenuList.add(SystemMenuEnum.SETTINGS);
-		systemMenuList.add(SystemMenuEnum.RETURN_TITLE);
-
-		mMenuView = new SystemMenuView(this,UILayout,this,R.id.world_part_settingsButton,(ArrayList)systemMenuList);
-		isOpenMenu = false;
-	}
-
-
-	private void initCommandButton(){
-		mCommandButtonGroupList = new ArrayList<ButtonGroup>();
-		mCommandButtonGroupList.add(new ButtonGroup(mContext, ButtonGroupEnum.ENTER, this, R.drawable.icon_enter));
-		mCommandButtonGroupList.add(new ButtonGroup(mContext, ButtonGroupEnum.MEMBERS, this, R.drawable.icon_members));
-		mCommandButtonGroupList.add(new ButtonGroup(mContext, ButtonGroupEnum.ITEMS, this, R.drawable.icon_items));
-		mCommandButtonGroupList.add(new ButtonGroup(mContext, ButtonGroupEnum.INFO, this, R.drawable.icon_info));
-		mCommandButtonGroupList.add(new ButtonGroup(mContext, ButtonGroupEnum.ACTIONS, this, R.drawable.icon_actions));
-		mCommandButtonGroupList.add(new ButtonGroup(mContext, ButtonGroupEnum.LEAVE, this, R.drawable.icon_exit));
-	}
-
-	/**
-	 * フィールドレイアウトコマンドの作成と追加を行う
-	 * @param UILayout	作成したレイアウトを追加する親レイアウト
-	 */
-	public void createCommandList(RelativeLayout UILayout) {
-		mCommandLayout = new LinearLayout(mContext);
-		mCommandLayout.setOrientation(LinearLayout.HORIZONTAL);
-		RelativeLayout.LayoutParams commandLayoutParam = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-		commandLayoutParam.addRule(RelativeLayout.BELOW, R.id.world_part_settingsButton);
-		commandLayoutParam.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-		commandLayoutParam.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-
-		LinearLayout firstLineLayout = new LinearLayout(mContext);
-		firstLineLayout.setOrientation(LinearLayout.VERTICAL);
-		firstLineLayout.setGravity(Gravity.BOTTOM);
-		LinearLayout.LayoutParams firstLineLayoutParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-		firstLineLayoutParam.gravity = Gravity.BOTTOM;
-		firstLineLayoutParam.setMargins(0, 0, 0, Util.getDensityPoint(mContext, 16));
-
-		LinearLayout secondLineLayout = new LinearLayout(mContext);
-		secondLineLayout.setOrientation(LinearLayout.VERTICAL);
-		secondLineLayout.setGravity(Gravity.BOTTOM);
-		LinearLayout.LayoutParams secondLineLayoutParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-		secondLineLayoutParam.gravity = Gravity.BOTTOM;
-		secondLineLayoutParam.setMargins(Util.getDensityPoint(mContext, 16), 0, 0, 0);
-
-		initCommandButton();
-		if(mCommandButtonGroupList != null && mCommandButtonGroupList.size()>0){
-			boolean LeftRightToggle = true;
-			for(ButtonGroup commandButton : mCommandButtonGroupList){
-				if(LeftRightToggle){
-					firstLineLayout.addView(commandButton.getBaseLayout(), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-				} else {
-					secondLineLayout.addView(commandButton.getBaseLayout(), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-				}
-				LeftRightToggle = !LeftRightToggle;
-			}
-		}
-		mCommandLayout.addView(firstLineLayout, firstLineLayoutParam);
-		mCommandLayout.addView(secondLineLayout, secondLineLayoutParam);
-		UILayout.addView(mCommandLayout, commandLayoutParam);
-	}
-
-	private void initBlockTouch(){
+	private void initBlockTouch() {
 		isBlockTouch = false;
 	}
 
-	private void setBlockTouch(boolean block){
+	private void setBlockTouch(boolean block) {
 		isBlockTouch = block;
 	}
 
@@ -236,13 +245,6 @@ public class WorldFieldActivity extends FragmentActivity
 			//将来的にボタンごとの動作を実装するため、分岐は残しておく
 			case R.id.world_part_worldSurfaceViewLayout:
 				break;
-			case R.id.general_part_closeOverlayButton:
-				//ポップアップウインドウはゲーム内の拡張動作画面として使う予定
-				mOverlayWindow.startAnimation(mRecedeAnimation);
-				mOverlayWindow.setVisibility(View.INVISIBLE);
-				mCommandLayout.startAnimation(mInAnimation);
-				mCommandLayout.setVisibility(View.VISIBLE);
-				break;
 			case R.id.world_part_settingsButton:
 				mMenuView.startAnimation(isOpenMenu);
 				isOpenMenu = !isOpenMenu;
@@ -251,75 +253,19 @@ public class WorldFieldActivity extends FragmentActivity
 	}
 
 	@Override
-	public void onClick(ButtonGroupEnum buttonID) {
-		if(isBlockTouch || isOpenMenu){
-			return;
-		}
-		switch (buttonID) {
-			case ENTER:
-				LogUtil.i("ENTERが押された");
-				mCommandLayout.startAnimation(mOutAnimation);
-				mCommandLayout.setVisibility(View.INVISIBLE);
-				mOverlayWindow.startAnimation(mProtrudeAnimation);
-				mOverlayWindow.setVisibility(View.VISIBLE);
-				break;
-			case MEMBERS:
-				LogUtil.i("MEMBERSが押された");
-				mCommandLayout.startAnimation(mOutAnimation);
-				mCommandLayout.setVisibility(View.INVISIBLE);
-				mOverlayWindow.startAnimation(mProtrudeAnimation);
-				mOverlayWindow.setVisibility(View.VISIBLE);
-				break;
-			case ITEMS:
-				LogUtil.i("ITEMSが押された");
-				//TODO アイテムインベントリを開いちゃう
-				mCommandLayout.startAnimation(mOutAnimation);
-				mCommandLayout.setVisibility(View.INVISIBLE);
-				mInventoryView.startAnimation(mProtrudeAnimation);
-				mInventoryView.setVisibility(View.VISIBLE);
-				break;
-			case INFO:
-				LogUtil.i("INFOが押された");
-				mCommandLayout.startAnimation(mOutAnimation);
-				mCommandLayout.setVisibility(View.INVISIBLE);
-				mOverlayWindow.startAnimation(mProtrudeAnimation);
-				mOverlayWindow.setVisibility(View.VISIBLE);
-				break;
-			case ACTIONS:
-				LogUtil.i("ACTIONSが押された");
-				//TODO OK、じゃあここを小イベントの起点としよう
-				mCommandLayout.startAnimation(mOutAnimation);
-				mCommandLayout.setVisibility(View.INVISIBLE);
-				mEventView.startAnimation(mProtrudeAnimation);
-				mEventView.setVisibility(View.VISIBLE);
-				mEventView.startEvent(mEvents);
-				break;
-			case LEAVE:
-				LogUtil.i("LEAVEが押された");
-				mCommandLayout.startAnimation(mOutAnimation);
-				mCommandLayout.setVisibility(View.INVISIBLE);
-				mOverlayWindow.startAnimation(mProtrudeAnimation);
-				mOverlayWindow.setVisibility(View.VISIBLE);
-				break;
-			default:
-				break;
-		}
-	}
-
-	@Override
-	public void onFinish() {
+	public void onEventFinish() {
 		mEventView.startAnimation(mRecedeAnimation);
 		mEventView.setVisibility(View.GONE);
-		mCommandLayout.startAnimation(mInAnimation);
-		mCommandLayout.setVisibility(View.VISIBLE);
+		startCommandGroupsAnimation(mInAnimation);
+		setCommandGroupsVisibility(View.VISIBLE);
 	}
 
 	@Override
 	public void onInventoryClose() {
 		mInventoryView.startAnimation(mRecedeAnimation);
 		mInventoryView.setVisibility(View.GONE);
-		mCommandLayout.startAnimation(mInAnimation);
-		mCommandLayout.setVisibility(View.VISIBLE);
+		startCommandGroupsAnimation(mInAnimation);
+		setCommandGroupsVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -389,5 +335,62 @@ public class WorldFieldActivity extends FragmentActivity
 			default:
 				break;
 		}
+	}
+
+	@Override
+	public void OnStaticCommandClick(StaticCommandEnum command) {
+		if (isBlockTouch || isOpenMenu) {
+			return;
+		}
+		switch (command) {
+			case PARTY:
+				break;
+			case INVENTORY:
+				startCommandGroupsAnimation(mOutAnimation);
+				setCommandGroupsVisibility(View.INVISIBLE);
+				mInventoryView.startAnimation(mProtrudeAnimation);
+				mInventoryView.setVisibility(View.VISIBLE);
+				break;
+			case MOVE:
+				break;
+			default:
+				break;
+		}
+	}
+
+	@Override
+	public void OnDynamicCommandClick(DynamicCommandEnum command) {
+		if (isBlockTouch || isOpenMenu) {
+			return;
+		}
+		switch (command) {
+			case ENTER:
+				break;
+			case MINE:
+				break;
+			case GATHER:
+				break;
+			case FISHING:
+				break;
+			case ACTIVATE:
+				startCommandGroupsAnimation(mOutAnimation);
+				setCommandGroupsVisibility(View.INVISIBLE);
+				mEventView.startAnimation(mProtrudeAnimation);
+				mEventView.setVisibility(View.VISIBLE);
+				mEventView.startEvent(mEvents);
+				break;
+			default:
+				break;
+		}
+	}
+
+	private void setCommandGroupsVisibility(int visibility){
+		mDynamicCommandGroup.setVisibility(visibility);
+		mStaticCommandGroup.setVisibility(visibility);
+	}
+
+	private void startCommandGroupsAnimation(AnimationSet animationSet) {
+		mDynamicCommandGroup.startAnimation(animationSet);
+		mStaticCommandGroup.startAnimation(animationSet);
 	}
 }
