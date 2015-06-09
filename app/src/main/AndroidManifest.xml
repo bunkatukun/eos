@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
     package="jp.bunkatusoft.explorersofsettlement"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="0"
     android:versionName="pre-alpha">
 
@@ -9,48 +10,57 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Main"
             android:label="@string/app_name"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape"
+            android:theme="@style/fadeoutActivityTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".screen.logo.LogoActivity"
-                  android:label="@string/app_name"
-                  android:screenOrientation="landscape" >
+        <activity
+            android:name=".screen.logo.LogoActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@style/fadeoutActivityTheme">
             <!-- TODO 必要ならフィルタを追加 -->
         </activity>
 
-        <activity android:name=".screen.title.TitleActivity"
-                  android:label="@string/app_name"
-                  android:screenOrientation="landscape" >
+        <activity
+            android:name=".screen.title.TitleActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@style/fadeoutActivityTheme">
             <!-- TODO 必要ならフィルタを追加 -->
         </activity>
 
-        <activity android:name=".field.settlement.SettlementFieldActivity"
-                  android:label="@string/app_name"
-                  android:screenOrientation="landscape" >
+        <activity
+            android:name=".field.settlement.SettlementFieldActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape">
             <!-- TODO 必要ならフィルタを追加 -->
         </activity>
-        <activity android:name=".screen.world.WorldFieldActivity"
-                  android:label="@string/app_name"
-                  android:screenOrientation="landscape" >
+        <activity
+            android:name=".screen.world.WorldFieldActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape">
             <!-- TODO 必要ならフィルタを追加 -->
         </activity>
-        <activity android:name=".field.explore.ExploreActivity"
-                  android:label="@string/app_name"
-                  android:screenOrientation="landscape" >
+        <activity
+            android:name=".field.explore.ExploreActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape">
             <!-- TODO 必要ならフィルタを追加 -->
         </activity>
-        <activity android:name=".debug.DebugActivity"
-                  android:label="@string/app_name"
-                  android:screenOrientation="landscape" >
+        <activity
+            android:name=".debug.DebugActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape">
             <!-- TODO 必要ならフィルタを追加 -->
         </activity>
         <activity
