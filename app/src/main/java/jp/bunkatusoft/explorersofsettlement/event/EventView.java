@@ -24,7 +24,7 @@ import jp.bunkatusoft.explorersofsettlement.util.Util;
 public class EventView implements View.OnClickListener {
 
 
-	public interface OnEventPhase {
+	public interface OnEventPhaseListener {
 		void onEventFinish();
 	}
 
@@ -34,7 +34,7 @@ public class EventView implements View.OnClickListener {
 	private static final int TEXTVIEW_TYPE_SPEED = 50;
 
 	Context mContext;
-	OnEventPhase mListener;
+	OnEventPhaseListener mListener;
 
 	//基本パーツ
 	protected LinearLayout mBaseLayout;
@@ -55,7 +55,7 @@ public class EventView implements View.OnClickListener {
 	List<Event> mRunEventSet;
 	int mNowEventIndex = 0;
 
-	public EventView(Context context, FrameLayout rootLayout, OnEventPhase listener) {
+	public EventView(Context context, FrameLayout rootLayout, OnEventPhaseListener listener) {
 		mContext = context;
 		mListener = listener;
 
