@@ -76,7 +76,6 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 
 	private void initSystemMenuView() {
 		List<SystemMenuEnum> systemMenuList = new ArrayList<SystemMenuEnum>();
-		systemMenuList.add(SystemMenuEnum.SAVE_AND_LOAD);
 		systemMenuList.add(SystemMenuEnum.ACHIEVEMENTS);
 		systemMenuList.add(SystemMenuEnum.SETTINGS);
 		systemMenuList.add(SystemMenuEnum.DEBUG);
@@ -101,8 +100,6 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		setBlockTouch(false);
 		mMenuView.setBlockTouch(false);
 		switch (menu) {
-			case SAVE_AND_LOAD:
-				break;
 			case ACHIEVEMENTS:
 				break;
 			case SETTINGS:
@@ -124,8 +121,6 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		setBlockTouch(false);
 		mMenuView.setBlockTouch(false);
 		switch (menu) {
-			case SAVE_AND_LOAD:
-				break;
 			case ACHIEVEMENTS:
 				break;
 			case SETTINGS:
@@ -155,6 +150,7 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 				finish();
 				break;
 			case R.id.title_part_continueButton:
+				startActivity(new Intent(TitleActivity.this, PlayDataActivity.class));
 				finish();
 				break;
 			case R.id.title_part_settingsButton:
@@ -174,10 +170,6 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		mMenuView.startAnimation(isOpenMenu);
 		isOpenMenu = !isOpenMenu;
 		switch (menuEnum) {
-			case SAVE_AND_LOAD:
-				startActivity(new Intent(TitleActivity.this, PlayDataActivity.class));
-				finish();
-				break;
 			case ACHIEVEMENTS:
 				startActivity(new Intent(TitleActivity.this, RecordActivity.class));
 				finish();
