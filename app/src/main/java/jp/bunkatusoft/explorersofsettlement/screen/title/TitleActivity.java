@@ -19,6 +19,7 @@ import java.util.List;
 import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.debug.DebugActivity;
 import jp.bunkatusoft.explorersofsettlement.field.settlement.SettlementFieldActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.record.RecordActivity;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialogView;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuView;
@@ -168,8 +169,8 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		isOpenMenu = !isOpenMenu;
 		switch (menuEnum) {
 			case ACHIEVEMENTS:
-				systemDialogView = new SystemDialogView(this, mRootLayout, this, getString(R.string.sys_msg_wip), getString(R.string.back), null, menuEnum);
-				systemDialogView.startAnimation(true);
+				startActivity(new Intent(TitleActivity.this, RecordActivity.class));
+				finish();
 				break;
 			case SETTINGS:
 				systemDialogView = new SystemDialogView(this, mRootLayout, this, getString(R.string.sys_msg_wip), getString(R.string.back), null, menuEnum);
