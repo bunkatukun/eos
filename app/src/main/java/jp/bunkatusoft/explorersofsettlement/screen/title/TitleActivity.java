@@ -19,6 +19,7 @@ import java.util.List;
 import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.debug.DebugActivity;
 import jp.bunkatusoft.explorersofsettlement.field.settlement.SettlementFieldActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.playdata.PlayDataActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.record.RecordActivity;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialogView;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
@@ -75,6 +76,7 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 
 	private void initSystemMenuView() {
 		List<SystemMenuEnum> systemMenuList = new ArrayList<SystemMenuEnum>();
+		systemMenuList.add(SystemMenuEnum.SAVE_AND_LOAD);
 		systemMenuList.add(SystemMenuEnum.ACHIEVEMENTS);
 		systemMenuList.add(SystemMenuEnum.SETTINGS);
 		systemMenuList.add(SystemMenuEnum.DEBUG);
@@ -99,6 +101,8 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		setBlockTouch(false);
 		mMenuView.setBlockTouch(false);
 		switch (menu) {
+			case SAVE_AND_LOAD:
+				break;
 			case ACHIEVEMENTS:
 				break;
 			case SETTINGS:
@@ -120,6 +124,8 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		setBlockTouch(false);
 		mMenuView.setBlockTouch(false);
 		switch (menu) {
+			case SAVE_AND_LOAD:
+				break;
 			case ACHIEVEMENTS:
 				break;
 			case SETTINGS:
@@ -168,6 +174,10 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		mMenuView.startAnimation(isOpenMenu);
 		isOpenMenu = !isOpenMenu;
 		switch (menuEnum) {
+			case SAVE_AND_LOAD:
+				startActivity(new Intent(TitleActivity.this, PlayDataActivity.class));
+				finish();
+				break;
 			case ACHIEVEMENTS:
 				startActivity(new Intent(TitleActivity.this, RecordActivity.class));
 				finish();
