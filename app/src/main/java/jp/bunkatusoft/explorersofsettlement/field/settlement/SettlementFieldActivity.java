@@ -25,7 +25,7 @@ import jp.bunkatusoft.explorersofsettlement.time.GameMonthEnum;
 import jp.bunkatusoft.explorersofsettlement.time.GameTimeEnum;
 import jp.bunkatusoft.explorersofsettlement.time.NoSuchTimeException;
 import jp.bunkatusoft.explorersofsettlement.time.TimeUtil;
-import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
 public class SettlementFieldActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener, View.OnClickListener {

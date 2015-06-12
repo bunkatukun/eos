@@ -1,4 +1,4 @@
-package jp.bunkatusoft.explorersofsettlement.field.world;
+package jp.bunkatusoft.explorersofsettlement.screen.world;
 
 import android.content.Context;
 import android.content.Intent;
@@ -31,13 +31,13 @@ import jp.bunkatusoft.explorersofsettlement.system.SystemMenuView;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuView.OnMenuChoiceListener;
 import jp.bunkatusoft.explorersofsettlement.system.item.Inventory;
 import jp.bunkatusoft.explorersofsettlement.system.item.InventoryView;
+import jp.bunkatusoft.explorersofsettlement.screen.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.system.item.InventoryView.OnInventoryActionListener;
-import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationEnum;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationUtil;
 import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
-import jp.bunkatusoft.explorersofsettlement.field.world.DynamicCommandGroup.OnDynamicCommandClickListener;
-import jp.bunkatusoft.explorersofsettlement.field.world.StaticCommandGroup.OnStaticCommandClickListener;
+import jp.bunkatusoft.explorersofsettlement.screen.world.DynamicCommandGroup.OnDynamicCommandClickListener;
+import jp.bunkatusoft.explorersofsettlement.screen.world.StaticCommandGroup.OnStaticCommandClickListener;
 
 
 public class WorldFieldActivity extends FragmentActivity

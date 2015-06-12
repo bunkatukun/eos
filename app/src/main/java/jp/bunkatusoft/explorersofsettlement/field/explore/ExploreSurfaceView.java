@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import jp.bunkatusoft.explorersofsettlement.field.world.TouchStatus;
+import jp.bunkatusoft.explorersofsettlement.screen.world.TouchStatus;
 import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
 
 public class ExploreSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Runnable {

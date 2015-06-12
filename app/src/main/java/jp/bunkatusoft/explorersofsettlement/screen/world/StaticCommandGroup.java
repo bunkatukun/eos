@@ -1,4 +1,4 @@
-package jp.bunkatusoft.explorersofsettlement.field.world;
+package jp.bunkatusoft.explorersofsettlement.screen.world;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -8,41 +8,36 @@ import android.view.animation.AnimationSet;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import java.util.List;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 
 import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.system.LinearButtonCommandGroup;
 
-public class DynamicCommandGroup extends LinearButtonCommandGroup {
+public class StaticCommandGroup extends LinearButtonCommandGroup{
 
-	interface OnDynamicCommandClickListener{
-		void OnDynamicCommandClick(DynamicCommandEnum command);
+	interface OnStaticCommandClickListener{
+		void OnStaticCommandClick(StaticCommandEnum command);
 	}
 
-	OnDynamicCommandClickListener mListener;
+	OnStaticCommandClickListener mListener;
 
-	public DynamicCommandGroup(Context context, ViewGroup rootLayout, OnDynamicCommandClickListener listener) {
+	public StaticCommandGroup(Context context, RelativeLayout rootLayout, OnStaticCommandClickListener listener) {
 		super(context, rootLayout);
 
 		mListener = listener;
 
-
-	}
-
-	public void setCommandList(List<DynamicCommandEnum> useCommandList) {
-		mBaseLayout.removeAllViews();
-		if(useCommandList != null && useCommandList.size()>0){
-			for(DynamicCommandEnum command : useCommandList){
-				addCommandButton(command);
-			}
-		}
+		addCommandButton(StaticCommandEnum.PARTY);
+		addCommandButton(StaticCommandEnum.INVENTORY);
+		addCommandButton(StaticCommandEnum.MOVE);
 	}
 
 	@Override
 	protected void initBaseLayout(ViewGroup rootLayout) {
 		mBaseLayout = new LinearLayout(mContext);
 		mBaseLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+		//実装方法の関係上、rootLayoutはここでは使用しない
 	}
 
 	@Override
@@ -50,21 +45,21 @@ public class DynamicCommandGroup extends LinearButtonCommandGroup {
 		return mBaseLayout;
 	}
 
-	protected void addCommandButton(DynamicCommandEnum command) {
+	protected void addCommandButton(StaticCommandEnum command) {
 		ImageButton imageButton = new ImageButton(mContext);
 		imageButton.setImageResource(command.getCommandResourceId());
 		imageButton.setBackgroundResource(R.drawable.icon_background);
 		imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
-		final DynamicCommandEnum sendCommand = command;
+		final StaticCommandEnum sendCommand = command;
 		imageButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				mListener.OnDynamicCommandClick(sendCommand);
+				mListener.OnStaticCommandClick(sendCommand);
 			}
 		});
 
-		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		layoutParams.gravity = Gravity.CENTER;
 		layoutParams.setMargins(4,4,4,4);
 

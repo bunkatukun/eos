@@ -45,6 +45,7 @@
     <!-- System.Menu.Name -->
     <string name="menu_load">ロード</string>
     <string name="menu_save">セーブ</string>
+    <string name="menu_save_and_load">セーブ &amp; ロード</string>
     <string name="menu_achievements">実績</string>
     <string name="menu_versioninfo">バージョン情報</string>
     <string name="menu_start_debug">デバッグメニュー</string>

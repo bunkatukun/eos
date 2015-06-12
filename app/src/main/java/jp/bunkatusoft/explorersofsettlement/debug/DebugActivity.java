@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import jp.bunkatusoft.explorersofsettlement.field.explore.ExploreActivity;
 import jp.bunkatusoft.explorersofsettlement.field.map.test.TestMapActivity;
 import jp.bunkatusoft.explorersofsettlement.field.settlement.SettlementFieldActivity;
-import jp.bunkatusoft.explorersofsettlement.field.world.WorldFieldActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.world.WorldFieldActivity;
 
 /**
  * このActivity および関連項目のみ、可能な限りresourceに分担させないようにする<br>

@@ -45,6 +45,7 @@
     <!-- System.Menu.Name -->
     <string name="menu_load">Load</string>
     <string name="menu_save">Save</string>
+    <string name="menu_save_and_load">Save &amp; Load</string>
     <string name="menu_achievements">Achievements</string>
     <string name="menu_versioninfo">Version Info</string>
     <string name="menu_start_debug">Debug Menu</string>

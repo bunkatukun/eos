@@ -7,7 +7,7 @@ import jp.bunkatusoft.explorersofsettlement.R;
 public enum SystemMenuEnum {
 	SAVE(R.string.menu_save),
 	LOAD(R.string.menu_load),
-	SAVE_AND_LOAD(2),
+	SAVE_AND_LOAD(R.string.menu_save_and_load),
 	SETTINGS(R.string.menu_setting),
 	ACHIEVEMENTS(R.string.menu_achievements),
 	VERSION_INFO(R.string.menu_versioninfo),

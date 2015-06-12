@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.bunkatusoft.explorersofsettlement.field.world.TouchStatus;
+import jp.bunkatusoft.explorersofsettlement.screen.world.TouchStatus;
 
 public abstract class GameManager {
 
