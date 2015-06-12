@@ -21,7 +21,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".title.TitleActivity"
+        <activity android:name=".screen.logo.LogoActivity"
+                  android:label="@string/app_name"
+                  android:screenOrientation="landscape" >
+            <!-- TODO 必要ならフィルタを追加 -->
+        </activity>
+
+        <activity android:name=".screen.title.TitleActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="landscape" >
             <!-- TODO 必要ならフィルタを追加 -->
@@ -32,7 +38,7 @@
                   android:screenOrientation="landscape" >
             <!-- TODO 必要ならフィルタを追加 -->
         </activity>
-        <activity android:name=".field.world.WorldFieldActivity"
+        <activity android:name=".screen.world.WorldFieldActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="landscape" >
             <!-- TODO 必要ならフィルタを追加 -->

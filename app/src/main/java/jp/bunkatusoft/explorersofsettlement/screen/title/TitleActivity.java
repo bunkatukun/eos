@@ -1,4 +1,4 @@
-package jp.bunkatusoft.explorersofsettlement.title;
+package jp.bunkatusoft.explorersofsettlement.screen.title;
 
 import android.content.Context;
 import android.content.Intent;

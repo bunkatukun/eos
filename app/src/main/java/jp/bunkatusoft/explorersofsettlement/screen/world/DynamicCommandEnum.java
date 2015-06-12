@@ -1,4 +1,4 @@
-package jp.bunkatusoft.explorersofsettlement.field.world;
+package jp.bunkatusoft.explorersofsettlement.screen.world;
 
 import jp.bunkatusoft.explorersofsettlement.R;
 

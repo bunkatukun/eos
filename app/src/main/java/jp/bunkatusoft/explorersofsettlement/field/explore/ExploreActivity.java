@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialog;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
-import jp.bunkatusoft.explorersofsettlement.title.TitleActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.title.TitleActivity;
 
 public class ExploreActivity extends FragmentActivity implements SystemDialog.OnSystemDialogListener, View.OnClickListener {
 
