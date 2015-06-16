@@ -2,53 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:baselineAligned="false"
               android:orientation="horizontal">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="5">
-
-        <ImageView
-            android:id="@+id/playdata_part_selectDataThumbnailImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/thumb_test169"/>
-
-        <TextView
-            android:id="@+id/playdata_part_selectDateDateText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/playdata_part_selectDataThumbnailImage"
-            android:layout_centerVertical="true"
-            android:gravity="center_horizontal"
-            android:text="12 April, 1992"
-            android:textSize="24dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/playdata_part_selectDateDateText"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:text="Edinburgh"
-            android:textSize="20dp"/>
+        android:layout_weight="5"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_height="0dp"
+            android:layout_weight="85"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/playdata_part_selectDataThumbnailImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:src="@drawable/thumb_test169"/>
+
+            <TextView
+                android:id="@+id/playdata_part_selectDateDateText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="12 April, 1992"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="Edinburgh"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="15"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/playdata_part_dataSLButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="4dp"
+                android:layout_marginLeft="4dp"
                 android:layout_weight="5"
-                android:background="@drawable/button_common_normal"
+                android:background="@drawable/button_common_normal_sharp"
                 android:text="Load[WIP]"
                 android:textColor="#ffcccccc"/>
 
@@ -56,33 +62,41 @@
                 android:id="@+id/playdata_part_dataDeleteButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="4dp"
                 android:layout_weight="5"
-                android:background="@drawable/button_common_normal"
+                android:background="@drawable/button_common_normal_sharp"
                 android:text="Delete[WIP]"
                 android:textColor="#ffcccccc"/>
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="5"
         android:orientation="vertical">
 
+        <ListView
+            android:id="@+id/playdata_part_saveDataListView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="85"/>
+
         <RelativeLayout
             android:id="@+id/playdata_part_rightButtonLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+            android:layout_height="0dp"
+            android:layout_weight="15">
 
             <Button
                 android:id="@+id/playdata_part_backButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_margin="4dp"
-                android:background="@drawable/button_common_normal"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="4dp"
+                android:background="@drawable/button_common_normal_sharp"
+                android:minWidth="128dp"
                 android:text="もどる"
                 android:textColor="#ffcccccc"/>
 
@@ -90,19 +104,15 @@
                 android:id="@+id/playdata_part_dataListSortButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_margin="4dp"
-                android:layout_toLeftOf="@+id/playdata_part_backButton"
-                android:background="@drawable/button_common_normal"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="4dp"
+                android:layout_toLeftOf="@id/playdata_part_backButton"
+                android:background="@drawable/button_common_normal_sharp"
                 android:text="Sort[WIP]"
                 android:textColor="#ffcccccc"/>
         </RelativeLayout>
 
-        <ListView
-            android:id="@+id/playdata_part_saveDataListView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/playdata_part_rightButtonLayout"
-            android:layout_alignParentTop="true"/>
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
