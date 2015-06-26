@@ -1,16 +1,12 @@
 package jp.bunkatusoft.explorersofsettlement.screen.localmap;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.animation.AnimationSet;
-import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -22,10 +18,11 @@ import java.util.List;
 import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.event.Event;
 import jp.bunkatusoft.explorersofsettlement.event.EventView;
+import jp.bunkatusoft.explorersofsettlement.screen.ScreenActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.localmap.DynamicCommandGroup.OnDynamicCommandClickListener;
+import jp.bunkatusoft.explorersofsettlement.screen.localmap.StaticCommandGroup.OnStaticCommandClickListener;
 import jp.bunkatusoft.explorersofsettlement.screen.playdata.PlayDataActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.title.TitleActivity;
-import jp.bunkatusoft.explorersofsettlement.screen.localmap.StaticCommandGroup.OnStaticCommandClickListener;
-import jp.bunkatusoft.explorersofsettlement.screen.localmap.DynamicCommandGroup.OnDynamicCommandClickListener;
 import jp.bunkatusoft.explorersofsettlement.screen.world.WorldFieldActivity;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialogView;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
@@ -36,11 +33,8 @@ import jp.bunkatusoft.explorersofsettlement.system.item.InventoryView;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationEnum;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationUtil;
 
-public class LocalMapActivity extends FragmentActivity {
-	Context mContext;
+public class LocalMapActivity extends ScreenActivity {
 
-	FrameLayout mRootLayout;
-	RelativeLayout mUILayout;
 	StaticCommandGroup mStaticCommandGroup;
 	DynamicCommandGroup mDynamicCommandGroup;
 
@@ -62,31 +56,28 @@ public class LocalMapActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mContext = this;
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-		mRootLayout = new FrameLayout(this);
-		setContentView(mRootLayout);
-
 		initBlockTouch();
-		initScreenBackground();
+		initBackgroundLayout();
 		initSurfaceViewLayout();
-		initMainLayout();
+		initUILayout();
 		initSystemMenuIndexView();
 		initCommandGroups();
 		initEventView();
 		initInventoryView();
 	}
 
-	private void initScreenBackground() {
+	@Override
+	protected void initBackgroundLayout() {
 		mRootLayout.setBackgroundResource(R.drawable.background_localmap_test169);
 	}
 
-	private void initSurfaceViewLayout() {
+	@Override
+	protected void initSurfaceViewLayout() {
 		//TODO SurfaceViewを設定
 	}
 
-	private void initMainLayout() {
+	@Override
+	protected void initUILayout() {
 		mUILayout = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.ui_activity_localmap, null);
 		mRootLayout.addView(mUILayout);
 		ImageButton settingsButton = (ImageButton) mUILayout.findViewById(R.id.localMap_part_settingsButton);
@@ -99,14 +90,14 @@ public class LocalMapActivity extends FragmentActivity {
 		systemMenuList.add(SystemMenuEnum.SETTINGS);
 		systemMenuList.add(SystemMenuEnum.RETURN_TITLE);
 
-		mMenuView = new SystemMenuView(this, mUILayout, mSystemMenuListener, R.id.localMap_part_settingsButton, (ArrayList) systemMenuList);
+		mMenuView = new SystemMenuView(this, (RelativeLayout) mUILayout, mSystemMenuListener, R.id.localMap_part_settingsButton, (ArrayList) systemMenuList);
 		isOpenMenu = false;
 	}
 
 	private void initCommandGroups() {
 		mDynamicCommandGroup = new DynamicCommandGroup(this, mUILayout, mDynamicCommandClickListener);
 		mDynamicCommandGroup.setCommandList(createDynamicCommandList());
-		mStaticCommandGroup = new StaticCommandGroup(this, mUILayout, mStaticCommandClickListener);
+		mStaticCommandGroup = new StaticCommandGroup(this, (RelativeLayout) mUILayout, mStaticCommandClickListener);
 		setCommandArea();
 	}
 

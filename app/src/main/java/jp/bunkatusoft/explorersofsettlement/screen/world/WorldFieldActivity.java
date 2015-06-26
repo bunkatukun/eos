@@ -1,16 +1,12 @@
 package jp.bunkatusoft.explorersofsettlement.screen.world;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.animation.AnimationSet;
-import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -25,6 +21,7 @@ import jp.bunkatusoft.explorersofsettlement.event.Event;
 import jp.bunkatusoft.explorersofsettlement.event.EventUtil;
 import jp.bunkatusoft.explorersofsettlement.event.EventView;
 import jp.bunkatusoft.explorersofsettlement.event.EventView.OnEventPhaseListener;
+import jp.bunkatusoft.explorersofsettlement.screen.ScreenActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.localmap.LocalMapActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.world.DynamicCommandGroup.OnDynamicCommandClickListener;
@@ -41,14 +38,10 @@ import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationUtil;
 import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
 
 
-public class WorldFieldActivity extends FragmentActivity
+public class WorldFieldActivity extends ScreenActivity
 		implements View.OnTouchListener {
 
-	Context mContext;
-
 	// レイアウト系
-	FrameLayout mRootLayout;
-	RelativeLayout mUILayout;
 	StaticCommandGroup mStaticCommandGroup;
 	DynamicCommandGroup mDynamicCommandGroup;
 
@@ -78,8 +71,6 @@ public class WorldFieldActivity extends FragmentActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mContext = this;
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		// データの読み込み
 		loadInventoryData();
@@ -92,18 +83,35 @@ public class WorldFieldActivity extends FragmentActivity
 		mProtrudeAnimation = CustomAnimationUtil.generateCustomAnimation(this, CustomAnimationEnum.PROTRUDE_IN_FROM_CENTER);
 		mRecedeAnimation = CustomAnimationUtil.generateCustomAnimation(this, CustomAnimationEnum.RECEDE_OUT_TO_CENTER);
 
-		// 基礎レイアウトの設定
-		mRootLayout = new FrameLayout(this);
-		setContentView(mRootLayout);
-
 		// たくさん初期化
 		initBlockTouch();
-		initSurfaceView();
+		initBackgroundLayout();
+		initSurfaceViewLayout();
 		initUILayout();
 		initSystemMenuView();
 		initCommandGroups();
 		initEventView();
 		initInventoryView();
+	}
+
+	@Override
+	protected void initBackgroundLayout() {
+		//TODO Background処理を追加
+	}
+
+	@Override
+	protected void initSurfaceViewLayout() {
+		WorldSurfaceView surfaceView = new WorldSurfaceView(this);
+		surfaceView.setOnClickListener(mSurfaceViewClickListener);
+		mRootLayout.addView(surfaceView);
+	}
+
+	@Override
+	protected void initUILayout() {
+		mUILayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.ui_activity_field, null);
+		mRootLayout.addView(mUILayout);
+		ImageButton openSettingButton = (ImageButton) mUILayout.findViewById(R.id.world_part_settingsButton);
+		openSettingButton.setOnClickListener(mSettingButtonClickListener);
 	}
 
 	/**
@@ -286,25 +294,6 @@ public class WorldFieldActivity extends FragmentActivity
 	};
 
 	/**
-	 * SurfaceViewの初期化、追加
-	 */
-	private void initSurfaceView() {
-		WorldSurfaceView surfaceView = new WorldSurfaceView(this);
-		surfaceView.setOnClickListener(mSurfaceViewClickListener);
-		mRootLayout.addView(surfaceView);
-	}
-
-	/**
-	 * UIレイアウトの初期化、追加
-	 */
-	private void initUILayout() {
-		mUILayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.ui_activity_field, null);
-		mRootLayout.addView(mUILayout);
-		ImageButton openSettingButton = (ImageButton) mUILayout.findViewById(R.id.world_part_settingsButton);
-		openSettingButton.setOnClickListener(mSettingButtonClickListener);
-	}
-
-	/**
 	 * システムメニューの初期化、追加
 	 */
 	private void initSystemMenuView() {
@@ -314,7 +303,7 @@ public class WorldFieldActivity extends FragmentActivity
 		systemMenuList.add(SystemMenuEnum.SETTINGS);
 		systemMenuList.add(SystemMenuEnum.RETURN_TITLE);
 
-		mMenuView = new SystemMenuView(this, mUILayout, mSystemMenuClickListener, R.id.world_part_settingsButton, (ArrayList) systemMenuList);
+		mMenuView = new SystemMenuView(this, (RelativeLayout) mUILayout, mSystemMenuClickListener, R.id.world_part_settingsButton, (ArrayList) systemMenuList);
 		isOpenMenu = false;
 	}
 
@@ -324,7 +313,7 @@ public class WorldFieldActivity extends FragmentActivity
 	private void initCommandGroups() {
 		mDynamicCommandGroup = new DynamicCommandGroup(this, mUILayout, mDynamicCommandClickListener);
 		mDynamicCommandGroup.setCommandList(createDynamicCommandList());
-		mStaticCommandGroup = new StaticCommandGroup(this, mUILayout, mStaticCommandClickListener);
+		mStaticCommandGroup = new StaticCommandGroup(this, (RelativeLayout) mUILayout, mStaticCommandClickListener);
 		setCommandArea();
 	}
 

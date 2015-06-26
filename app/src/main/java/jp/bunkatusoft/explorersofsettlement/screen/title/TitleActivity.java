@@ -1,15 +1,11 @@
 package jp.bunkatusoft.explorersofsettlement.screen.title;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
@@ -18,6 +14,7 @@ import java.util.List;
 
 import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.debug.DebugActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.ScreenActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.localmap.LocalMapActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.playdata.PlayDataActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.record.RecordActivity;
@@ -26,11 +23,7 @@ import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuView;
 import jp.bunkatusoft.explorersofsettlement.util.Util;
 
-public class TitleActivity extends FragmentActivity implements View.OnClickListener, SystemDialogView.OnDialogClickListener, View.OnTouchListener, SystemMenuView.OnMenuChoiceListener {
-
-	Context mContext;
-	FrameLayout mRootLayout;
-	RelativeLayout mUILayout;
+public class TitleActivity extends ScreenActivity implements View.OnClickListener, SystemDialogView.OnDialogClickListener, View.OnTouchListener, SystemMenuView.OnMenuChoiceListener {
 
 	SystemMenuView mMenuView;
 	boolean isOpenMenu;
@@ -41,25 +34,26 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mContext = this;
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-		mRootLayout = new FrameLayout(this);
-		setContentView(mRootLayout);
-
 		initBlockTouch();
-		initScreenBackground();
-		initMainLayout();
+		initBackgroundLayout();
+		initUILayout();
 		initSystemMenuView();
 	}
 
-	private void initScreenBackground() {
+	@Override
+	protected void initBackgroundLayout() {
 		//TODO 状況に応じ、複数のBGを切り替えるようにする
 		//TODO アニメーションするBGに対応
 		mRootLayout.setBackgroundResource(R.drawable.background_title_test);
 	}
 
-	private void initMainLayout() {
+	@Override
+	protected void initSurfaceViewLayout() {
+
+	}
+
+	@Override
+	protected void initUILayout() {
 		mUILayout = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.ui_activity_title, null);
 		mRootLayout.addView(mUILayout);
 
@@ -82,7 +76,7 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		systemMenuList.add(SystemMenuEnum.VERSION_INFO);
 		systemMenuList.add(SystemMenuEnum.QUIT);
 
-		mMenuView = new SystemMenuView(this, mUILayout, this, R.id.title_part_settingsButton, (ArrayList) systemMenuList);
+		mMenuView = new SystemMenuView(this, (RelativeLayout) mUILayout, this, R.id.title_part_settingsButton, (ArrayList) systemMenuList);
 		isOpenMenu = false;
 	}
 
@@ -93,7 +87,6 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 	private void setBlockTouch(boolean block) {
 		isBlockTouch = block;
 	}
-
 
 	@Override
 	public void onPositiveClick(SystemMenuEnum menu) {
