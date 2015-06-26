@@ -1,55 +1,49 @@
 package jp.bunkatusoft.explorersofsettlement.screen.playdata;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import jp.bunkatusoft.explorersofsettlement.R;
+import jp.bunkatusoft.explorersofsettlement.screen.ScreenActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.localmap.LocalMapActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.world.WorldFieldActivity;
 import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
 
-public class PlayDataActivity extends FragmentActivity implements View.OnTouchListener{
-	Context mContext;
+public class PlayDataActivity extends ScreenActivity implements View.OnTouchListener{
 	String mCallMyselfActivityName;
-
-	FrameLayout mRootLayout;
-	LinearLayout mUILayout;
 
 	boolean isBlockTouch;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		mContext = this;
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		Intent intent = getIntent();
 		mCallMyselfActivityName = intent.getStringExtra("callActivity");
 
-		mRootLayout = new FrameLayout(this);
-		setContentView(mRootLayout);
-
 		initBlockTouch();
-		initScreenBackground();
-		initMainLayout();
+		initBackgroundLayout();
+		initUILayout();
 	}
 
-	private void initScreenBackground() {
+	@Override
+	protected void initBackgroundLayout() {
 		mRootLayout.setBackgroundResource(R.drawable.background_playdata_test169);
 	}
 
-	private void initMainLayout() {
+	@Override
+	protected void initSurfaceViewLayout() {
+
+	}
+
+	@Override
+	protected void initUILayout() {
 		mUILayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.ui_activity_playdata, null);
 		mRootLayout.addView(mUILayout);
 
