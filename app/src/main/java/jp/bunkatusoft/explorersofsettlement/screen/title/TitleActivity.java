@@ -18,9 +18,9 @@ import java.util.List;
 
 import jp.bunkatusoft.explorersofsettlement.R;
 import jp.bunkatusoft.explorersofsettlement.debug.DebugActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.localmap.LocalMapActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.playdata.PlayDataActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.record.RecordActivity;
-import jp.bunkatusoft.explorersofsettlement.screen.world.WorldFieldActivity;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialogView;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuView;
@@ -146,11 +146,13 @@ public class TitleActivity extends FragmentActivity implements View.OnClickListe
 		int id = view.getId();
 		switch (id) {
 			case R.id.title_part_newStartButton:
-				startActivity(new Intent(TitleActivity.this, WorldFieldActivity.class));
+				startActivity(new Intent(TitleActivity.this, LocalMapActivity.class));
 				finish();
 				break;
 			case R.id.title_part_continueButton:
-				startActivity(new Intent(TitleActivity.this, PlayDataActivity.class));
+				Intent playDataIntent = new Intent(TitleActivity.this, PlayDataActivity.class);
+				playDataIntent.putExtra("callActivity","TitleActivity");
+				startActivity(playDataIntent);
 				finish();
 				break;
 			case R.id.title_part_settingsButton:
