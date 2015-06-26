@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import jp.bunkatusoft.explorersofsettlement.field.explore.ExploreActivity;
 import jp.bunkatusoft.explorersofsettlement.field.map.test.TestMapActivity;
-import jp.bunkatusoft.explorersofsettlement.field.settlement.SettlementFieldActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.localmap.LocalMapActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.world.WorldFieldActivity;
 
 /**
@@ -77,7 +77,7 @@ public class DebugActivity extends FragmentActivity implements View.OnClickListe
     public void onClick(View view) {
         String tag = view.getTag().toString();
         if (DebugMenu.START_SETTLEMENT.getTag().equals(tag)) {
-            startActivity(new Intent(DebugActivity.this, SettlementFieldActivity.class));
+            startActivity(new Intent(DebugActivity.this, LocalMapActivity.class));
             finish();
         } else if (DebugMenu.START_WORLD_MAP.getTag().equals(tag)) {
 			startActivity(new Intent(DebugActivity.this, WorldFieldActivity.class));

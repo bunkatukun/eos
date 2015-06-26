@@ -25,19 +25,20 @@ import jp.bunkatusoft.explorersofsettlement.event.Event;
 import jp.bunkatusoft.explorersofsettlement.event.EventUtil;
 import jp.bunkatusoft.explorersofsettlement.event.EventView;
 import jp.bunkatusoft.explorersofsettlement.event.EventView.OnEventPhaseListener;
+import jp.bunkatusoft.explorersofsettlement.screen.localmap.LocalMapActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.title.TitleActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.world.DynamicCommandGroup.OnDynamicCommandClickListener;
+import jp.bunkatusoft.explorersofsettlement.screen.world.StaticCommandGroup.OnStaticCommandClickListener;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialogView;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuView;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuView.OnMenuChoiceListener;
 import jp.bunkatusoft.explorersofsettlement.system.item.Inventory;
 import jp.bunkatusoft.explorersofsettlement.system.item.InventoryView;
-import jp.bunkatusoft.explorersofsettlement.screen.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.system.item.InventoryView.OnInventoryActionListener;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationEnum;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationUtil;
 import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
-import jp.bunkatusoft.explorersofsettlement.screen.world.DynamicCommandGroup.OnDynamicCommandClickListener;
-import jp.bunkatusoft.explorersofsettlement.screen.world.StaticCommandGroup.OnStaticCommandClickListener;
 
 
 public class WorldFieldActivity extends FragmentActivity
@@ -255,6 +256,8 @@ public class WorldFieldActivity extends FragmentActivity
 					mInventoryView.setVisibility(View.VISIBLE);
 					break;
 				case MOVE:
+					startActivity(new Intent(WorldFieldActivity.this, LocalMapActivity.class));
+					finish();
 					break;
 				default:
 					break;

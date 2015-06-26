@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,10 +14,15 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import jp.bunkatusoft.explorersofsettlement.R;
+import jp.bunkatusoft.explorersofsettlement.screen.localmap.LocalMapActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.title.TitleActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.world.WorldFieldActivity;
+import jp.bunkatusoft.explorersofsettlement.util.LogUtil;
 
 public class PlayDataActivity extends FragmentActivity implements View.OnTouchListener{
 	Context mContext;
+	String mCallMyselfActivityName;
+
 	FrameLayout mRootLayout;
 	LinearLayout mUILayout;
 
@@ -28,6 +34,8 @@ public class PlayDataActivity extends FragmentActivity implements View.OnTouchLi
 
 		mContext = this;
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		Intent intent = getIntent();
+		mCallMyselfActivityName = intent.getStringExtra("callActivity");
 
 		mRootLayout = new FrameLayout(this);
 		setContentView(mRootLayout);
@@ -83,8 +91,23 @@ public class PlayDataActivity extends FragmentActivity implements View.OnTouchLi
 	View.OnClickListener mBackButtonClickListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View view) {
-			Intent intent = new Intent(PlayDataActivity.this, TitleActivity.class);
-			startActivity(intent);
+			//TODO 将来的にはResult返却方式にする
+			if (!TextUtils.isEmpty(mCallMyselfActivityName)) {
+				LogUtil.i("getData : " + mCallMyselfActivityName);
+				if("LocalMapActivity".equals(mCallMyselfActivityName)){
+					Intent intent = new Intent(PlayDataActivity.this, LocalMapActivity.class);
+					startActivity(intent);
+				} else if("WorldFieldActivity".equals(mCallMyselfActivityName)){
+					Intent intent = new Intent(PlayDataActivity.this, WorldFieldActivity.class);
+					startActivity(intent);
+				} else {
+					Intent intent = new Intent(PlayDataActivity.this, TitleActivity.class);
+					startActivity(intent);
+				}
+			} else {
+				Intent intent = new Intent(PlayDataActivity.this, TitleActivity.class);
+				startActivity(intent);
+			}
 			finish();
 		}
 	};
