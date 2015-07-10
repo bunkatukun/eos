@@ -10,11 +10,6 @@
                 android:startColor="#ff666666"/>
 
             <!-- 余白 -->
-            <padding
-                android:bottom="4dp"
-                android:left="4dp"
-                android:right="4dp"
-                android:top="4dp"/>
         </shape>
     </item>
 
@@ -28,11 +23,6 @@
                 android:startColor="#88aaaaaa"/>
 
             <!-- 余白 -->
-            <padding
-                android:bottom="4dp"
-                android:left="4dp"
-                android:right="4dp"
-                android:top="4dp"/>
         </shape>
     </item>
 
@@ -50,11 +40,6 @@
                 android:color="#ff222222"/>
 
             <!-- 余白 -->
-            <padding
-                android:bottom="4dp"
-                android:left="4dp"
-                android:right="4dp"
-                android:top="4dp"/>
         </shape>
     </item>
 </selector>

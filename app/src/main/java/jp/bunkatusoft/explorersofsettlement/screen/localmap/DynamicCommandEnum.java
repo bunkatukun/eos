@@ -5,7 +5,7 @@ import jp.bunkatusoft.explorersofsettlement.R;
 public enum DynamicCommandEnum {
 	INN(R.drawable.icon_inn02),
 	TAVERN(R.drawable.icon_tavern02),
-	MARKET(R.drawable.icon_wip),
+	MARKET(R.drawable.icon_market02),
 	BLACKSMITH(R.drawable.icon_forging),
 	FOUNTAIN(R.drawable.icon_wip),
 	ALLEY(R.drawable.icon_alley02),

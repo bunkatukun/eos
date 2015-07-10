@@ -25,7 +25,7 @@ public class Inventory {
 		if(mItemList != null){
 			resultWeight = 0;
 			for(Item item : mItemList){
-				resultWeight += item.weight * item.num;
+				resultWeight += item.weight;
 			}
 		}
 		mTotalWeight = resultWeight;

@@ -10,7 +10,6 @@ public class Item {
 	//TODO filter は category と統一したい
 	public InventoryFilterEnum filter;
 	public int weight;
-	public int num;
 	//TODO 属性や効果を追加する日がくるかも
 	public boolean canUse;
 	public boolean canTrash;

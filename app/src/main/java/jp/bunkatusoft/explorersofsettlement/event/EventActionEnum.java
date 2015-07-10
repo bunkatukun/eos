@@ -5,6 +5,8 @@ public enum EventActionEnum {
 	IMAGE("image"),
 	CLEAN("clean"),
 	SELECTOR("selector"),
+	OPEN("open"),
+	WAIT("wait"),
 	END("end");
 
 	String action;

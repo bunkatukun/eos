@@ -340,7 +340,7 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 
 				// アイテム個数
 				itemNum = (TextView) convertView.findViewById(R.id.part_inventory_list_itemNumText);
-				itemNum.setText(" x " + item.num);
+				itemNum.setText(" x " + 1);
 
 				// アイテム単重量
 				itemWeight = (TextView) convertView.findViewById(R.id.part_inventory_list_itemWeightText);

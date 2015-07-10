@@ -51,7 +51,7 @@ public class WorldFieldActivity extends ScreenActivity
 	boolean isBlockTouch;
 
 	// イベント
-	EventView mEventView;
+	EventView mCommonEventView;
 	List<Event> mEvents;
 
 	// インベントリ
@@ -235,9 +235,9 @@ public class WorldFieldActivity extends ScreenActivity
 				case ACTIVATE:
 					startCommandGroupsAnimation(mOutAnimation);
 					setCommandGroupsVisibility(View.INVISIBLE);
-					mEventView.startAnimation(mProtrudeAnimation);
-					mEventView.setVisibility(View.VISIBLE);
-					mEventView.startEvent(mEvents);
+					mCommonEventView.startAnimation(mProtrudeAnimation);
+					mCommonEventView.setVisibility(View.VISIBLE);
+					mCommonEventView.startEvent(mEvents);
 					break;
 				default:
 					break;
@@ -276,8 +276,8 @@ public class WorldFieldActivity extends ScreenActivity
 	OnEventPhaseListener mOnEventPhaseListener = new OnEventPhaseListener() {
 		@Override
 		public void onEventFinish() {
-			mEventView.startAnimation(mRecedeAnimation);
-			mEventView.setVisibility(View.GONE);
+			mCommonEventView.startAnimation(mRecedeAnimation);
+			mCommonEventView.setVisibility(View.GONE);
 			startCommandGroupsAnimation(mInAnimation);
 			setCommandGroupsVisibility(View.VISIBLE);
 		}
@@ -351,8 +351,8 @@ public class WorldFieldActivity extends ScreenActivity
 	 * イベント用オーバーレイ画面の初期化、追加
 	 */
 	private void initEventView() {
-		mEventView = new EventView(this, mRootLayout, mOnEventPhaseListener);
-		mEventView.setVisibility(View.GONE);
+		mCommonEventView = new EventView(this, mRootLayout, mOnEventPhaseListener);
+		mCommonEventView.setVisibility(View.GONE);
 	}
 
 	/**

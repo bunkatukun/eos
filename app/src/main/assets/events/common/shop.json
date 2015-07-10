@@ -1,0 +1,24 @@
+[
+    {"action": "IMAGE","id": 1,"value": "shop01"},
+    {"action": "TEXT","id": 2,"value": "いらっしゃい。"},
+    {"action": "TEXT""id": 3,"value": "何の用かな？"},
+    {"action": "SELECTOR","choices":
+        [
+            {"jump": 5,"text": "取引がしたい (売買)"},
+            {"jump": 10,"text": "何か噂はあるか？"},
+            {"jump": 8,"text": "ありがとう (終了)"}
+        ],
+    "id": 4},
+    {"action": "CLEAN","id": 5,"value": "text"},
+    {"action": "TEXT","id": 6,"value": "どうぞごゆっくり。"},
+    {"action": "OPEN","id": 7,"value": "shop"},
+    {"action": "WAIT","id": 8,"value": ""},
+    {"action": "JUMP","id": 9,"value": "3" },
+
+    {"action": "CLEAN","id": 10,"value": "text"},
+    {"action": "TEXT","id": 11,"value": "うーん、特にないね。"},
+    {"action": "JUMP","id": 12,"value": "3" },
+
+    {"action": "CLEAN","id": 13,"value": "text" },
+    {"action": "END","id": 14,"value": ""}
+]

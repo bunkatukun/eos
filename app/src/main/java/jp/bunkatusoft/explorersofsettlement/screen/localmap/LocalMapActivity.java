@@ -24,12 +24,14 @@ import jp.bunkatusoft.explorersofsettlement.screen.localmap.StaticCommandGroup.O
 import jp.bunkatusoft.explorersofsettlement.screen.playdata.PlayDataActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.title.TitleActivity;
 import jp.bunkatusoft.explorersofsettlement.screen.world.WorldFieldActivity;
+import jp.bunkatusoft.explorersofsettlement.screen.world.WorldFieldUtil;
 import jp.bunkatusoft.explorersofsettlement.system.SystemDialogView;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuEnum;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuView;
 import jp.bunkatusoft.explorersofsettlement.system.SystemMenuView.OnMenuChoiceListener;
 import jp.bunkatusoft.explorersofsettlement.system.item.Inventory;
 import jp.bunkatusoft.explorersofsettlement.system.item.InventoryView;
+import jp.bunkatusoft.explorersofsettlement.system.trade.TradeView;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationEnum;
 import jp.bunkatusoft.explorersofsettlement.util.CustomAnimationUtil;
 
@@ -43,18 +45,24 @@ public class LocalMapActivity extends ScreenActivity {
 	boolean isOpenMenu;
 
 	// イベント
-	EventView mEventView;
+	EventView mCommonEventView;
 	List<Event> mEvents;
 
 	// インベントリ
-	Inventory mItemInventory;
+	Inventory mPlayerInventory;
 	InventoryView mInventoryView;
+
+	Inventory mMarketInventory;
+
+	TradeView mTradeView;
 
 	boolean isBlockTouch;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		loadInventoryData();
 
 		initBlockTouch();
 		initBackgroundLayout();
@@ -107,12 +115,18 @@ public class LocalMapActivity extends ScreenActivity {
 		resultList.add(DynamicCommandEnum.INN);
 		resultList.add(DynamicCommandEnum.TAVERN);
 		resultList.add(DynamicCommandEnum.MARKET);
+		//TODO Marketが設定される際に MarketInventoryを初期化する
+		initMarketInventory();
 		resultList.add(DynamicCommandEnum.BLACKSMITH);
 		resultList.add(DynamicCommandEnum.FOUNTAIN);
 		resultList.add(DynamicCommandEnum.ALLEY);
 		resultList.add(DynamicCommandEnum.HOUSE);
 
 		return resultList;
+	}
+
+	private void initMarketInventory() {
+		mMarketInventory = WorldFieldUtil.initItemInventory();
 	}
 
 	private void setCommandArea() {
@@ -153,7 +167,7 @@ public class LocalMapActivity extends ScreenActivity {
 			switch (select) {
 				case SAVE_AND_LOAD:
 					Intent playDataIntent = new Intent(LocalMapActivity.this, PlayDataActivity.class);
-					playDataIntent.putExtra("callActivity","LocalMapActivity");
+					playDataIntent.putExtra("callActivity", "LocalMapActivity");
 					startActivity(playDataIntent);
 					finish();
 					break;
@@ -205,12 +219,12 @@ public class LocalMapActivity extends ScreenActivity {
 	};
 
 	private void initEventView() {
-		mEventView = new EventView(this, mRootLayout, mOnEventPhaseListener);
-		mEventView.setVisibility(View.GONE);
+		mCommonEventView = new EventView(this, mRootLayout, mOnEventPhaseListener);
+		mCommonEventView.setVisibility(View.GONE);
 	}
 
 	private void initInventoryView() {
-		mInventoryView = new InventoryView(this, mRootLayout, mOnInventoryActionListener, mItemInventory);
+		mInventoryView = new InventoryView(this, mRootLayout, mOnInventoryActionListener, mPlayerInventory);
 		mInventoryView.setVisibility(View.GONE);
 	}
 
@@ -226,6 +240,7 @@ public class LocalMapActivity extends ScreenActivity {
 				case TAVERN:
 					break;
 				case MARKET:
+					processOverlayMarket();
 					break;
 				case BLACKSMITH:
 					break;
@@ -240,6 +255,25 @@ public class LocalMapActivity extends ScreenActivity {
 			}
 		}
 	};
+
+	protected void processOverlayMarket() {
+		mTradeView = new TradeView(mContext, mRootLayout, new TradeView.OnTradeActionListener() {
+			@Override
+			public void onTradeClose() {
+				mTradeView.startAnimation(CustomAnimationUtil.generateCustomAnimation(mContext, CustomAnimationEnum.RECEDE_OUT_TO_CENTER));
+				mTradeView.setVisibility(View.GONE);
+				startCommandGroupsAnimation(CustomAnimationUtil.generateCustomAnimation(mContext, CustomAnimationEnum.PROTRUDE_IN_FROM_CENTER));
+				setCommandGroupsVisibility(View.VISIBLE);
+				mTradeView.finalize(mRootLayout);
+				mTradeView = null;
+			}
+		}, mPlayerInventory, mMarketInventory);
+		mTradeView.setVisibility(View.GONE);
+		startCommandGroupsAnimation(CustomAnimationUtil.generateCustomAnimation(mContext, CustomAnimationEnum.RECEDE_OUT_TO_CENTER));
+		setCommandGroupsVisibility(View.INVISIBLE);
+		mTradeView.startAnimation(CustomAnimationUtil.generateCustomAnimation(mContext, CustomAnimationEnum.PROTRUDE_IN_FROM_CENTER));
+		mTradeView.setVisibility(View.VISIBLE);
+	}
 
 	/**
 	 * アクションコマンド(固定枠)操作のリスナ
@@ -272,8 +306,8 @@ public class LocalMapActivity extends ScreenActivity {
 	EventView.OnEventPhaseListener mOnEventPhaseListener = new EventView.OnEventPhaseListener() {
 		@Override
 		public void onEventFinish() {
-			mEventView.startAnimation(CustomAnimationUtil.generateCustomAnimation(mContext, CustomAnimationEnum.RECEDE_OUT_TO_CENTER));
-			mEventView.setVisibility(View.GONE);
+			mCommonEventView.startAnimation(CustomAnimationUtil.generateCustomAnimation(mContext, CustomAnimationEnum.RECEDE_OUT_TO_CENTER));
+			mCommonEventView.setVisibility(View.GONE);
 			startCommandGroupsAnimation(CustomAnimationUtil.generateCustomAnimation(mContext, CustomAnimationEnum.PROTRUDE_IN_FROM_CENTER));
 			setCommandGroupsVisibility(View.VISIBLE);
 		}
@@ -297,5 +331,9 @@ public class LocalMapActivity extends ScreenActivity {
 	private void startCommandGroupsAnimation(AnimationSet animationSet) {
 		mDynamicCommandGroup.startAnimation(animationSet);
 		mStaticCommandGroup.startAnimation(animationSet);
+	}
+
+	private void loadInventoryData() {
+		mPlayerInventory = WorldFieldUtil.initItemInventory();
 	}
 }
