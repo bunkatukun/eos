@@ -28,13 +28,13 @@ public enum GameMonthEnum {
 		return month;
 	}
 
-	public static GameMonthEnum valueOf(int month) throws NoSuchTimeException {
+	public static GameMonthEnum valueOf(int month) {
 		GameMonthEnum[] enumArray = GameMonthEnum.values();
 		for (GameMonthEnum singleEnum : enumArray) {
 			if (month == singleEnum.month) {
 				return singleEnum;
 			}
 		}
-		throw new NoSuchTimeException();
+		return null;
 	}
 }

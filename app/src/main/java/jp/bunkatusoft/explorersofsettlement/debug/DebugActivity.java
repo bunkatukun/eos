@@ -8,10 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import jp.bunkatusoft.explorersofsettlement.field.explore.ExploreActivity;
-import jp.bunkatusoft.explorersofsettlement.field.map.test.TestMapActivity;
-import jp.bunkatusoft.explorersofsettlement.screen.localmap.LocalMapActivity;
-import jp.bunkatusoft.explorersofsettlement.screen.world.WorldFieldActivity;
+import jp.bunkatusoft.explorersofsettlement.field.SettlementFieldActivity;
 
 /**
  * このActivity および関連項目のみ、可能な限りresourceに分担させないようにする<br>
@@ -19,75 +16,45 @@ import jp.bunkatusoft.explorersofsettlement.screen.world.WorldFieldActivity;
  */
 public class DebugActivity extends FragmentActivity implements View.OnClickListener {
 
-    Context mContext;
-    LinearLayout mBaseLayout;
+	Context mContext;
+	LinearLayout mBaseLayout;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	//TODO 追加・削除に強くする
+	Button mButton1;
+	Button mButton2;
 
-        mContext = this;
-        mBaseLayout = new LinearLayout(mContext);
-        mBaseLayout.setOrientation(LinearLayout.VERTICAL);
-        setContentView(mBaseLayout);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        mBaseLayout.addView(createButtonStartSettlement());
-        mBaseLayout.addView(createButtonStartField());
-		mBaseLayout.addView(createButtonStartExplore());
-        mBaseLayout.addView(createButtonStartMap());
-    }
+		mContext = this;
+		mBaseLayout = new LinearLayout(mContext);
+		mBaseLayout.setOrientation(LinearLayout.VERTICAL);
+		setContentView(mBaseLayout);
 
-    private Button createButtonStartSettlement() {
-        Button button = new Button(mContext);
-        button.setTag(DebugMenu.START_SETTLEMENT.getTag());
-        button.setText(DebugMenu.START_SETTLEMENT.getText());
-        button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        button.setOnClickListener(this);
-        return button;
-    }
+		mButton1 = new Button(mContext);
+		mButton1.setTag("start_settlement");
+		mButton1.setText("Start Settlement Test");
+		mButton1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+		mButton1.setOnClickListener(this);
+		mBaseLayout.addView(mButton1);
 
-    private Button createButtonStartField() {
-        Button button = new Button(mContext);
-        button.setTag(DebugMenu.START_WORLD_MAP.getTag());
-        button.setText(DebugMenu.START_WORLD_MAP.getText());
-        button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        button.setOnClickListener(this);
-        return button;
-    }
-
-	private Button createButtonStartExplore() {
-		Button button = new Button(mContext);
-		button.setTag(DebugMenu.START_EXPLORE.getTag());
-		button.setText(DebugMenu.START_EXPLORE.getText());
-		button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-		button.setOnClickListener(this);
-		return button;
+		mButton2 = new Button(mContext);
+		mButton2.setTag("start_field");
+		mButton2.setText("Start Field Test");
+		mButton2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+		mButton2.setOnClickListener(this);
+		mBaseLayout.addView(mButton2);
 	}
 
-    private Button createButtonStartMap() {
-        Button button = new Button(mContext);
-        button.setTag(DebugMenu.START_TEST_MAP.getTag());
-        button.setText(DebugMenu.START_TEST_MAP.getText());
-        button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        button.setOnClickListener(this);
-        return button;
-    }
-
-    @Override
-    public void onClick(View view) {
-        String tag = view.getTag().toString();
-        if (DebugMenu.START_SETTLEMENT.getTag().equals(tag)) {
-            startActivity(new Intent(DebugActivity.this, LocalMapActivity.class));
-            finish();
-        } else if (DebugMenu.START_WORLD_MAP.getTag().equals(tag)) {
-			startActivity(new Intent(DebugActivity.this, WorldFieldActivity.class));
+	@Override
+	public void onClick(View view) {
+		String tag = view.getTag().toString();
+		if("start_settlement".equals(tag)){
+			startActivity(new Intent(DebugActivity.this, SettlementFieldActivity.class));
 			finish();
-        } else if (DebugMenu.START_EXPLORE.getTag().equals(tag)) {
-		startActivity(new Intent(DebugActivity.this, ExploreActivity.class));
-		finish();
-	} else if (DebugMenu.START_TEST_MAP.getTag().equals(tag)) {
-            startActivity(new Intent(DebugActivity.this, TestMapActivity.class));
-            finish();
-        }
-    }
+		} else if("start_field".equals(tag)){
+			//TODO ワールドマップへ遷移
+		}
+	}
 }

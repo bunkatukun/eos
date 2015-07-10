@@ -1,19 +1,18 @@
 package jp.bunkatusoft.explorersofsettlement.system;
 
-import java.util.NoSuchElementException;
-
-import jp.bunkatusoft.explorersofsettlement.R;
-
+/**
+ * Created by m_kagaya on 2014/11/21.
+ */
 public enum SystemMenuEnum {
-	SAVE(R.string.menu_save),
-	LOAD(R.string.menu_load),
-	SAVE_AND_LOAD(R.string.menu_save_and_load),
-	SETTINGS(R.string.menu_setting),
-	ACHIEVEMENTS(R.string.menu_achievements),
-	VERSION_INFO(R.string.menu_versioninfo),
-	RETURN_TITLE(R.string.menu_return_title),
-	DEBUG(R.string.menu_start_debug),
-	QUIT(R.string.menu_quit);
+	SAVE(0),
+	LOAD(1),
+	SAVE_AND_LOAD(2),
+	SETTINGS(3),
+	ACHIEVEMENTS(4),
+	VERSION_INFO(5),
+	RETURN_TITLE(6),
+	DEBUG(7),
+	QUIT(8);
 
 	int phase;
 
@@ -32,6 +31,6 @@ public enum SystemMenuEnum {
 				return singleEnum;
 			}
 		}
-		throw new NoSuchElementException();
+		return null;
 	}
 }

@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import jp.bunkatusoft.explorersofsettlement.R;
 
+/**
+ * Created by bunkatukun on 2014/07/04.
+ */
 public class SystemDialog extends DialogFragment implements View.OnClickListener {
 
     private static final String EXTRA_BODY_MESSAGE = "bodymsg";

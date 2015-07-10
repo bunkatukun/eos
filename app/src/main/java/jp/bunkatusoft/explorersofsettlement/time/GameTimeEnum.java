@@ -17,13 +17,13 @@ public enum GameTimeEnum {
 
 	public int getTime(){return time;}
 
-	public static GameTimeEnum valueOf(int time) throws NoSuchTimeException {
+	public static GameTimeEnum valueOf(int time){
 		GameTimeEnum[] enumArray = GameTimeEnum.values();
 		for(GameTimeEnum singleEnum : enumArray){
 			if(time == singleEnum.time){
 				return singleEnum;
 			}
 		}
-		throw new NoSuchTimeException();
+		return null;
 	}
 }

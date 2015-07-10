@@ -1,8 +1,0 @@
-[
-        {"id":1, "action":"IMAGE","value":"event_bg_test01"},
-        {"id":2,"action":"TEXT","value":"画像の表示、差し替えテストです。"},
-        {"id":3,"action":"TEXT","value":"次のアクションで画像を差し替えます。"},
-        {"id":4,"action":"IMAGE","value":"event_bg_test02"},
-        {"id":5,"action":"CLEAN","value":"text"},
-        {"id":6,"action":"TEXT","value":"変わったでしょう？"}
-]
