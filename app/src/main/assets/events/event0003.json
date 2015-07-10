@@ -1,0 +1,7 @@
+[
+        {"id":1,"action":"IMAGE","value":"event_bg_test01"},
+        {"id":2,"action":"TEXT","value":"中途終了のテストイベントセットです。"},
+        {"id":3,"action":"TEXT","value":"次のアクションで終了します。"},
+        {"id":4,"action":"END","value":""},
+        {"id":5,"action":"TEXT","value":"残念ながらここは実行されません。合掌。"},
+]

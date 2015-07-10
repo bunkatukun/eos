@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 状態：ボタン押下 -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <!-- グラデーション -->
+            <gradient
+                android:angle="270"
+                android:endColor="#ff222222"
+                android:startColor="#ff666666"/>
+
+            <!-- 余白 -->
+        </shape>
+    </item>
+
+    <!-- 状態：Disabled -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <!-- グラデーション -->
+            <gradient
+                android:angle="270"
+                android:endColor="#88444444"
+                android:startColor="#88aaaaaa"/>
+
+            <!-- 余白 -->
+        </shape>
+    </item>
+
+    <!-- 状態：それ以外(通常含む) -->
+    <item>
+        <shape android:shape="rectangle">
+            <!-- グラデーション -->
+            <gradient
+                android:angle="270"
+                android:endColor="#ff444444"
+                android:startColor="#ffaaaaaa"/>
+
+            <stroke
+                android:width="1dp"
+                android:color="#ff222222"/>
+
+            <!-- 余白 -->
+        </shape>
+    </item>
+</selector>

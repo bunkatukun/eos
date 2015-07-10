@@ -2,6 +2,7 @@ package jp.bunkatusoft.explorersofsettlement.field;
 
 import jp.bunkatusoft.explorersofsettlement.time.GameMonthEnum;
 import jp.bunkatusoft.explorersofsettlement.time.GameTimeEnum;
+import jp.bunkatusoft.explorersofsettlement.time.NoSuchTimeException;
 
 /**
  * 内部時間
@@ -24,14 +25,14 @@ public class GameTime {
 	/**
 	 * コンストラクタ
 	 */
-	GameTime() {
+    public GameTime() {
 		this(1,GameMonthEnum.JANUARY,1,GameTimeEnum.MIDNIGHT);
 	}
 
 	/**
 	 * コンストラクタ
 	 */
-	GameTime(int year, GameMonthEnum month, int day, GameTimeEnum time){
+    public GameTime(int year, GameMonthEnum month, int day, GameTimeEnum time){
 		this.year = year;
 		this.month = month;
 		this.day = day;
@@ -83,12 +84,13 @@ public class GameTime {
 	 * 上限に達している場合「年」がインクリメントされ、「月」の値は先頭へ戻る
 	 */
 	public void incrementMonth() {
-		GameMonthEnum nextMonth = GameMonthEnum.valueOf(this.month.getMonth() + 1);
-		if (nextMonth == null) {
+		GameMonthEnum nextMonth;
+		try {
+			nextMonth = GameMonthEnum.valueOf(this.month.getMonth() + 1);
+			this.month = nextMonth;
+		} catch (NoSuchTimeException e) {
 			incrementYear();
 			this.month = GameMonthEnum.JANUARY;
-		} else {
-			this.month = nextMonth;
 		}
 	}
 
@@ -128,12 +130,13 @@ public class GameTime {
 	 * 上限に達している場合「日付」がインクリメントされ、「時間帯」の値は先頭へ戻る
 	 */
 	public void incrementTime() {
-		GameTimeEnum nextTime = GameTimeEnum.valueOf(this.time.getTime() + 1);
-		if (nextTime == null) {
+		GameTimeEnum nextTime;
+		try {
+			nextTime = GameTimeEnum.valueOf(this.time.getTime() + 1);
+			this.time = nextTime;
+		} catch (NoSuchTimeException e) {
 			incrementDay();
 			this.time = GameTimeEnum.MIDNIGHT;
-		} else {
-			this.time = nextTime;
 		}
 	}
 }

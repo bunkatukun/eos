@@ -42,33 +42,43 @@
     <!-- Settlement -->
     <string name="settle_state_time_format">Second Era %3$d %2$s, %1$d %4$s</string>
 
-    <!-- Achievements View -->
-    <string name="acv_text_acv_name_default">Achievement</string>
+    <!-- System.Menu.Name -->
+    <string name="menu_load">Load</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_save_and_load">Save &amp; Load</string>
+    <string name="menu_achievements">Achievements</string>
+    <string name="menu_versioninfo">Version Info</string>
+    <string name="menu_start_debug">Debug Menu</string>
+    <string name="menu_quit">Quit</string>
+    <string name="menu_setting">Settings</string>
+    <string name="menu_return_title">Return to Title</string>
 
-    <!-- Main Menu -->
-    <string name="mainmenu_save_and_load">Save &amp; Load</string>
-    <string name="mainmenu_setting">Settings</string>
-    <string name="mainmenu_gameend">Game End</string>
-
-    <!-- Title Menu -->
-    <string name="titlemenu_achievements">Achievements</string>
-    <string name="titlemenu_setting">Settings</string>
-    <string name="titlemenu_versioninfo">Version Info</string>
-    <string name="titlemenu_start_debug">Debug Menu</string>
-    <string name="titlemenu_quit">Quit</string>
-
-    <!-- Settlemnt Field Menu -->
-    <string name="settle_fieldmenu_load">Load</string>
-    <string name="settle_fieldmenu_save">Save</string>
-    <string name="settle_fieldmenu_setting">Settings</string>
-    <string name="settle_fieldmenu_return_title">Return to Title</string>
-
-    <!-- image.System -->
+    <!-- System.Menu.Dialog.Message -->
     <string name="sys_dialogtitle">System</string>
     <string name="sys_msg_confirm_gameend">Are you sure you want to exit?</string>
     <string name="sys_msg_confirm_back_title">Are you sure you want to go back to Title?</string>
     <string name="sys_msg_confirm_run_debug">Are you sure you want to run to Debug Mode?</string>
     <string name="sys_msg_wip">I\'m sorry.\nThis function is not implemented yet.</string>
     <string name="sys_version_name">v %s</string>
+
+    <!-- System.ItemCategory.Name -->
+    <!-- test Edition -->
+    <string name="sys_item_category_1">Category 1</string>
+    <string name="sys_item_category_2">Category 2</string>
+    <string name="sys_item_category_3">Category 3</string>
+
+    <!-- System.ItemQuality.Name -->
+    <!-- test Edition -->
+    <string name="sys_item_quality_good">good</string>
+    <string name="sys_item_quality_normal">normal</string>
+    <string name="sys_item_quality_poor">poor</string>
+
+    <!-- World.Command.Name -->
+    <string name="world_command_enter">Enter</string>
+    <string name="world_command_members">Members</string>
+    <string name="world_command_inventory">Inventory</string>
+    <string name="world_command_info">Info</string>
+    <string name="world_command_action">Action</string>
+    <string name="world_command_leave">Leave</string>
 
 </resources>
