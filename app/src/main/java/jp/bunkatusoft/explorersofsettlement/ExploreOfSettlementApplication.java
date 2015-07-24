@@ -14,8 +14,8 @@ import jp.bunkatusoft.explorersofsettlement.util.Util;
  */
 public class ExploreOfSettlementApplication extends Application {
 
-	private static final int ITEMICON_SPLIT_W = 16;
-	private static final int ITEMICON_SPLIT_H = 16;
+	private static final int ITEMICON_SPLIT_W = 24;
+	private static final int ITEMICON_SPLIT_H = 24;
 
 	/**
 	 * コンストラクタ
@@ -42,6 +42,7 @@ public class ExploreOfSettlementApplication extends Application {
 	 */
 	private void loadItemIconBitmaps() {
 		mItemIconMap = new HashMap<Integer, Bitmap>();
+		//SPLITは 分 割 数 なので間違えないように
 		Bitmap[] itemIconBitmaps = Util.loadSplitBitmapImage(mContext, R.drawable.iconset_test, ITEMICON_SPLIT_W, ITEMICON_SPLIT_H);
 
 		if (itemIconBitmaps != null && itemIconBitmaps.length > 0) {

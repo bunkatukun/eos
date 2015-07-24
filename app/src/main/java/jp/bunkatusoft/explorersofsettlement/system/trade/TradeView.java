@@ -23,7 +23,7 @@ import java.util.List;
 
 import jp.bunkatusoft.explorersofsettlement.ExploreOfSettlementApplication;
 import jp.bunkatusoft.explorersofsettlement.R;
-import jp.bunkatusoft.explorersofsettlement.system.item.Inventory;
+import jp.bunkatusoft.explorersofsettlement.system.inventory.Inventory;
 import jp.bunkatusoft.explorersofsettlement.system.item.Item;
 import jp.bunkatusoft.explorersofsettlement.system.item.QualityEnum;
 
@@ -219,9 +219,9 @@ public class TradeView {
 				itemNameArea = (LinearLayout) convertView.findViewById(R.id.listItem_item_part_itemTextLayout);
 				itemNameArea.removeAllViews();
 				TextView itemNameText = new TextView(mContext);
-				itemNameText.setText(setItemName(item.name, item.quality));
+				itemNameText.setText(item.isKnown?setItemName(item.name, item.quality):item.category.toUnknownName());
+				itemNameText.setTextColor(item.isKnown?Color.rgb(25,25,25):Color.rgb(96,96,96));
 				itemNameText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
-				//TODO 不確定名の挿入が可能
 				//TODO 属性・状態アイコンの挿入が可能
 				//TODO つまりもっとフレキシブルになれる
 				itemNameArea.addView(itemNameText);

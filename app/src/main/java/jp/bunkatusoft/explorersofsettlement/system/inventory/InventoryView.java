@@ -1,4 +1,4 @@
-package jp.bunkatusoft.explorersofsettlement.system.item;
+package jp.bunkatusoft.explorersofsettlement.system.inventory;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -23,6 +23,9 @@ import java.util.List;
 
 import jp.bunkatusoft.explorersofsettlement.ExploreOfSettlementApplication;
 import jp.bunkatusoft.explorersofsettlement.R;
+import jp.bunkatusoft.explorersofsettlement.system.item.Filter;
+import jp.bunkatusoft.explorersofsettlement.system.item.Item;
+import jp.bunkatusoft.explorersofsettlement.system.item.QualityEnum;
 
 public class InventoryView implements OnClickListener, AdapterView.OnItemClickListener {
 
@@ -55,7 +58,7 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 	Button mCloseButton;
 
 	// アイテムリストのフィルタ関連
-	InventoryFilterEnum mSelectFilter;
+	Filter mSelectFilter;
 	Button mFilterAllButton;
 	Button mFilterEquipmentButton;
 	Button mFilterSuppliesButton;
@@ -125,7 +128,7 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 		mFilterImportantButton = (Button) mBaseLayout.findViewById(R.id.part_inventory_filterImportantButton);
 		mFilterImportantButton.setOnClickListener(this);
 
-		changeFilter(InventoryFilterEnum.ALL);
+		changeFilter(Filter.ALL);
 	}
 
 	/**
@@ -151,7 +154,7 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 				ArrayList<Item> itemList = (ArrayList) mItemInventory.getItemList();
 				if(itemList != null && itemList.size()>0) {
 					for (Item item : itemList) {
-						if (mSelectFilter.equals(InventoryFilterEnum.ALL) || item.filter.equals(mSelectFilter)) {
+						if (mSelectFilter.equals(Filter.ALL) || item.category.toFilter().equals(mSelectFilter)) {
 							mInventoryItemAdapter.add(item);
 						}
 					}
@@ -202,36 +205,36 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 	 * ItemListのフィルタを切り替える
 	 * @param selectFilter	使用するフィルタ
 	 */
-	private void changeFilter(InventoryFilterEnum selectFilter) {
+	private void changeFilter(Filter selectFilter) {
 		mSelectFilter = selectFilter;
 
 		//TODO これもっと何とかしたい
-		if (selectFilter.equals(InventoryFilterEnum.ALL)) {
+		if (selectFilter.equals(Filter.ALL)) {
 			mFilterAllButton.setBackgroundResource(R.drawable.window_frame_pressed);
 		} else {
 			mFilterAllButton.setBackgroundResource(R.drawable.window_frame);
 		}
-		if (selectFilter.equals(InventoryFilterEnum.EQUIPMENT)) {
+		if (selectFilter.equals(Filter.EQUIPMENT)) {
 			mFilterEquipmentButton.setBackgroundResource(R.drawable.window_frame_pressed);
 		} else {
 			mFilterEquipmentButton.setBackgroundResource(R.drawable.window_frame);
 		}
-		if (selectFilter.equals(InventoryFilterEnum.SUPPLIES)) {
+		if (selectFilter.equals(Filter.SUPPLIES)) {
 			mFilterSuppliesButton.setBackgroundResource(R.drawable.window_frame_pressed);
 		} else {
 			mFilterSuppliesButton.setBackgroundResource(R.drawable.window_frame);
 		}
-		if (selectFilter.equals(InventoryFilterEnum.MISCELLANEOUS)) {
+		if (selectFilter.equals(Filter.MISCELLANEOUS)) {
 			mFilterMiscellaneousButton.setBackgroundResource(R.drawable.window_frame_pressed);
 		} else {
 			mFilterMiscellaneousButton.setBackgroundResource(R.drawable.window_frame);
 		}
-		if (selectFilter.equals(InventoryFilterEnum.MATERIAL)) {
+		if (selectFilter.equals(Filter.MATERIAL)) {
 			mFilterMaterialButton.setBackgroundResource(R.drawable.window_frame_pressed);
 		} else {
 			mFilterMaterialButton.setBackgroundResource(R.drawable.window_frame);
 		}
-		if (selectFilter.equals(InventoryFilterEnum.IMPORTANT)) {
+		if (selectFilter.equals(Filter.IMPORTANT)) {
 			mFilterImportantButton.setBackgroundResource(R.drawable.window_frame_pressed);
 		} else {
 			mFilterImportantButton.setBackgroundResource(R.drawable.window_frame);
@@ -253,32 +256,32 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 				break;
 
 			case R.id.part_inventory_filterAllButton:
-				changeFilter(InventoryFilterEnum.ALL);
+				changeFilter(Filter.ALL);
 				setSelectItemPosition(NO_SELECT);
 				updateInventoryAdapter();
 				break;
 			case R.id.part_inventory_filterEquipmentButton:
-				changeFilter(InventoryFilterEnum.EQUIPMENT);
+				changeFilter(Filter.EQUIPMENT);
 				setSelectItemPosition(NO_SELECT);
 				updateInventoryAdapter();
 				break;
 			case R.id.part_inventory_filterSuppliesButton:
-				changeFilter(InventoryFilterEnum.SUPPLIES);
+				changeFilter(Filter.SUPPLIES);
 				setSelectItemPosition(NO_SELECT);
 				updateInventoryAdapter();
 				break;
 			case R.id.part_inventory_filterMiscellaneousButton:
-				changeFilter(InventoryFilterEnum.MISCELLANEOUS);
+				changeFilter(Filter.MISCELLANEOUS);
 				setSelectItemPosition(NO_SELECT);
 				updateInventoryAdapter();
 				break;
 			case R.id.part_inventory_filterMaterialButton:
-				changeFilter(InventoryFilterEnum.MATERIAL);
+				changeFilter(Filter.MATERIAL);
 				setSelectItemPosition(NO_SELECT);
 				updateInventoryAdapter();
 				break;
 			case R.id.part_inventory_filterImportantButton:
-				changeFilter(InventoryFilterEnum.IMPORTANT);
+				changeFilter(Filter.IMPORTANT);
 				setSelectItemPosition(NO_SELECT);
 				updateInventoryAdapter();
 				break;
@@ -307,12 +310,11 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ImageView itemIcon;
 			LinearLayout itemNameArea;
-			TextView itemCategory;
-			TextView itemNum;
+			TextView itemValue;
 			TextView itemWeight;
 
 			if (convertView == null) {
-				convertView = mInflater.inflate(R.layout.listitem_item, null);
+				convertView = mInflater.inflate(R.layout.parts_listitem_item, null);
 			}
 			Item item = getItem(position);
 			if (item != null) {
@@ -320,31 +322,30 @@ public class InventoryView implements OnClickListener, AdapterView.OnItemClickLi
 					convertView.setBackgroundColor(Color.argb(255, 255, 204, 170));
 				}
 				// アイテムアイコン
-				itemIcon = (ImageView) convertView.findViewById(R.id.part_inventory_list_itemImageView);
+				itemIcon = (ImageView) convertView.findViewById(R.id.listItem_item_part_itemIconImage);
 				itemIcon.setImageBitmap(ExploreOfSettlementApplication.getItemIconBitmap(item.imageID));
 
 				// アイテム名称
-				itemNameArea = (LinearLayout) convertView.findViewById(R.id.part_inventory_list_itemNameLayout);
+				itemNameArea = (LinearLayout) convertView.findViewById(R.id.listItem_item_part_itemTextLayout);
 				itemNameArea.removeAllViews();
 				TextView itemNameText = new TextView(mContext);
-				itemNameText.setText(setItemName(item.name,item.quality));
-				itemNameText.setTextSize(TypedValue.COMPLEX_UNIT_DIP,20);
-				//TODO 不確定名の挿入が可能
+				itemNameText.setText(item.isKnown?setItemName(item.name, item.quality):item.category.toUnknownName());
+				itemNameText.setTextColor(item.isKnown?Color.rgb(25,25,25):Color.rgb(96,96,96));
+				itemNameText.setTextSize(TypedValue.COMPLEX_UNIT_DIP,16);
 				//TODO 属性・状態アイコンの挿入が可能
 				//TODO つまりもっとフレキシブルになれる
 				itemNameArea.addView(itemNameText);
 
 				// アイテム種別
-				itemCategory = (TextView) convertView.findViewById(R.id.part_inventory_list_itemCategoryText);
-				itemCategory.setText(item.category.getCategory());
+				//TODO 種別はテキスト以外の方法で表記すべし
 
 				// アイテム個数
-				itemNum = (TextView) convertView.findViewById(R.id.part_inventory_list_itemNumText);
-				itemNum.setText(" x " + 1);
+				itemValue = (TextView) convertView.findViewById(R.id.listItem_item_part_itemValueText);
+				itemValue.setText("99");
 
 				// アイテム単重量
-				itemWeight = (TextView) convertView.findViewById(R.id.part_inventory_list_itemWeightText);
-				itemWeight.setText("wgt : " + item.weight);
+				itemWeight = (TextView) convertView.findViewById(R.id.listItem_item_part_itemWeightText);
+				itemWeight.setText("" + item.weight);
 			}
 			return convertView;
 		}

@@ -1,6 +1,8 @@
-package jp.bunkatusoft.explorersofsettlement.system.item;
+package jp.bunkatusoft.explorersofsettlement.system.inventory;
 
 import java.util.List;
+
+import jp.bunkatusoft.explorersofsettlement.system.item.Item;
 
 public class Inventory {
 	private int mTotalWeight;

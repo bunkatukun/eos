@@ -6,11 +6,24 @@ public class Item {
 	public int imageID;
 	public QualityEnum quality;
 	public String name;
-	public ItemCategoryEnum category;
-	//TODO filter は category と統一したい
-	public InventoryFilterEnum filter;
+	public Category category;
+	public boolean isKnown;
 	public int weight;
 	//TODO 属性や効果を追加する日がくるかも
 	public boolean canUse;
 	public boolean canTrash;
+
+	public Item(){};
+
+	public Item(int id, int imageId, String name, Category category, int weight) {
+		this.id = id;
+		this.imageID = imageId;
+		this.quality = QualityEnum.NORMAL;
+		this.name = name;
+		this.category = Category.ORE;
+		this.isKnown = false;
+		this.weight = weight;
+		this.canUse = true;
+		this.canTrash = true;
+	}
 }
